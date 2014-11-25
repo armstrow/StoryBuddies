@@ -4,5 +4,9 @@
     <string name="app_name">StoryBuddies</string>
     <string name="hello_world">Goodbye world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="stories">
+        <item >The Tortoise and the Hare</item>
+        <item >Little Red Riding Hood</item>
+    </string-array>
 
 </resources>
