@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">StoryBuddies</string>
-    <string name="hello_world">Goodbye world!</string>
+    <string name="add_story">Create your own story!</string>
     <string name="action_settings">Settings</string>
     <string-array name="stories">
         <item >The Tortoise and the Hare</item>
