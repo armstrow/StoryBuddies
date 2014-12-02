@@ -1,9 +1,17 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.IOException;
+
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.View;
 
 public class StoryBuddiesUtils {
+	
+	private static final String TAG = "SB_Utils";
 	
 	// This snippet hides the system bars.
 	public static void hideSystemUI(Activity currentActivity) {
@@ -17,5 +25,27 @@ public class StoryBuddiesUtils {
 	            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
 	            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
 	            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+	}	
+	
+	public static void playMusic(Activity currentActivity, String filename) {
+	    MediaPlayer mPlayer = new MediaPlayer();
+	    AssetManager assetManager = currentActivity.getAssets();
+	    AssetFileDescriptor fd;
+	    try {
+	    	String s = ""; 
+	    	String[] assets = assetManager.list("sounds");
+	    	for (int i = 0; i < assets.length; i++)
+	    		s += assets[i] + ", ";
+	    	Log.i(TAG, s);
+	        fd = assetManager.openFd(filename);
+	        Log.i(TAG, "fd = " + fd);
+	        mPlayer.setDataSource(fd.getFileDescriptor());
+	        mPlayer.prepare();
+	        Log.d(TAG, "start play music");
+	        mPlayer.start();
+	    } catch (IOException e) {
+	        Log.e(TAG, "Error: " + e);
+	    }
 	}
+ 
 }

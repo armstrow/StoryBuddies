@@ -7,7 +7,12 @@
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
-
+    
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -21,6 +26,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+			<intent-filter>
+			    <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+			    <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+			        android:resource="@xml/nfc_tech_filter" />
+			</intent-filter>
+			
+			<intent-filter>
+			    <action android:name="android.nfc.action.TAG_DISCOVERED" />
+			    <category android:name="android.intent.category.DEFAULT" />
+			</intent-filter> 
         </activity>
         <activity
        	    android:name=".ChooseStoryActivity" >
