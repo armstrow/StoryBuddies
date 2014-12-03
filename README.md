@@ -8,6 +8,8 @@ To import into eclipse, right click in project list area, click "Import", select
 Once imported, you can use git in eclipse by right clicking on the project or file of interest and going to the "team" menu.  Main operations you'll need are "pull" to update from the online repository, "commit" to save your changes locally and "push" to submit your changes to the online repository.  Also when you add a new file you're need to right click that file and click "add".
 
 ***PLEASE REMEMBER TO PULL RIGHT BEFORE YOU PUSH CHANGES TO THE REPOSITORY SO THAT YOU DON'T OVERWRITE ANYONE ELSE'S CHANGES!!!***
+To avoid checkout errors you may need to commit your local changes, pull changes from the repo, then push your commit to the repo. 
+Also, please don't add any files in the "gen" or "bin" folders, these are automaticlaly made by eclipse for each of us.
 
 For more help using git with eclipse see http://wiki.eclipse.org/EGit/User_Guide
 
