@@ -29,19 +29,28 @@ public final class R {
         public static final int start_button=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0002;
-        public static final int footerView=0x7f0a0001;
-        public static final int imageButton1=0x7f0a0000;
+        public static final int CYOS_Name=0x7f0a0000;
+        public static final int CYOS_Text_By=0x7f0a0001;
+        public static final int CYOS_Title=0x7f0a0002;
+        public static final int CYOS_submit_button=0x7f0a0003;
+        public static final int action_settings=0x7f0a0006;
+        public static final int footerView=0x7f0a0005;
+        public static final int imageButton1=0x7f0a0004;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int footer_view=0x7f030001;
-        public static final int story_list_item=0x7f030002;
+        public static final int activity_cyos_title_screen=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int footer_view=0x7f030002;
+        public static final int story_list_item=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f090000;
     }
     public static final class string {
+        public static final int CYOS_by_text=0x7f060004;
+        public static final int CYOS_name_hint=0x7f060003;
+        public static final int CYOS_submit_text=0x7f060005;
+        public static final int CYOS_title_hint=0x7f060006;
         public static final int action_settings=0x7f060002;
         public static final int add_story=0x7f060001;
         public static final int app_name=0x7f060000;

@@ -40,6 +40,9 @@
         <activity
        	    android:name=".ChooseStoryActivity" >
        	</activity>
+       	<activity 
+       	    android:name=".CYOS_Title_Screen">
+       	</activity>
     </application>
 
 </manifest>
