@@ -85,7 +85,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		mBluetoothDev = mBluetoothAdapter.getRemoteDevice(mMacAddr);
 		if (mBluetoothDev.getBondState() == BluetoothDevice.BOND_NONE) {
 			Log.i(TAG, "Bonding bluetooth device...");
-			mBluetoothDev.setPin(new byte[]{(byte)0,(byte)0,(byte)0,(byte)0});
+			//mBluetoothDev.setPin(new byte[]{(byte)0,(byte)0,(byte)0,(byte)0});
 			if (!mBluetoothDev.createBond()) {
 				Log.e(TAG, "Could not start bonding!");
 			}
