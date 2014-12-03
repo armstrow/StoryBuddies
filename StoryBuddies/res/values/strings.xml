@@ -8,5 +8,9 @@
         <item >The Tortoise and the Hare</item>
         <item >Little Red Riding Hood</item>
     </string-array>
+    <string name="CYOS_name_hint">Your Name</string>
+    <string name="CYOS_by_text">By</string>
+    <string name="CYOS_submit_text">Continue</string>
+    <string name="CYOS_title_hint">Your Title</string>
 
 </resources>
