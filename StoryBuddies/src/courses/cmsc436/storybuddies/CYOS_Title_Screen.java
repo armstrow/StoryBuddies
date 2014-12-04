@@ -15,7 +15,7 @@ public class CYOS_Title_Screen extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_cyos_title_screen);
 		
 		//EditText mTitle = (EditText) findViewById(R.id.CYOS_Title);
 		//EditText mName = (EditText) findViewById(R.id.CYOS_Name);

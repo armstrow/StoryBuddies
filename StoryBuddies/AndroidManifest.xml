@@ -43,6 +43,9 @@
        	<activity 
        	    android:name=".CYOS_Title_Screen">
        	</activity>
+       	<activity 
+       	    android:name=".CYOS_Creation_Page">
+       	</activity>
     </application>
 
 </manifest>
