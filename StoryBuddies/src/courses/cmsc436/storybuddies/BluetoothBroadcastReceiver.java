@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
@@ -19,6 +20,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 	private BluetoothAdapter mBluetoothAdapter;
 	private String mMacAddr = null;
 	private final String TAG = "SB_BluetoothBroadcastReceiver";
+
 	
 	public BluetoothBroadcastReceiver(BluetoothAdapter adapter, Context context, String macAddr) {
 		mBluetoothAdapter = adapter;
@@ -39,6 +41,8 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		
 		// Establish connection to the proxy.
 		mBluetoothAdapter.getProfileProxy(context, mProfileListener, BluetoothProfile.A2DP);
+		
+
 		
 	}
 	

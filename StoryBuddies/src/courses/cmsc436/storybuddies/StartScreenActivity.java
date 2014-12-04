@@ -2,6 +2,7 @@ package courses.cmsc436.storybuddies;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothA2dp;
@@ -15,6 +16,8 @@ import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +36,8 @@ public class StartScreenActivity extends Activity {
 	
 	// AudioManager
 	private AudioManager mAudioManager;
+	private SpeechEngine speech;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +52,15 @@ public class StartScreenActivity extends Activity {
 			public void onClick(View arg0) {
 				Log.i(TAG, "Entered startButton.OnItemClickListener.onItemClick()");
 				
-				StoryBuddiesUtils.playMusic(StartScreenActivity.this, "Radioactive.mp3");			
+				//StoryBuddiesUtils.playMusic(StartScreenActivity.this, "Radioactive.mp3");
+				speech.speak("Hi kids! Welcome to our app");
 				
 				Intent intent = new Intent(StartScreenActivity.this, ChooseStoryActivity.class);
 				startActivity(intent);
 			}
 		});
 		
+		speech = SpeechEngine.getInstance(getApplicationContext());
 		
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter != null) {
@@ -80,6 +87,7 @@ public class StartScreenActivity extends Activity {
 			Log.i(TAG, "bluetooth null");
 		}
 		
+
 		
 	}
 	
@@ -121,6 +129,8 @@ public class StartScreenActivity extends Activity {
 		if (!bluetoothWasEnabled) 
 			mBluetoothAdapter.disable();
 	}
+
+
 	
 	
 	//adapted from http://developer.android.com/guide/topi cs/connectivity/nfc/advanced-nfc.html 
