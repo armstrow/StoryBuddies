@@ -61,7 +61,6 @@ public class ChooseStoryActivity extends ListActivity {
 		
 		TextView footerView = (TextView) View.inflate(this, R.layout.footer_view, null);
 		
-		getListView().addFooterView(footerView);
 		
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -73,6 +72,8 @@ public class ChooseStoryActivity extends ListActivity {
 				//Toast.makeText(getApplicationContext(), "Not Implemented", Toast.LENGTH_SHORT).show();
 			}
 		});
+		
+		lv.addFooterView(footerView);
 	}
 	
 	@Override
