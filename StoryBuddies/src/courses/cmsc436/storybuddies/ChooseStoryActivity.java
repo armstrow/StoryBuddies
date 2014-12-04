@@ -22,8 +22,10 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +61,8 @@ public class ChooseStoryActivity extends ListActivity {
 		// Put divider between ToDoItems and FooterView
 		getListView().setFooterDividersEnabled(true);
 		
-		TextView footerView = (TextView) View.inflate(this, R.layout.footer_view, null);
+		LinearLayout footerViewHolder = (LinearLayout) View.inflate(this, R.layout.footer_view, null);
+		TextView footerView = (TextView) footerViewHolder.findViewById(R.id.footerView);
 		
 		
 		footerView.setOnClickListener(new OnClickListener() {
@@ -73,7 +76,7 @@ public class ChooseStoryActivity extends ListActivity {
 			}
 		});
 		
-		lv.addFooterView(footerView);
+		lv.addFooterView(footerViewHolder);
 	}
 	
 	@Override
