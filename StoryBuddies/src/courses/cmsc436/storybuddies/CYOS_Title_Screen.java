@@ -25,7 +25,7 @@ public class CYOS_Title_Screen extends Activity {
 			@Override
 			public void onClick(View v) {
 				//TODO - save mTitle and mName in either an adapter or an extras to the next activity
-				Intent creationActivity = new Intent(CYOS_Title_Screen.this,/*TODO.class*/ null);
+				Intent creationActivity = new Intent(CYOS_Title_Screen.this,CYOS_Creation_Page.class);
 				startActivity(creationActivity);
 			}
 		});

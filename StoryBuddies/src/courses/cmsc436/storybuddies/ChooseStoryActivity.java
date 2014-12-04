@@ -68,8 +68,9 @@ public class ChooseStoryActivity extends ListActivity {
 			public void onClick(View v) {
 
 				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
-
-				Toast.makeText(getApplicationContext(), "Not Implemented", Toast.LENGTH_SHORT).show();
+				Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
+				startActivity(cyosActivity);
+				//Toast.makeText(getApplicationContext(), "Not Implemented", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

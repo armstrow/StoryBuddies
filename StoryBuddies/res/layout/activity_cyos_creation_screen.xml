@@ -4,14 +4,14 @@
     android:layout_height="match_parent" >
     
 	<TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="#0000FF"
-        android:height="@dimen/cyos_textview_min_height" />
+	    android:id="@+id/textView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:background="#0000FF"
+	    android:height="@dimen/cyos_paintview_height" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
