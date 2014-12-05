@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ import android.widget.Toast;
 public class ChooseStoryActivity extends ListActivity {
 
 	private final String TAG = "SB_ChooseStoryActivity";
-	private ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
+	public static ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,10 @@ public class ChooseStoryActivity extends ListActivity {
 		
 		// Create a new Adapter containing a list of colors
 		// Set the adapter on this ListActivity's built-in ListView
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(stories)));
-				//getResources().getStringArray(R.array.stories)));
+		
+		ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(stories));
+		
+		setListAdapter(mAdapter);
 
 		ListView lv = getListView();
 
@@ -53,12 +56,15 @@ public class ChooseStoryActivity extends ListActivity {
 
 		// Set an setOnItemClickListener on the ListView
 		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				
+				Log.i(TAG,"Entered onItemClickListener for " + ((TextView) view).getText());
+				Intent goToBookIntent = new Intent(ChooseStoryActivity.this,CoverPageActivity.class);
+				goToBookIntent.putExtra("position", position);
+				startActivity(goToBookIntent);
+				
 				// Display a Toast message indicting the selected item
-				Toast.makeText(getApplicationContext(),
-						((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 			}
 		});
 		

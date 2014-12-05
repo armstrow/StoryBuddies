@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class StoryBook {
+public class StoryBook  {
 
 	Bitmap mTitlePage;
 	String mTitle;
@@ -81,5 +83,4 @@ public class StoryBook {
 	public String toString() {
 		return mTitle;
 	}
-
 }

@@ -46,6 +46,9 @@
        	<activity 
        	    android:name=".CYOS_Creation_Page">
        	</activity>
+       	<activity 
+       	    android:name=".CoverPageActivity">
+       	</activity>
     </application>
 
 </manifest>

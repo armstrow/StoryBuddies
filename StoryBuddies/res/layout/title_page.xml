@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent" >
+	    
+   		<ImageButton
+        	android:id="@+id/bookCover"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:src="@drawable/book_cover" />
+    
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/coverPageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Story"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/bookCover"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/book_cover" />
-
-</LinearLayout>
+</RelativeLayout>
