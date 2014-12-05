@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
@@ -32,6 +34,8 @@ import android.widget.Toast;
 public class ChooseStoryActivity extends ListActivity {
 
 	private final String TAG = "SB_ChooseStoryActivity";
+	private List<StoryBook> stories = new ArrayList<StoryBook>();
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,6 +95,11 @@ public class ChooseStoryActivity extends ListActivity {
 	}
 	
 	private void loadBuiltInStories(){
+		StoryBook testStory = new StoryBook("FirstTestStory");
+		
+		//TODO - Set up the rest of testStory features (pages, bitmaps, etc...)
+		
+		stories.add(testStory);
 		//TODO - Create all the built in stories for the particular animal we are connected to
 		//	and add them to the list of StoryBooks
 	}
