@@ -27,7 +27,7 @@ public class StoryPageActivity extends Activity{
 		Log.i(TAG, "Entered StoryPageActivity onCreate");
 		
 		final int currStoryPos = getIntent().getIntExtra("position",0);
-		currStory = ChooseStoryActivity.stories.get(currStoryPos);
+		currStory = StartScreenActivity.stories.get(currStoryPos);
 		
 		updatePage();
 		

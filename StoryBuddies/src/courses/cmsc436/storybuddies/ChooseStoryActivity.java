@@ -35,17 +35,15 @@ import android.widget.Toast;
 public class ChooseStoryActivity extends ListActivity {
 
 	private final String TAG = "SB_ChooseStoryActivity";
-	public static ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		loadStories();
 		
 		// Create a new Adapter containing a list of colors
 		// Set the adapter on this ListActivity's built-in ListView
 		
-		ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(stories));
+		ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StartScreenActivity.stories));
 		
 		setListAdapter(mAdapter);
 
@@ -107,41 +105,5 @@ public class ChooseStoryActivity extends ListActivity {
 		}
 		
 		return toReturn;
-	}
-	
-	private void loadStories(){
-		loadBuiltInStories();
-		loadInternalStories();
-	}
-	
-	private void loadBuiltInStories(){
-		//Build test Story
-		StoryBook testStory = new StoryBook("FirstTestStory");
-		
-		StoryPage page1 = new StoryPage(null, "the first pages text");
-		StoryPage page2 = new StoryPage(null, "the second pages text");
-		StoryPage page3 = new StoryPage(null, "The End");
-		
-		testStory.addPage(page1);
-		testStory.addPage(page2);
-		testStory.addPage(page3);
-		
-		//Build Turtle and the Hare
-		StoryBook book1 = new StoryBook("The Turtle and the Hare");
-		book1.addPage(new StoryPage(null, "first text of turtle and the Hare"));
-		book1.addPage(new StoryPage(null, "second text of turlte and the Hare"));
-		book1.addPage(new StoryPage(null, "The end of turtle and the Hare"));
-		
-		//Add stories to ArrayList
-		stories.add(testStory);
-		stories.add(book1);
-		
-		
-		//TODO - Create all the built in stories for the particular animal we are connected to
-		//	and add them to the list of StoryBooks
-	}
-	
-	private void loadInternalStories(){
-		//TODO - Load any previously created stories and add them to the List of StoryBooks
 	}
 }

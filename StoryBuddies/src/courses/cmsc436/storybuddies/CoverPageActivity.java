@@ -23,7 +23,7 @@ public class CoverPageActivity extends Activity {
 		
 		//Get currentStory from static variable
 		final int currStoryPos = getIntent().getIntExtra("position",0);
-		StoryBook currStory = ChooseStoryActivity.stories.get(currStoryPos);
+		StoryBook currStory = StartScreenActivity.stories.get(currStoryPos);
 		Log.i(TAG, "Got StoryBook Intent");
 		
 		//Set title view to appropriate text

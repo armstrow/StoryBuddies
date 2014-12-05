@@ -2,6 +2,7 @@ package courses.cmsc436.storybuddies;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothA2dp;
@@ -35,11 +36,16 @@ public class StartScreenActivity extends Activity {
 	private AudioManager mAudioManager;
 	private SpeechEngine speech;
 	
+	//Static variable used throughout the app
+	public static ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		loadStories();
+		
 		ImageButton startButton = (ImageButton) this.findViewById(R.id.imageButton1);
 		startButton.setOnClickListener( new OnClickListener() {
 
@@ -126,8 +132,49 @@ public class StartScreenActivity extends Activity {
 			mBluetoothAdapter.disable();
 		}
 	    unregisterReceiver(mBluetooth);
+	    
+	    deleteStories();
 	}
 	
+	private void loadStories(){
+		loadBuiltInStories();
+		loadInternalStories();
+	}
+	
+	private void loadBuiltInStories(){
+		//Build test Story
+		StoryBook testStory = new StoryBook("FirstTestStory");
+		
+		StoryPage page1 = new StoryPage(null, "the first pages text");
+		StoryPage page2 = new StoryPage(null, "the second pages text");
+		StoryPage page3 = new StoryPage(null, "The End");
+		
+		testStory.addPage(page1);
+		testStory.addPage(page2);
+		testStory.addPage(page3);
+		
+		//Build Turtle and the Hare
+		StoryBook book1 = new StoryBook("The Turtle and the Hare");
+		book1.addPage(new StoryPage(null, "first text of turtle and the Hare"));
+		book1.addPage(new StoryPage(null, "second text of turlte and the Hare"));
+		book1.addPage(new StoryPage(null, "The end of turtle and the Hare"));
+		
+		//Add stories to ArrayList
+		stories.add(testStory);
+		stories.add(book1);
+		
+		
+		//TODO - Create all the built in stories for the particular animal we are connected to
+		//	and add them to the list of StoryBooks
+	}
+	
+	private void loadInternalStories(){
+		//TODO - Load any previously created stories and add them to the List of StoryBooks
+	}
+	
+	private void deleteStories(){
+		stories.clear();
+	}
 	
 	//adapted from http://developer.android.com/guide/topi cs/connectivity/nfc/advanced-nfc.html 
     /*public void writeTag(Tag tag, String tagText) {
