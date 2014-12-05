@@ -36,6 +36,12 @@ public class StoryBook {
 		this("Default Title",null, null, null);
 	}	
 	// End Constructors for StoryBook -------------------------------------------------------
+	
+	public void addPage(StoryPage newPage){
+		mPages.add(newPage);
+	}
+	
+	//Start Getters and Setters -------------------------------------------------------------
 
 	public Bitmap getmTitlePage() {
 		return mTitlePage;
@@ -68,6 +74,12 @@ public class StoryBook {
 	public void setmPages(List<StoryPage> mPages) {
 		this.mPages = mPages;
 	}
+	//End Getters and Setters -------------------------------------------------------------
+
+	@Override
+	public String toString() {
+		return "mTitle";
+	}
 	
-	//TODO - Create add page method
+	
 }
