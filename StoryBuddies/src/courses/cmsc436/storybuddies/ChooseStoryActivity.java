@@ -44,8 +44,8 @@ public class ChooseStoryActivity extends ListActivity {
 		
 		// Create a new Adapter containing a list of colors
 		// Set the adapter on this ListActivity's built-in ListView
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,
-				getResources().getStringArray(R.array.stories)));
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(stories)));
+				//getResources().getStringArray(R.array.stories)));
 
 		ListView lv = getListView();
 
@@ -87,6 +87,20 @@ public class ChooseStoryActivity extends ListActivity {
 	public void onResume() {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
+	}
+	
+	/*
+	 * Takes a List<StoryBook> and converts it to a String Array of title names
+	 */
+	private String[] toMyStringArray(List<StoryBook> myList){
+		int listSize = myList.size();
+		String[] toReturn = new String[listSize];
+		
+		for(int i=0; i<listSize;i++){
+			toReturn[i] = myList.get(i).toString();
+		}
+		
+		return toReturn;
 	}
 	
 	private void loadStories(){
