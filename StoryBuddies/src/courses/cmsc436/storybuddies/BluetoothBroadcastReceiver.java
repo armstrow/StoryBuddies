@@ -141,6 +141,6 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     	else {
     		Log.i(TAG, "Bluetooth already disconnected");
     	}
-    	mContext.unbindService((ServiceConnection) mProfileListener);
+    	//mContext.unbindService((ServiceConnection) mProfileListener); TODO: Service listener leak
 	}			
 }

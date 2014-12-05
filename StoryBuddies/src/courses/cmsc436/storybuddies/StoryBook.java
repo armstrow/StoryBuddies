@@ -10,14 +10,15 @@ public class StoryBook {
 	Bitmap mTitlePage;
 	String mTitle;
 	String mVoiceOver;
-	List<StoryPage> mPages = new ArrayList<StoryPage>();
+	ArrayList<StoryPage> mPages = new ArrayList<StoryPage>();
 	
 	// Constructors for Story Book ------------------------------------------------------------
 	public StoryBook(String title, Bitmap coverImage, String voice, List<StoryPage> pages){
 		mTitlePage = coverImage;
 		mTitle = title;
 		mVoiceOver = voice;
-		mPages = pages;
+		if (pages != null)
+			mPages = new ArrayList<StoryPage>(pages);
 	}
 	
 	public StoryBook(String title, Bitmap coverImage, String voice){
@@ -72,7 +73,7 @@ public class StoryBook {
 	}
 
 	public void setmPages(List<StoryPage> mPages) {
-		this.mPages = mPages;
+		this.mPages = new ArrayList<StoryPage>(mPages);
 	}
 	//End Getters and Setters -------------------------------------------------------------
 

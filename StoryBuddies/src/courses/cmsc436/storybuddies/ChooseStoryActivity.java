@@ -34,12 +34,11 @@ import android.widget.Toast;
 public class ChooseStoryActivity extends ListActivity {
 
 	private final String TAG = "SB_ChooseStoryActivity";
-	private List<StoryBook> stories = new ArrayList<StoryBook>();
+	private ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		loadStories();
 		
 		// Create a new Adapter containing a list of colors

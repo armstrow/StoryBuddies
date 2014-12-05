@@ -33,13 +33,13 @@ public class StartScreenActivity extends Activity {
 	
 	// AudioManager
 	private AudioManager mAudioManager;
+	private SpeechEngine speech;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-	
+
 		ImageButton startButton = (ImageButton) this.findViewById(R.id.imageButton1);
 		startButton.setOnClickListener( new OnClickListener() {
 
@@ -47,13 +47,15 @@ public class StartScreenActivity extends Activity {
 			public void onClick(View arg0) {
 				Log.i(TAG, "Entered startButton.OnItemClickListener.onItemClick()");
 				
-				StoryBuddiesUtils.playMusic(StartScreenActivity.this, "Radioactive.mp3");			
+				//StoryBuddiesUtils.playMusic(StartScreenActivity.this, "Radioactive.mp3");			
+				speech.speak("Hi there, welcome to our app!");
 				
 				Intent intent = new Intent(StartScreenActivity.this, ChooseStoryActivity.class);
 				startActivity(intent);
 			}
 		});
 		
+		speech = SpeechEngine.getInstance(getApplicationContext());
 		
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter != null) {
