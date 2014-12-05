@@ -49,6 +49,9 @@
        	<activity 
        	    android:name=".CoverPageActivity">
        	</activity>
+       	<activity 
+       	    android:name=".StoryPageActivity">
+       	</activity>
     </application>
 
 </manifest>

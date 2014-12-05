@@ -61,6 +61,7 @@ public class ChooseStoryActivity extends ListActivity {
 				Log.i(TAG,"Entered onItemClickListener for " + ((TextView) view).getText());
 				Intent goToBookIntent = new Intent(ChooseStoryActivity.this,CoverPageActivity.class);
 				goToBookIntent.putExtra("position", position);
+				Log.i(TAG, "Saving "+position+" to extra");
 				startActivity(goToBookIntent);
 				
 				// Display a Toast message indicting the selected item
