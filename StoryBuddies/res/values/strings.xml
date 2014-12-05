@@ -14,7 +14,7 @@
     <string name="CYOS_title_hint">Your Title</string>
     <string name="cyos_undo_text">Undo</string>
     <string name="cyos_input_story_prompt">Your Story Here</string>
-    <string name="cyos_prev_button_text">Prev</string>
+    <string name="cyos_prev_button_text">Prev Page</string>
     <string name="cyos_submit_button_text">Submit</string>
     <string name="cyos_next_button_text">Next</string>
 

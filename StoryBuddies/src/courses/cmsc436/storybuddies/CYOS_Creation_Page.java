@@ -53,6 +53,7 @@ public class CYOS_Creation_Page extends Activity {
 		
 		//Set up the first page for editing
 		newStory.addPage(new StoryPage());
+		updatePage(0);
 		
 		prevButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -119,6 +120,20 @@ public class CYOS_Creation_Page extends Activity {
 		//Upload info for newPage
 		storyText.setText(pageList.get(currPageNumber).getmStoryText());
 		//TODO - update Bitmap as well
+		
+		if(currPageNumber == pageList.size()-1){
+			nextButton.setText("New Page");
+		} else {
+			nextButton.setText("Next Page");
+		}
+		
+		if(currPageNumber == 0){
+			prevButton.setAlpha(.5f);
+			prevButton.setClickable(false);
+		} else {
+			prevButton.setAlpha(1f);
+			prevButton.setClickable(true);
+		}
 		
 		return;
 	}
