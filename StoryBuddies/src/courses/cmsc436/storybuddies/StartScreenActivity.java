@@ -80,7 +80,7 @@ public class StartScreenActivity extends Activity {
 			    //startActivityForResult(enableBtIntent, 0);
 			}	
 			else {
-				mBluetooth.pairDevice();
+				mBluetooth.connect();
 			}
 		}
 		else {
@@ -126,8 +126,12 @@ public class StartScreenActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if (!bluetoothWasEnabled) 
+		mBluetooth.disconnect();
+		if (!bluetoothWasEnabled) {
+			Log.i(TAG, "Re-disabling bluetooth");
 			mBluetoothAdapter.disable();
+		}
+	    unregisterReceiver(mBluetooth);
 	}
 
 

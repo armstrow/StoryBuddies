@@ -47,4 +47,8 @@ public class SpeechEngine implements OnInitListener {
 			tts.speak(text, TextToSpeech.QUEUE_ADD, hash);
 		}
 	}
+	
+	public boolean isReady() {
+		return ttsReady;
+	}
 }
