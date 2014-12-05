@@ -20,6 +20,7 @@ public class CYOS_Title_Screen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cyos_title_screen);
 		
+		//TODO - title size needs to be widened. Story names are not fitting nicely
 		final EditText mTitle = (EditText) findViewById(R.id.CYOS_Title);
 		final EditText mName = (EditText) findViewById(R.id.CYOS_Name);
 		final Button CYOS_Continue_Button = (Button) findViewById(R.id.CYOS_submit_button);
@@ -37,6 +38,7 @@ public class CYOS_Title_Screen extends Activity {
 					creationActivity.putExtra("currTitle", currTitle);
 					creationActivity.putExtra("currName", currName);
 					startActivity(creationActivity);
+					finish();
 				}
 			}
 		});

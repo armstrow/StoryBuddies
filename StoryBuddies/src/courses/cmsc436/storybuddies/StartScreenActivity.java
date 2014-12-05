@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 public class StartScreenActivity extends Activity {
 
+	public static ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
 	private final String TAG = "SB_Main";
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothBroadcastReceiver mBluetooth;
@@ -37,7 +38,6 @@ public class StartScreenActivity extends Activity {
 	private SpeechEngine speech;
 	
 	//Static variable used throughout the app
-	public static ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

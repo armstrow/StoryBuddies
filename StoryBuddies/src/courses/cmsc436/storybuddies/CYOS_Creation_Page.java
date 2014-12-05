@@ -46,6 +46,9 @@ public class CYOS_Creation_Page extends Activity {
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
 		//TODO - make a view for bitmap
 		
+		//Set up the first page for editing
+		newStory.addPage(new StoryPage());
+		
 		prevButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -70,10 +73,12 @@ public class CYOS_Creation_Page extends Activity {
 			public void onClick(View v) {
 				Log.i(TAG,"Entered nextButton OnClickListener");
 				if(currPageNumber < newStory.getmPages().size()-1){
+					Log.i(TAG,"going to the next page");
 					updatePage(1);	
 				} else {
+					Log.i(TAG,"Creating a new page");
 					newStory.addPage(new StoryPage());
-					finish();
+					updatePage(1);
 				}			
 			}
 		});
@@ -82,7 +87,10 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered submitButton OnClickListener");
-				//TODO - add newStory to list of Stories static var
+				//TODO - a popup asking if the user wants to continue should be implemented here
+				updatePage(0);
+				StartScreenActivity.stories.add(newStory);
+				finish();
 			}
 		});
 	}
