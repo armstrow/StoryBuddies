@@ -36,7 +36,8 @@ public class ChooseStoryActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-			
+		loadStories();
+		
 		// Create a new Adapter containing a list of colors
 		// Set the adapter on this ListActivity's built-in ListView
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,
@@ -72,7 +73,6 @@ public class ChooseStoryActivity extends ListActivity {
 				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
 				Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
 				startActivity(cyosActivity);
-				//Toast.makeText(getApplicationContext(), "Not Implemented", Toast.LENGTH_SHORT).show();
 			}
 		});
 		
@@ -83,5 +83,19 @@ public class ChooseStoryActivity extends ListActivity {
 	public void onResume() {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
+	}
+	
+	private void loadStories(){
+		loadBuiltInStories();
+		loadInternalStories();
+	}
+	
+	private void loadBuiltInStories(){
+		//TODO - Create all the built in stories for the particular animal we are connected to
+		//	and add them to the list of StoryBooks
+	}
+	
+	private void loadInternalStories(){
+		//TODO - Load any previously created stories and add them to the List of StoryBooks
 	}
 }
