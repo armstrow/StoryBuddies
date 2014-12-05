@@ -18,6 +18,7 @@ import android.widget.Toast;
 public class CYOS_Creation_Page extends Activity {
 	
 	public final String TAG = "CYOS_Creation_Activity";
+	private SpeechEngine speech;
 	
 	StoryBook newStory = new StoryBook();
 	Button prevButton;
@@ -31,6 +32,10 @@ public class CYOS_Creation_Page extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cyos_creation_screen);
+		
+		speech = SpeechEngine.getInstance(getApplicationContext());
+		
+		speech.speak("How does our story start?");
 		
 		//Get String extras from intent
 		String currTitle = getIntent().getStringExtra("currTitle");
@@ -78,6 +83,7 @@ public class CYOS_Creation_Page extends Activity {
 				} else {
 					Log.i(TAG,"Creating a new page");
 					newStory.addPage(new StoryPage());
+					speech.speak("What happens next!");
 					updatePage(1);
 				}			
 			}

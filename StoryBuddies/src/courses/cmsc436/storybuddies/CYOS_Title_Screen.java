@@ -15,10 +15,16 @@ import android.widget.Toast;
 
 public class CYOS_Title_Screen extends Activity {
 	
+	private SpeechEngine speech;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cyos_title_screen);
+		
+		speech = SpeechEngine.getInstance(getApplicationContext());
+		
+		speech.speak("Lets make a new story");
 		
 		//TODO - title size needs to be widened. Story names are not fitting nicely
 		final EditText mTitle = (EditText) findViewById(R.id.CYOS_Title);
