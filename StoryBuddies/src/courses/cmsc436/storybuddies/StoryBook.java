@@ -36,7 +36,38 @@ public class StoryBook {
 		this("Default Title",null, null, null);
 	}	
 	// End Constructors for StoryBook -------------------------------------------------------
+
+	public Bitmap getmTitlePage() {
+		return mTitlePage;
+	}
+
+	public void setmTitlePage(Bitmap mTitlePage) {
+		this.mTitlePage = mTitlePage;
+	}
+
+	public String getmTitle() {
+		return mTitle;
+	}
+
+	public void setmTitle(String mTitle) {
+		this.mTitle = mTitle;
+	}
+
+	public String getmVoiceOver() {
+		return mVoiceOver;
+	}
+
+	public void setmVoiceOver(String mVoiceOver) {
+		this.mVoiceOver = mVoiceOver;
+	}
+
+	public List<StoryPage> getmPages() {
+		return mPages;
+	}
+
+	public void setmPages(List<StoryPage> mPages) {
+		this.mPages = mPages;
+	}
 	
-	//TODO - Create setters and getters
 	//TODO - Create add page method
 }
