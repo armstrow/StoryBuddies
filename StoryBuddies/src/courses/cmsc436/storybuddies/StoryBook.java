@@ -79,8 +79,7 @@ public class StoryBook {
 
 	@Override
 	public String toString() {
-		return "mTitle";
+		return mTitle;
 	}
-	
-	
+
 }

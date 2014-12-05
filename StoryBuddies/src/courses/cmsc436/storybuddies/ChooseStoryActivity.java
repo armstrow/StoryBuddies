@@ -120,7 +120,7 @@ public class ChooseStoryActivity extends ListActivity {
 		testStory.addPage(page3);
 		
 		//Build Turtle and the Hare
-		StoryBook book1 = new StoryBook("The turtle and the Hare");
+		StoryBook book1 = new StoryBook("The Turtle and the Hare");
 		book1.addPage(new StoryPage(null, "first text of turtle and the Hare"));
 		book1.addPage(new StoryPage(null, "second text of turlte and the Hare"));
 		book1.addPage(new StoryPage(null, "The end of turtle and the Hare"));
