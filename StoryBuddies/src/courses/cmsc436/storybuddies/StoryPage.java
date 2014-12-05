@@ -36,4 +36,37 @@ public class StoryPage {
 		}	
 		// End Constructors for StoryPage -------------------------------------------------------
 
+		//Start Getters and Setters -------------------------------------------------------------
+		public Bitmap getmPicture() {
+			return mPicture;
+		}
+
+		public void setmPicture(Bitmap mPicture) {
+			this.mPicture = mPicture;
+		}
+
+		public String getmStoryText() {
+			return mStoryText;
+		}
+
+		public void setmStoryText(String mStoryText) {
+			this.mStoryText = mStoryText;
+		}
+
+		public String getmSpeechAudio() {
+			return mSpeechAudio;
+		}
+
+		public void setmSpeechAudio(String mSpeechAudio) {
+			this.mSpeechAudio = mSpeechAudio;
+		}
+
+		public String getmGameActivity() {
+			return mGameActivity;
+		}
+
+		public void setmGameActivity(String mGameActivity) {
+			this.mGameActivity = mGameActivity;
+		}
+		//END Getters and Setters ---------------------------------------------------------------
 }
