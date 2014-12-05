@@ -15,6 +15,7 @@ import android.widget.TextView;
 public class StoryPageActivity extends Activity{
 	private final String TAG = "StoryPage";
 	private int currPage = 0;
+	private SpeechEngine speech;
 	private EditText storyText;
 	
 	private StoryBook currStory;
@@ -24,7 +25,7 @@ public class StoryPageActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.story_page);
 		storyText = (EditText) findViewById(R.id.text);
-		Log.i(TAG, "Entered StoryPageActivity onCreate");
+		speech = SpeechEngine.getInstance(getApplicationContext());
 		
 		final int currStoryPos = getIntent().getIntExtra("position",0);
 		currStory = StartScreenActivity.stories.get(currStoryPos);
@@ -66,10 +67,10 @@ public class StoryPageActivity extends Activity{
 	}
 	
 	private void updatePage(){
-		storyText.setText(currStory.getmPages().get(currPage).getmStoryText());
+		String currText = currStory.getmPages().get(currPage).getmStoryText();
+		storyText.setText(currText);
+		speech.speak(currText);
 		//SetBitmap
-		//SetVoiceOver
-		//SpeakVoiceOver
 	}
 
 	@Override

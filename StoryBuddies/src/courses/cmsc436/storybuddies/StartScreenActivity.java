@@ -54,7 +54,7 @@ public class StartScreenActivity extends Activity {
 				Log.i(TAG, "Entered startButton.OnItemClickListener.onItemClick()");
 				
 				//StoryBuddiesUtils.playMusic(StartScreenActivity.this, "Radioactive.mp3");			
-				speech.speak("Hi there, welcome to our app!");
+				//speech.speak("Would you like to read a story?");
 				
 				Intent intent = new Intent(StartScreenActivity.this, ChooseStoryActivity.class);
 				startActivity(intent);
@@ -154,10 +154,10 @@ public class StartScreenActivity extends Activity {
 		testStory.addPage(page3);
 		
 		//Build Turtle and the Hare
-		StoryBook book1 = new StoryBook("The Turtle and the Hare");
-		book1.addPage(new StoryPage(null, "first text of turtle and the Hare"));
-		book1.addPage(new StoryPage(null, "second text of turlte and the Hare"));
-		book1.addPage(new StoryPage(null, "The end of turtle and the Hare"));
+		StoryBook book1 = new StoryBook("The Tortoise and the Hare");
+		book1.addPage(new StoryPage(null, "first text of tortoise and the Hare"));
+		book1.addPage(new StoryPage(null, "second text of tortoise and the Hare"));
+		book1.addPage(new StoryPage(null, "The end of tortoise and the Hare"));
 		
 		//Add stories to ArrayList
 		stories.add(testStory);

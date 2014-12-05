@@ -14,24 +14,26 @@ import android.widget.TextView;
 public class CoverPageActivity extends Activity {
 	
 	private final String TAG = "CoverPage";
+	private SpeechEngine speech;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.title_page);
-		Log.i(TAG, "Entered Cover Page onCreate");
+		
+		speech = SpeechEngine.getInstance(getApplicationContext()); 
 		
 		//Get currentStory from static variable
 		final int currStoryPos = getIntent().getIntExtra("position",0);
 		StoryBook currStory = StartScreenActivity.stories.get(currStoryPos);
-		Log.i(TAG, "Got StoryBook Intent");
+		
+		speech.speak(currStory.toString());
 		
 		//Set title view to appropriate text
 		TextView title = (TextView) findViewById(R.id.coverPageTitle);
 		title.setText(currStory.getmTitle());
 		
 		//TODO - set author to appropriate text
-		Log.i(TAG, "Set textView to current Title");
 		
 		ImageView coverView = (ImageView) findViewById(R.id.bookCover);
 		

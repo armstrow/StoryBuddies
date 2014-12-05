@@ -35,6 +35,7 @@ import android.widget.Toast;
 public class ChooseStoryActivity extends ListActivity {
 
 	private final String TAG = "SB_ChooseStoryActivity";
+	private SpeechEngine speech;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class ChooseStoryActivity extends ListActivity {
 		setListAdapter(mAdapter);
 
 		ListView lv = getListView();
+		
+		speech = SpeechEngine.getInstance(getApplicationContext());
 
 		// Enable filtering when the user types in the virtual keyboard
 		lv.setTextFilterEnabled(true);
@@ -91,6 +94,7 @@ public class ChooseStoryActivity extends ListActivity {
 	public void onResume() {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
+		speech.speak("Would you like to read a story!");
 	}
 	
 	/*
