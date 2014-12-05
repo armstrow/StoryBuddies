@@ -12,6 +12,7 @@ public class StoryBook  {
 	Bitmap mTitlePage;
 	String mTitle;
 	String mVoiceOver;
+	String mAuthor = null;
 	ArrayList<StoryPage> mPages = new ArrayList<StoryPage>();
 	
 	// Constructors for Story Book ------------------------------------------------------------
@@ -36,7 +37,7 @@ public class StoryBook  {
 	}
 	
 	public StoryBook(){
-		this("Default Title",null, null, null);
+		this("Default",null, null, null);
 	}	
 	// End Constructors for StoryBook -------------------------------------------------------
 	
@@ -46,6 +47,14 @@ public class StoryBook  {
 	
 	//Start Getters and Setters -------------------------------------------------------------
 
+	public void setmAuthor(String author){
+		mAuthor = author;
+	}
+	
+	public String getmAuthor(){
+		return mAuthor;
+	}
+	
 	public Bitmap getmTitlePage() {
 		return mTitlePage;
 	}

@@ -9,24 +9,34 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CYOS_Title_Screen extends Activity {
 
+	public static StoryBook newStory;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cyos_title_screen);
 		
-		//EditText mTitle = (EditText) findViewById(R.id.CYOS_Title);
-		//EditText mName = (EditText) findViewById(R.id.CYOS_Name);
+		final EditText mTitle = (EditText) findViewById(R.id.CYOS_Title);
+		final EditText mName = (EditText) findViewById(R.id.CYOS_Name);
+		final Button CYOS_Continue_Button = (Button) findViewById(R.id.CYOS_submit_button);
 		
-		Button CYOS_Continue_Button = (Button) findViewById(R.id.CYOS_submit_button);
+		newStory = new StoryBook();
+		
 		CYOS_Continue_Button.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				//TODO - save mTitle and mName in either an adapter or an extras to the next activity
-				Intent creationActivity = new Intent(CYOS_Title_Screen.this,CYOS_Creation_Page.class);
-				startActivity(creationActivity);
+				if(mTitle.getText().equals("") || mName.getText().equals("")){
+					Toast.makeText(getApplicationContext(), "Please enter your title and author!", Toast.LENGTH_LONG).show();
+				} else {
+					newStory.setmTitle(mTitle.getText().toString());
+					newStory.setmAuthor(mName.getText().toString());
+					Intent creationActivity = new Intent(CYOS_Title_Screen.this,CYOS_Creation_Page.class);
+					startActivity(creationActivity);
+				}
 			}
 		});
 	}

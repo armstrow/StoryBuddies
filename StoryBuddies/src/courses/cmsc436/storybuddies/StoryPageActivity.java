@@ -66,6 +66,8 @@ public class StoryPageActivity extends Activity{
 		});
 	}
 	
+	//TODO - configure back button to respond the same as prevButton's OnClickListener
+	
 	private void updatePage(){
 		String currText = currStory.getmPages().get(currPage).getmStoryText();
 		storyText.setText(currText);
