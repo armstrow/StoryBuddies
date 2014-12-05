@@ -73,7 +73,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/cyosStoryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -96,24 +96,24 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/editText1" >
+        android:layout_below="@id/cyosStoryText" >
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/cyosPrevButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cyos_prev_button_text" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/cyosSubmitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cyos_submit_button_text" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/cyosNextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

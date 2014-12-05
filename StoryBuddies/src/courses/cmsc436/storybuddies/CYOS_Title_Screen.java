@@ -1,5 +1,7 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.ObjectOutputStream.PutField;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class CYOS_Title_Screen extends Activity {
-
-	public static StoryBook newStory;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +24,18 @@ public class CYOS_Title_Screen extends Activity {
 		final EditText mName = (EditText) findViewById(R.id.CYOS_Name);
 		final Button CYOS_Continue_Button = (Button) findViewById(R.id.CYOS_submit_button);
 		
-		newStory = new StoryBook();
-		
 		CYOS_Continue_Button.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				if(mTitle.getText().equals("") || mName.getText().equals("")){
+				String currTitle = mTitle.getText().toString();
+				String currName = mName.getText().toString();
+				
+				if(currTitle.equals("") || currName.equals("")){
 					Toast.makeText(getApplicationContext(), "Please enter your title and author!", Toast.LENGTH_LONG).show();
 				} else {
-					newStory.setmTitle(mTitle.getText().toString());
-					newStory.setmAuthor(mName.getText().toString());
 					Intent creationActivity = new Intent(CYOS_Title_Screen.this,CYOS_Creation_Page.class);
+					creationActivity.putExtra("currTitle", currTitle);
+					creationActivity.putExtra("currName", currName);
 					startActivity(creationActivity);
 				}
 			}
