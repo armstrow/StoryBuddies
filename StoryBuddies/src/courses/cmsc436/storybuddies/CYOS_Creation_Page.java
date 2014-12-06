@@ -10,11 +10,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.JsonWriter;
@@ -31,6 +34,7 @@ import android.widget.Toast;
 public class CYOS_Creation_Page extends Activity {
 	
 	public final String TAG = "CYOS_Creation_Activity";
+	private List<Path> myPaths = new ArrayList<Path>();
 	private SpeechEngine speech;
 	
 	StoryBook newStory = new StoryBook();
@@ -38,6 +42,7 @@ public class CYOS_Creation_Page extends Activity {
 	Button nextButton;
 	Button submitButton;
 	EditText storyText;
+	PaintView drawing;
 	
 	int currPageNumber = 0;
 	
@@ -62,6 +67,7 @@ public class CYOS_Creation_Page extends Activity {
 		nextButton = (Button) findViewById(R.id.cyosNextButton);
 		submitButton = (Button) findViewById(R.id.cyosSubmitButton);
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
+		drawing = (PaintView) findViewById(R.id.paintView);
 		//TODO - make a view for bitmap
 		
 		//Set up the first page for editing
@@ -203,13 +209,26 @@ public class CYOS_Creation_Page extends Activity {
 		
 		//Save changes to newStory
 		pageList.get(currPageNumber).setmStoryText(storyText.getText().toString());
+		pageList.get(currPageNumber).setmPicture(drawing.getBitmap());
 		//TODO - save Bitmap as well
+		while(currPageNumber > myPaths.size()-1){
+			myPaths.add(new Path());
+		}
+		Log.i(TAG, "Not yet setting Page: myPaths size = " + myPaths.size());
+		myPaths.set(currPageNumber, drawing.getPaths());
+		Log.i(TAG, "Setting Page");
 		
 		currPageNumber += delta;
 		
+		while(currPageNumber > myPaths.size()-1){
+			myPaths.add(new Path());
+		}
+		
 		//Upload info for newPage
 		storyText.setText(pageList.get(currPageNumber).getmStoryText());
-		//TODO - update Bitmap as well
+		//drawing.setBitmap(pageList.get(currPageNumber).getmPicture());
+		//drawing.clear();
+		drawing.setPaths(myPaths.get(currPageNumber));
 		
 		if(currPageNumber == pageList.size()-1){
 			nextButton.setText("New Page");
