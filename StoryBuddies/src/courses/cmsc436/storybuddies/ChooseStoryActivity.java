@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,6 +35,8 @@ public class ChooseStoryActivity extends ListActivity {
 	private final String TAG = "SB_ChooseStoryActivity";
 	private SpeechEngine speech;
 	private StoryViewAdapter mAdapter;
+	
+	private int deleteClicked = -1;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,21 @@ public class ChooseStoryActivity extends ListActivity {
 			}
 		});
 		
+		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				if (deleteClicked != position) {
+					Toast.makeText(getApplicationContext(), "Long click story again to delete", Toast.LENGTH_LONG).show();
+					deleteClicked = position;
+				} else if (deleteClicked == position) {
+					deleteItem(position);
+					Toast.makeText(getApplicationContext(), "Story has been deleted", Toast.LENGTH_SHORT).show();
+					deleteClicked = -1;
+				}
+				return true;
+			}});
+		
 		// Put divider between ToDoItems and FooterView
 		getListView().setFooterDividersEnabled(true);
 		
@@ -83,6 +101,16 @@ public class ChooseStoryActivity extends ListActivity {
 		lv.addFooterView(footerViewHolder);
 	}
 	
+	protected void deleteItem(int position) {
+		String root_dir = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir);
+		File to_del = new File(root_dir, ((StoryBook)mAdapter.getItem(position)).getmTitle());
+		if (!StoryBuddiesUtils.removeDirectory(to_del)){
+			Toast.makeText(getApplicationContext(), "Error deleting story", Toast.LENGTH_LONG).show();
+		}	
+		StoryBuddiesBaseActivity.stories.remove(position);
+		mAdapter.remove(position);	
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -140,7 +168,8 @@ public class ChooseStoryActivity extends ListActivity {
 		StoryBook story = new StoryBook();
 		r.beginObject();
 		r.nextName();
-		story.setmTitle(r.nextString());
+		r.nextString();
+		story.setmTitle(dir.substring(dir.lastIndexOf("/")+1));//r.nextString());
 		r.nextName();
 		story.setmAuthor(r.nextString());
 		r.nextName();
@@ -170,6 +199,6 @@ public class ChooseStoryActivity extends ListActivity {
 			story.setmTitlePage(pic);
 		}
 		return story;
-	}
+	}	
 
 }

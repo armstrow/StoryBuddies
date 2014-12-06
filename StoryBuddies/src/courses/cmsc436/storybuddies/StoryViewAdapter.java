@@ -89,4 +89,9 @@ public class StoryViewAdapter extends BaseAdapter {
 		}
 		return false;
 	}
+
+	public void remove(int position) {
+		list.remove(position);
+		this.notifyDataSetChanged();
+	}
 }
