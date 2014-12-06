@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class CYOS_Creation_Page extends Activity {
@@ -49,6 +50,11 @@ public class CYOS_Creation_Page extends Activity {
 		nextButton = (Button) findViewById(R.id.cyosNextButton);
 		submitButton = (Button) findViewById(R.id.cyosSubmitButton);
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
+		RelativeLayout mLayout = (RelativeLayout) findViewById(R.layout.activity_cyos_creation_screen);
+		PaintView view = new PaintView(this);
+		
+		//setContentView(view);
+		addContentView(view.btnEraseAll,view.params);
 		//TODO - make a view for bitmap
 		
 		//Set up the first page for editing
