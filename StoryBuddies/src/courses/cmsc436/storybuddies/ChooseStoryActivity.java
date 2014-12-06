@@ -1,11 +1,23 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.JsonReader;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChooseStoryActivity extends ListActivity {
 
@@ -85,9 +98,75 @@ public class ChooseStoryActivity extends ListActivity {
 	private void loadItems(){
 		mAdapter.removeAllViews();
 		ArrayList<StoryBook> toAdd = StoryBuddiesBaseActivity.stories;
+		
+		toAdd.addAll(getSavedStories());
+		
 		for (int i = 0; i < toAdd.size(); i++)
 		{
 			mAdapter.add(toAdd.get(i));
 		}
 	}
+
+	private Collection<? extends StoryBook> getSavedStories() {
+		ArrayList<StoryBook> savedStories = new ArrayList<StoryBook>();
+		if (Environment.MEDIA_MOUNTED.equals(Environment
+				.getExternalStorageState())) { 
+			File root_dir = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir));
+			if (!root_dir.exists() || root_dir.listFiles() == null) {
+				return savedStories;
+			}
+			for (File f : root_dir.listFiles()) {
+				if (f.isDirectory()) {
+					try {
+						savedStories.add(readStory(f.getAbsolutePath()));
+					} catch (IOException e) {
+						Log.e(TAG, "Error reading story " + f.getName() + ": " + e);
+						Toast.makeText(getApplicationContext(), "Error loading story from file: " + f.getName(), Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		}			
+		return savedStories;
+	}
+	
+	private StoryBook readStory(String dir) throws IOException {
+		File textFile = new File(dir, getString(R.string.text_file_name) + ".txt");
+		FileInputStream is = new FileInputStream(textFile);
+		InputStreamReader reader = new InputStreamReader(is);
+		JsonReader r = new JsonReader(reader);
+		StoryBook story = new StoryBook();
+		r.beginObject();
+		r.nextName();
+		story.setmTitle(r.nextString());
+		r.nextName();
+		story.setmAuthor(r.nextString());
+		r.nextName();
+		r.beginArray();
+		while (r.hasNext()) {
+			StoryPage page = new StoryPage();
+			r.beginObject();
+			r.nextName();
+			page.setmStoryText(r.nextString());
+			if (r.hasNext()) {
+				String type = r.nextName();
+				if (type.equals("PICTURE")) {
+					String fileName = r.nextString();
+					Bitmap pic = BitmapFactory.decodeFile(dir + "/" + fileName);
+					page.setmPicture(pic);
+				}
+			}
+			r.endObject();
+			story.addPage(page);
+		}
+		r.endArray();
+		r.endObject();
+		r.close();		
+		File cover = new File(dir, getString(R.string.cover_file_name) + ".png");
+		if (cover.exists()) {
+			Bitmap pic = BitmapFactory.decodeFile(dir + "/" + getString(R.string.cover_file_name) + ".png");
+			story.setmTitlePage(pic);
+		}
+		return story;
+	}
+
 }

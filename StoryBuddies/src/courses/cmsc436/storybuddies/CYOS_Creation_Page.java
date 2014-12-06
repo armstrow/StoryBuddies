@@ -1,10 +1,23 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class CYOS_Creation_Page extends Activity {
@@ -50,11 +62,6 @@ public class CYOS_Creation_Page extends Activity {
 		nextButton = (Button) findViewById(R.id.cyosNextButton);
 		submitButton = (Button) findViewById(R.id.cyosSubmitButton);
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
-		RelativeLayout mLayout = (RelativeLayout) findViewById(R.layout.activity_cyos_creation_screen);
-		PaintView view = new PaintView(this);
-		
-		//setContentView(view);
-		addContentView(view.btnEraseAll,view.params);
 		//TODO - make a view for bitmap
 		
 		//Set up the first page for editing
@@ -102,11 +109,88 @@ public class CYOS_Creation_Page extends Activity {
 				Log.i(TAG,"Entered submitButton OnClickListener");
 				//TODO - a popup asking if the user wants to continue should be implemented here
 				updatePage(0);
-				StoryBuddiesBaseActivity.stories.add(newStory);
+				if (saveStory(newStory))
+				{
+					finish();
+				}
+				else {
+					Toast.makeText(getApplicationContext(), "Error saving story", Toast.LENGTH_LONG).show();
+				}
+				//StoryBuddiesBaseActivity.stories.add(newStory);
 				finish();
 			}
 		});
 	}
+
+	protected boolean saveStory(StoryBook newStory) {
+		try {
+			if (Environment.MEDIA_MOUNTED.equals(Environment
+					.getExternalStorageState())) {
+				String path = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir) + "/" + newStory.getmTitle();
+				File outFile = new File(path, getString(R.string.text_file_name) + ".txt");
+				if (!(new File(path)).mkdirs()) {
+					Log.e(TAG, "Could not create directory to store book");
+					return false;
+				}
+				writeStoryText(outFile, newStory);
+				
+				if (newStory.getmTitlePage() != null) {
+					outFile = new File(path, getString(R.string.cover_file_name) + ".png");
+					if (outFile.exists()) {
+						Log.e(TAG, "Book already exists!");
+						return false;
+					}
+					writeImageToMemory(outFile, newStory.getmTitlePage());
+				}
+				
+				List<StoryPage> pages = newStory.getmPages();
+				for (int i = 0; i < pages.size(); i++) {
+					StoryPage curPage = pages.get(i);
+					if (curPage.getmPicture() != null) {
+						outFile = new File(path, getString(R.string.page_file_name) + (i+1) + ".png");
+						writeImageToMemory(outFile, curPage.getmPicture());
+					}
+				}				
+				
+				return true;		
+			}
+			else {
+				return false;
+			}
+		} catch (IOException e) {
+			Log.e(TAG, "File write error: " + e);
+			return false;
+		}
+	}
+	
+	private void writeStoryText(File out, StoryBook story) throws IOException {
+		FileOutputStream os = new FileOutputStream(out);
+		OutputStreamWriter writer = new OutputStreamWriter(os);
+		JsonWriter w = new JsonWriter(writer);
+		w.beginObject();
+		w.name("TITLE").value(story.mTitle);
+		w.name("AUTHOR").value(story.mAuthor);
+		w.name("PAGES");
+		w.beginArray();
+		List<StoryPage> pages = newStory.getmPages();
+		for (int i = 0; i < pages.size(); i++) {
+			StoryPage page = pages.get(i);
+			w.beginObject();
+			w.name("TEXT").value(page.getmStoryText());
+			if (page.getmPicture() != null)
+				w.name("PICTURE").value("page" + (i+1) + ".png");
+			w.endObject();
+		}
+		w.endArray();
+		w.endObject();
+		w.close();
+	}
+
+	private void writeImageToMemory(File outFile, Bitmap bmp) throws FileNotFoundException {
+		FileOutputStream os = new FileOutputStream(outFile);
+		bmp.compress(Bitmap.CompressFormat.PNG, 100, os);
+	}
+
 
 	/*
 	 * updates the page to save changes to views in the correct page
