@@ -96,7 +96,7 @@ public class CYOS_Creation_Page extends Activity {
 				Log.i(TAG,"Entered submitButton OnClickListener");
 				//TODO - a popup asking if the user wants to continue should be implemented here
 				updatePage(0);
-				StartScreenActivity.stories.add(newStory);
+				StoryBuddiesBaseActivity.stories.add(newStory);
 				finish();
 			}
 		});

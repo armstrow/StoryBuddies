@@ -25,7 +25,7 @@ public class CoverPageActivity extends Activity {
 		
 		//Get currentStory from static variable
 		final int currStoryPos = getIntent().getIntExtra("position",0);
-		StoryBook currStory = StartScreenActivity.stories.get(currStoryPos);
+		StoryBook currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
 		
 		speech.speak(currStory.toString());
 		

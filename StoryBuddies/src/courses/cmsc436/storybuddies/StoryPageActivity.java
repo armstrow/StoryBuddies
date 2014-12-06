@@ -28,7 +28,7 @@ public class StoryPageActivity extends Activity{
 		speech = SpeechEngine.getInstance(getApplicationContext());
 		
 		final int currStoryPos = getIntent().getIntExtra("position",0);
-		currStory = StartScreenActivity.stories.get(currStoryPos);
+		currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
 		
 		updatePage();
 		

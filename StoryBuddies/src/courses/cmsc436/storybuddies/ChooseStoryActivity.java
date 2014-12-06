@@ -45,7 +45,7 @@ public class ChooseStoryActivity extends ListActivity {
 		// Set the adapter on this ListActivity's built-in ListView
 		
 		//I do this again in onResume to update when a new story is added
-		ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StartScreenActivity.stories));
+		ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories));
 		
 		setListAdapter(mAdapter);
 
@@ -96,7 +96,7 @@ public class ChooseStoryActivity extends ListActivity {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
 		speech.speak("Would you like to read a story!");
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StartScreenActivity.stories)));
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories)));
 	}
 	
 	/*
