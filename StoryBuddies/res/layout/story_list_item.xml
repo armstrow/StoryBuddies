@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    android:textSize="24sp" >
-</TextView>
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:padding="8dp"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/cover" >
+        
+        <TextView 
+            android:id="@+id/title_string"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+		    android:padding="10dp"
+		    android:textSize="24sp"
+		    android:textColor="@color/black_text_87" >
+		</TextView>
+
+        <TextView
+            android:id="@+id/author_string"
+            android:layout_alignLeft="@+id/title_string"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_below="@+id/title_string"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black_text_87"  />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+
