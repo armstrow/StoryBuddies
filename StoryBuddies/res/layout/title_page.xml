@@ -4,28 +4,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent" >
+    <android.gesture.GestureOverlayView
+        android:id="@+id/gestureOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+        <LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent" >
+		    
+	   		<ImageButton
+	        	android:id="@+id/bookCover"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:src="@drawable/book_cover" />
 	    
-   		<ImageButton
-        	android:id="@+id/bookCover"
+	    </LinearLayout>
+	    
+	    <TextView
+	        android:id="@+id/coverPageTitle"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:src="@drawable/book_cover" />
-    
-    </LinearLayout>
-    
-    <TextView
-        android:id="@+id/coverPageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="Story"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="100dp"
+	        android:text="Story"
+	        android:gravity="center"
+	        android:textAlignment="center"
+	        android:textAllCaps="false"
+	        android:textSize="20sp"
+	        android:textStyle="bold" />
+    </android.gesture.GestureOverlayView>
+	
 
 </RelativeLayout>

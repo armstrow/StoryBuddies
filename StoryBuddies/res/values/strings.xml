@@ -17,5 +17,23 @@
     <string name="cyos_prev_button_text">Prev</string>
     <string name="cyos_submit_button_text">Submit</string>
     <string name="cyos_next_button_text">Next</string>
+    <string-array name="tortoise_and_hare">
+        <item >Once upon a time there was a tortoise and a hare</item>
+        <item >The hare liked to brag about how fast he was</item>
+        <item >The turtle was tired of hearing his friend boast</item>
+        <item >and so one day, the tortoise challenged the hare to a race</item>
+        <item >All their animal friends came to watch</item>
+        <item >and the tortoise and the hare were off!</item>
+        <item >The hare zoomed down the road and he called back to tortoise</item>
+        <item >&quot;How do you think you're going to win when you move so so slow?&quot; before he sprinted away</item>
+        <item >After a while, Hare stopped and thought to himself &quot;I have plenty of time. I might as well take a nap&quot;</item>
+        <item >so he hid behind a bush at the side of the road and went to sleep</item>
+        <item >All the while, Tortoise walked and walked</item>
+        <item >he never ever stopped and soon, he had reached the finish line!</item>
+        <item >all his animal friends cheered, yelling so loud that they woke Hare from his sleep</item>
+        <item >Hare hurried back to the race track, but it was too late</item>
+        <item >Tortoise had won! And so Hare learned a lesson that day</item>
+        <item >And today he knows, &quot;Don't brag about your lighting page, for slow and steady wins the race&quot;</item>
+    </string-array>
 
 </resources>
