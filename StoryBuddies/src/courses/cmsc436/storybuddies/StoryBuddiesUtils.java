@@ -8,14 +8,26 @@ import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnSystemUiVisibilityChangeListener;
 
 public class StoryBuddiesUtils {
 	
 	private static final String TAG = "SB_Utils";
 	
 	// This snippet hides the system bars.
-	public static void hideSystemUI(Activity currentActivity) {
-	    // Set the IMMERSIVE flag.
+	public static void hideSystemUI(final Activity currentActivity) {
+		
+	    currentActivity.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new OnSystemUiVisibilityChangeListener() {
+		      @Override
+		      public void onSystemUiVisibilityChange(int visibility) {
+		    	  goFullScreen(currentActivity); // Needed to avoid exiting immersive_sticky when keyboard is displayed
+		      }
+		    });
+	    goFullScreen(currentActivity);
+	}
+
+	private static void goFullScreen(Activity currentActivity) {
+		// Set the IMMERSIVE flag.
 	    // Set the content to appear under the system bars so that the content
 	    // doesn't resize when the system bars hide and show.
 		currentActivity.getWindow().getDecorView().setSystemUiVisibility(
