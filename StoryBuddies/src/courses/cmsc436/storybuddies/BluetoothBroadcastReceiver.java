@@ -95,7 +95,11 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
             }
         } else if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
         	Log.d(TAG, "Speaker bond state changed");
-        	connect();
+        	int state = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, 0);
+        	if (state == BluetoothDevice.BOND_BONDED) {
+	        	Log.d(TAG, "Bluetooth Enabled");
+	        	connect();
+        	}
     
         } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)){
         	int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0);
