@@ -9,10 +9,13 @@ package courses.cmsc436.storybuddies;
 
 public final class R {
     public static final class array {
-        public static final int stories=0x7f080000;
-        public static final int tortoise_and_hare=0x7f080001;
+        public static final int stories=0x7f090000;
+        public static final int tortoise_and_hare=0x7f090001;
     }
     public static final class attr {
+    }
+    public static final class color {
+        public static final int black_text_87=0x7f060000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -22,10 +25,10 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f060000;
-        public static final int activity_vertical_margin=0x7f060001;
-        public static final int cyos_paintview_height=0x7f060003;
-        public static final int cyos_textview_min_height=0x7f060002;
+        public static final int activity_horizontal_margin=0x7f070000;
+        public static final int activity_vertical_margin=0x7f070001;
+        public static final int cyos_paintview_height=0x7f070003;
+        public static final int cyos_textview_min_height=0x7f070002;
     }
     public static final class drawable {
         public static final int book_cover=0x7f020000;
@@ -35,35 +38,38 @@ public final class R {
         public static final int start_button=0x7f020004;
     }
     public static final class id {
-        public static final int CYOS_Name=0x7f0b000e;
-        public static final int CYOS_Text_By=0x7f0b000f;
-        public static final int CYOS_Title=0x7f0b0010;
-        public static final int CYOS_submit_button=0x7f0b0011;
-        public static final int action_settings=0x7f0b001c;
-        public static final int bookCover=0x7f0b001a;
-        public static final int button1=0x7f0b0008;
-        public static final int coverPageTitle=0x7f0b001b;
-        public static final int cyosNextButton=0x7f0b000d;
-        public static final int cyosPrevButton=0x7f0b000b;
-        public static final int cyosStoryText=0x7f0b0009;
-        public static final int cyosSubmitButton=0x7f0b000c;
-        public static final int footerView=0x7f0b0013;
-        public static final int gestureOverlay=0x7f0b0014;
-        public static final int illustration=0x7f0b0015;
-        public static final int imageButton1=0x7f0b0012;
-        public static final int lastPage=0x7f0b0018;
-        public static final int linearLayout1=0x7f0b0001;
-        public static final int linearLayout2=0x7f0b000a;
-        public static final int nextPage=0x7f0b0019;
-        public static final int radio0=0x7f0b0003;
-        public static final int radio1=0x7f0b0004;
-        public static final int radio2=0x7f0b0005;
-        public static final int radio3=0x7f0b0006;
-        public static final int radio4=0x7f0b0007;
-        public static final int radioGroup1=0x7f0b0002;
-        public static final int tableRow1=0x7f0b0017;
-        public static final int text=0x7f0b0016;
-        public static final int textView1=0x7f0b0000;
+        public static final int CYOS_Name=0x7f0c000e;
+        public static final int CYOS_Text_By=0x7f0c000f;
+        public static final int CYOS_Title=0x7f0c0010;
+        public static final int CYOS_submit_button=0x7f0c0011;
+        public static final int action_settings=0x7f0c001f;
+        public static final int author_string=0x7f0c0016;
+        public static final int bookCover=0x7f0c001d;
+        public static final int button1=0x7f0c0008;
+        public static final int cover=0x7f0c0014;
+        public static final int coverPageTitle=0x7f0c001e;
+        public static final int cyosNextButton=0x7f0c000d;
+        public static final int cyosPrevButton=0x7f0c000b;
+        public static final int cyosStoryText=0x7f0c0009;
+        public static final int cyosSubmitButton=0x7f0c000c;
+        public static final int footerView=0x7f0c0013;
+        public static final int gestureOverlay=0x7f0c0017;
+        public static final int illustration=0x7f0c0018;
+        public static final int imageButton1=0x7f0c0012;
+        public static final int lastPage=0x7f0c001b;
+        public static final int linearLayout1=0x7f0c0001;
+        public static final int linearLayout2=0x7f0c000a;
+        public static final int nextPage=0x7f0c001c;
+        public static final int radio0=0x7f0c0003;
+        public static final int radio1=0x7f0c0004;
+        public static final int radio2=0x7f0c0005;
+        public static final int radio3=0x7f0c0006;
+        public static final int radio4=0x7f0c0007;
+        public static final int radioGroup1=0x7f0c0002;
+        public static final int tableRow1=0x7f0c001a;
+        public static final int text=0x7f0c0019;
+        public static final int textView1=0x7f0c0000;
+        public static final int title_string=0x7f0c0015;
     }
     public static final class layout {
         public static final int activity_cyos_creation_screen=0x7f030000;
@@ -75,24 +81,24 @@ public final class R {
         public static final int title_page=0x7f030006;
     }
     public static final class menu {
-        public static final int main=0x7f0a0000;
+        public static final int main=0x7f0b0000;
     }
     public static final class raw {
         public static final int gestures=0x7f050000;
     }
     public static final class string {
-        public static final int CYOS_by_text=0x7f070004;
-        public static final int CYOS_name_hint=0x7f070003;
-        public static final int CYOS_submit_text=0x7f070005;
-        public static final int CYOS_title_hint=0x7f070006;
-        public static final int action_settings=0x7f070002;
-        public static final int add_story=0x7f070001;
-        public static final int app_name=0x7f070000;
-        public static final int cyos_input_story_prompt=0x7f070008;
-        public static final int cyos_next_button_text=0x7f07000b;
-        public static final int cyos_prev_button_text=0x7f070009;
-        public static final int cyos_submit_button_text=0x7f07000a;
-        public static final int cyos_undo_text=0x7f070007;
+        public static final int CYOS_by_text=0x7f080004;
+        public static final int CYOS_name_hint=0x7f080003;
+        public static final int CYOS_submit_text=0x7f080005;
+        public static final int CYOS_title_hint=0x7f080006;
+        public static final int action_settings=0x7f080002;
+        public static final int add_story=0x7f080001;
+        public static final int app_name=0x7f080000;
+        public static final int cyos_input_story_prompt=0x7f080008;
+        public static final int cyos_next_button_text=0x7f08000b;
+        public static final int cyos_prev_button_text=0x7f080009;
+        public static final int cyos_submit_button_text=0x7f08000a;
+        public static final int cyos_undo_text=0x7f080007;
     }
     public static final class style {
         /** 
@@ -116,10 +122,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int AppBaseTheme=0x7f0a0000;
         /**  Application theme. 
          */
-        public static final int AppTheme=0x7f090001;
+        public static final int AppTheme=0x7f0a0001;
     }
     public static final class xml {
         public static final int nfc_tech_filter=0x7f040000;
