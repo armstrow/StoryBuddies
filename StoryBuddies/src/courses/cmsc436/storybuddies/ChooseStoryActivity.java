@@ -94,7 +94,7 @@ public class ChooseStoryActivity extends ListActivity {
 
 				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
 				Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
-				startActivity(cyosActivity);
+				startActivity(cyosActivity); //TODO: startForResult
 			}
 		});
 		
@@ -103,7 +103,7 @@ public class ChooseStoryActivity extends ListActivity {
 	
 	protected void deleteItem(int position) {
 		String root_dir = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir);
-		File to_del = new File(root_dir, ((StoryBook)mAdapter.getItem(position)).getmTitle());
+		File to_del = new File(root_dir, ((StoryBook)mAdapter.getItem(position)).getmTitle().replace(" ",  "_"));
 		if (!StoryBuddiesUtils.removeDirectory(to_del)){
 			Toast.makeText(getApplicationContext(), "Error deleting story", Toast.LENGTH_LONG).show();
 		}	
@@ -168,8 +168,7 @@ public class ChooseStoryActivity extends ListActivity {
 		StoryBook story = new StoryBook();
 		r.beginObject();
 		r.nextName();
-		r.nextString();
-		story.setmTitle(dir.substring(dir.lastIndexOf("/")+1));//r.nextString());
+		story.setmTitle(r.nextString());
 		r.nextName();
 		story.setmAuthor(r.nextString());
 		r.nextName();
