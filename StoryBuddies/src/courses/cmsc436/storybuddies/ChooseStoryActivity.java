@@ -103,7 +103,10 @@ public class ChooseStoryActivity extends ListActivity {
 		
 		for (int i = 0; i < toAdd.size(); i++)
 		{
-			mAdapter.add(toAdd.get(i));
+			StoryBook cur = toAdd.get(i);
+			if (!mAdapter.contains(cur)) {
+				mAdapter.add(cur);
+			}
 		}
 	}
 

@@ -80,4 +80,13 @@ public class StoryViewAdapter extends BaseAdapter {
 		list.clear();
 		this.notifyDataSetChanged();
 	}
+
+	public boolean contains(StoryBook other) {
+		for (StoryBook s : list) {
+			if (s.getmTitle().equals(other.getmTitle())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
