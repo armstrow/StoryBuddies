@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-	<TextView
+	<courses.cmsc436.storybuddies.PaintView
 	    android:id="@+id/textView1"
 	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
+	    android:layout_height="@dimen/cyos_paintview_height"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentRight="true"
 	    android:layout_alignParentTop="true"
-	    android:background="#0000FF"
+	    android:background="#00FF00"
 	    android:height="@dimen/cyos_paintview_height" />
 
     <LinearLayout
