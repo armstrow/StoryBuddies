@@ -1,20 +1,31 @@
 package courses.cmsc436.storybuddies;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.Prediction;
+import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.GestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CoverPageActivity extends Activity {
+public class CoverPageActivity extends Activity implements OnGesturePerformedListener {
 	
 	private final String TAG = "CoverPage";
 	private SpeechEngine speech;
+
+	private GestureLibrary mLibrary;
+	
+	private int currStoryPos = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +35,8 @@ public class CoverPageActivity extends Activity {
 		speech = SpeechEngine.getInstance(getApplicationContext()); 
 		
 		//Get currentStory from static variable
-		final int currStoryPos = getIntent().getIntExtra("position",0);
-		StoryBook currStory = StartScreenActivity.stories.get(currStoryPos);
+		currStoryPos = getIntent().getIntExtra("position",0);
+		StoryBook currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
 		
 		speech.speak(currStory.toString());
 		
@@ -48,24 +59,52 @@ public class CoverPageActivity extends Activity {
 			}
 		});
 		
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
+		GestureOverlayView gestureOverlay = (GestureOverlayView) findViewById(R.id.gestureOverlay);
+		gestureOverlay.addOnGesturePerformedListener(this);
+		
+//		gestureOverlay.setOnTouchListener( new OnTouchListener() {
+//		
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				Log.i(TAG, "Entered startButton.OnTouchListener.onTouch()");
+//				return mGestureDetector.onTouchEvent(event);
+//
+//			}
+//		});
+		
+		if (!mLibrary.load()) {
+			finish();
 		}
-		return super.onOptionsItemSelected(item);
+		
+		
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		StoryBuddiesUtils.hideSystemUI(this);
+	}
+	
+
+	@Override
+	public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+		// TODO Auto-generated method stub
+		ArrayList<Prediction> predictions = mLibrary.recognize(gesture);
+
+		if (predictions.size() > 0) {
+
+			// Get highest-ranked prediction
+			Prediction prediction = predictions.get(0);
+
+			if (prediction.name.equals("nextPage")) {
+				Intent storyActivity = new Intent(CoverPageActivity.this,StoryPageActivity.class);
+				storyActivity.putExtra("position", currStoryPos);
+				startActivity(storyActivity);
+				finish();
+			}
+		
+		}
+	}
+
 }

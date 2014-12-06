@@ -44,7 +44,7 @@ public class SpeechEngine implements OnInitListener {
 			HashMap<String, String> hash = new HashMap<String,String>();
 	        hash.put(TextToSpeech.Engine.KEY_PARAM_STREAM, 
 	                String.valueOf(AudioManager.STREAM_MUSIC));
-			tts.speak(text, TextToSpeech.QUEUE_ADD, hash);
+			tts.speak(text, TextToSpeech.QUEUE_FLUSH, hash);
 		}
 	}
 	

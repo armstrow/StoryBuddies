@@ -4,28 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-     <android.gesture.GestureOverlayView
-        android:id="@+id/gestureOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+     
 	    <TableLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent" >
-	
-	        <ImageView
-	            android:id="@+id/illustration"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_weight="0.22"
-	            android:src="@drawable/book_cover" />
-	
-	        <EditText
+			<android.gesture.GestureOverlayView
+		        android:id="@+id/gestureOverlay"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" 
+		        android:layout_weight="0.22">
+		        <ImageView
+		            android:id="@+id/illustration"
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.22"
+		            android:src="@drawable/book_cover" 
+		            android:layout_gravity="center"/>
+	    
+   			</android.gesture.GestureOverlayView>
+		
+	        <TextView
 	            android:id="@+id/text"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="0.03"
-	            android:ems="10"
-	            android:inputType="textMultiLine" />
+	            android:ems="10"/>
 	
 	       <TableRow
 	            android:id="@+id/tableRow1"
@@ -50,7 +53,5 @@
 	        </TableRow>
 	
 	    </TableLayout>
-	    
-    </android.gesture.GestureOverlayView>
 
 </LinearLayout>

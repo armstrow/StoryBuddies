@@ -23,8 +23,14 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 	private final String TAG = "SB_BluetoothBroadcastReceiver";
 	private BluetoothProfile.ServiceListener mProfileListener;
 	private Context mContext;
+	private static BluetoothBroadcastReceiver instance;
+	private boolean isInitialized = false;
 	
-	public BluetoothBroadcastReceiver(BluetoothAdapter adapter, Context context, String macAddr) {
+	private void BluetoothBroadcastReceiver() {
+		
+	}
+	
+	public void initialize(BluetoothAdapter adapter, Context context, String macAddr) {
 		mBluetoothAdapter = adapter;
 		mMacAddr = macAddr;
 		mBluetoothDev = mBluetoothAdapter.getRemoteDevice(mMacAddr);
@@ -34,7 +40,9 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		    public void onServiceConnected(int profile, BluetoothProfile proxy) {
 		        if (profile == BluetoothProfile.A2DP) {
 		        	mBluetoothSpeaker = (BluetoothA2dp) proxy; 
-		        	connect();
+		        	if (mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_DISCONNECTED) {
+		        		connect();
+		        	}
 		        }
 		    }
 		    public void onServiceDisconnected(int profile) {
@@ -46,9 +54,20 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		
 		// Establish connection to the proxy.
 		mBluetoothAdapter.getProfileProxy(context, mProfileListener, BluetoothProfile.A2DP);
-		
-		
-		
+		isInitialized = true;
+	}
+	
+	public boolean isInitialized() {
+		return isInitialized;
+	}
+	
+	public static BluetoothBroadcastReceiver getInstance() {
+		if (instance == null) {
+			return new BluetoothBroadcastReceiver();
+		}
+		else {
+			return instance;
+		}
 	}
 	
     @Override
@@ -75,12 +94,15 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
                 Log.d(TAG, "A2DP stop playing");
             }
         } else if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
-        	Log.d(TAG, "Speaker bond state trained");
+        	Log.d(TAG, "Speaker bond state changed");
         	connect();
     
         } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)){
-        	Log.d(TAG, "Bluetooth Enabled");
-        	connect();
+        	int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0);
+        	if (state == BluetoothAdapter.STATE_ON) {
+	        	Log.d(TAG, "Bluetooth Enabled");
+	        	connect();
+        	}
         }
     }
 
@@ -96,7 +118,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 	}
 	
 	public void connect() {
-		if (mBluetoothDev == null || mBluetoothSpeaker == null) {
+		if (mBluetoothDev == null || mBluetoothSpeaker == null || !mBluetoothAdapter.isEnabled()) {
 			//Do nothing
 		}
 		else if (mBluetoothDev.getBondState() == BluetoothDevice.BOND_NONE) {
@@ -127,12 +149,14 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 	}
 
 	public void disconnect() {
-    	if (bluetoothConnected) {
+    	if (mBluetoothSpeaker != null && mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_CONNECTED) {
         	Method disconnect;
 			try {
 				Log.i(TAG, "Disconnecting bluetooth");
-				disconnect = BluetoothA2dp.class.getDeclaredMethod("disconnect", BluetoothDevice.class);
-				disconnect.invoke(mBluetoothSpeaker, mBluetoothDev);
+		        Method method = mBluetoothDev.getClass().getMethod("removeBond", (Class[]) null);
+	            method.invoke(mBluetoothDev, (Object[]) null);
+				//disconnect = BluetoothA2dp.class.getDeclaredMethod("disconnect", BluetoothDevice.class);
+				//disconnect.invoke(mBluetoothSpeaker, mBluetoothDev);
 			} catch (Exception e) {
 				Log.e(TAG, "Error: " + e);
 			}
