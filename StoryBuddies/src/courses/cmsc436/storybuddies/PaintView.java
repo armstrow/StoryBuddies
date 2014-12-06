@@ -21,7 +21,6 @@ public class PaintView extends ImageView {
 	public Button btnEraseAll;
 	public LayoutParams params;
 	private Canvas mCanvas;
-	private final Paint mPainter = new Paint();
 	private final String TAG = "PaintView";
 	
 	public PaintView(Context context) {
@@ -98,20 +97,9 @@ public class PaintView extends ImageView {
 		return bmp;
 	}
 	
-	//Don't use this method
-	public void setBitmap(Bitmap bitmap){
-		if(bitmap == null){
-			return;
-		}
-		//mCanvas.drawBitmap(bitmap,10,10,mPainter);
-	}
-	
 	public void clear(){
 		path.reset();
 		postInvalidate();
-		/*Bitmap image = Bitmap.createBitmap(this.getWidth(),this.getHeight(),Bitmap.Config.ARGB_8888);
-		Canvas newCanvas = new Canvas(image);
-		mCanvas = newCanvas;*/
 	}
 	
 	public Path getPaths(){

@@ -41,6 +41,7 @@ public class CYOS_Creation_Page extends Activity {
 	Button prevButton;
 	Button nextButton;
 	Button submitButton;
+	Button undoButton;
 	EditText storyText;
 	PaintView drawing;
 	
@@ -68,7 +69,7 @@ public class CYOS_Creation_Page extends Activity {
 		submitButton = (Button) findViewById(R.id.cyosSubmitButton);
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
 		drawing = (PaintView) findViewById(R.id.paintView);
-		//TODO - make a view for bitmap
+		undoButton = (Button) findViewById(R.id.undoButton);
 		
 		//Set up the first page for editing
 		newStory.addPage(new StoryPage());
@@ -84,11 +85,7 @@ public class CYOS_Creation_Page extends Activity {
 					Toast.makeText(getApplicationContext(),"TODO - Go to a title screen clone activity",Toast.LENGTH_LONG).show();
 					//TODO - Create a new activity that looks like title screen so user can change title and author
 					//	if they wish. Will need to use startActivityforResult
-					/*Intent goToCoverIntent = new Intent(StoryPageActivity.this,CoverPageActivity.class);
-					goToCoverIntent.putExtra("position", currStoryPos);
-					startActivity(goToCoverIntent);
-					finish();*/
-				}
+				} 
 				
 			}
 		});
@@ -122,8 +119,15 @@ public class CYOS_Creation_Page extends Activity {
 				else {
 					Toast.makeText(getApplicationContext(), "Error saving story", Toast.LENGTH_LONG).show();
 				}
-				//StoryBuddiesBaseActivity.stories.add(newStory);
 				finish();
+			}
+		});
+		
+		undoButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG,"Entered undoButton OnClickListener");
+				drawing.clear();
 			}
 		});
 	}
