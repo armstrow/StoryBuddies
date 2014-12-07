@@ -10,12 +10,14 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class StoryPageActivity extends Activity implements OnGesturePerformedListener{
@@ -25,6 +27,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	private int currPage = 0;
 	private SpeechEngine speech;
 	private TextView storyText;
+	private ImageView storyPic;
 	
 	private int currStoryPos;
 	
@@ -37,6 +40,8 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.story_page);
 		storyText = (TextView) findViewById(R.id.text);
+		storyPic = (ImageView) findViewById(R.id.illustration);
+		
 		speech = SpeechEngine.getInstance(getApplicationContext());
 		
 		final int currStoryPos = getIntent().getIntExtra("position",0);
@@ -79,9 +84,13 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	
 	private void updatePage(){
 		String currText = currStory.getmPages().get(currPage).getmStoryText();
+		Bitmap currBitmap = currStory.getmPages().get(currPage).getmPicture();
 		storyText.setText(currText);
 		speech.speak(currText);
-		//SetBitmap
+		if(currBitmap != null){
+			storyPic.setImageBitmap(currBitmap);
+		} 
+		//TODO - SetBitmap
 	}
 	
 	@Override

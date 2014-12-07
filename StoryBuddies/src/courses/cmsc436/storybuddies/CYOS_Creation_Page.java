@@ -5,11 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.JsonWriter;
@@ -23,13 +25,16 @@ import android.widget.Toast;
 public class CYOS_Creation_Page extends Activity {
 	
 	public final String TAG = "CYOS_Creation_Activity";
+	private List<Path> myPaths = new ArrayList<Path>();
 	private SpeechEngine speech;
 	
 	StoryBook newStory = new StoryBook();
 	Button prevButton;
 	Button nextButton;
 	Button submitButton;
+	Button undoButton;
 	EditText storyText;
+	PaintView drawing;
 	
 	int currPageNumber = 0;
 	
@@ -54,7 +59,8 @@ public class CYOS_Creation_Page extends Activity {
 		nextButton = (Button) findViewById(R.id.cyosNextButton);
 		submitButton = (Button) findViewById(R.id.cyosSubmitButton);
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
-		//TODO - make a view for bitmap
+		drawing = (PaintView) findViewById(R.id.paintView);
+		undoButton = (Button) findViewById(R.id.undoButton);
 		
 		//Set up the first page for editing
 		newStory.addPage(new StoryPage());
@@ -70,11 +76,7 @@ public class CYOS_Creation_Page extends Activity {
 					Toast.makeText(getApplicationContext(),"TODO - Go to a title screen clone activity",Toast.LENGTH_LONG).show();
 					//TODO - Create a new activity that looks like title screen so user can change title and author
 					//	if they wish. Will need to use startActivityforResult
-					/*Intent goToCoverIntent = new Intent(StoryPageActivity.this,CoverPageActivity.class);
-					goToCoverIntent.putExtra("position", currStoryPos);
-					startActivity(goToCoverIntent);
-					finish();*/
-				}
+				} 
 				
 			}
 		});
@@ -116,7 +118,14 @@ public class CYOS_Creation_Page extends Activity {
 					CYOS_Creation_Page.this.setResult(RESULT_CANCELED, new Intent());
 					CYOS_Creation_Page.this.finish();
 				}
-				
+			}
+		});
+		
+		undoButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG,"Entered undoButton OnClickListener");
+				drawing.clear();
 			}
 		});
 	}
@@ -202,13 +211,26 @@ public class CYOS_Creation_Page extends Activity {
 		
 		//Save changes to newStory
 		pageList.get(currPageNumber).setmStoryText(storyText.getText().toString());
+		pageList.get(currPageNumber).setmPicture(drawing.getBitmap());
 		//TODO - save Bitmap as well
+		while(currPageNumber > myPaths.size()-1){
+			myPaths.add(new Path());
+		}
+		Log.i(TAG, "Not yet setting Page: myPaths size = " + myPaths.size());
+		myPaths.set(currPageNumber, drawing.getPaths());
+		Log.i(TAG, "Setting Page");
 		
 		currPageNumber += delta;
 		
+		while(currPageNumber > myPaths.size()-1){
+			myPaths.add(new Path());
+		}
+		
 		//Upload info for newPage
 		storyText.setText(pageList.get(currPageNumber).getmStoryText());
-		//TODO - update Bitmap as well
+		//drawing.setBitmap(pageList.get(currPageNumber).getmPicture());
+		//drawing.clear();
+		drawing.setPaths(myPaths.get(currPageNumber));
 		
 		if(currPageNumber == pageList.size()-1){
 			nextButton.setText("New Page");

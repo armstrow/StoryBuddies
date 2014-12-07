@@ -1,22 +1,27 @@
 package courses.cmsc436.storybuddies;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class PaintView extends RelativeLayout {
+public class PaintView extends ImageView {
 	private Paint brush = new Paint();
 	private Path path = new Path();
 	public Button btnEraseAll;
 	public LayoutParams params;
+	private Canvas mCanvas;
+	private final String TAG = "PaintView";
 	
 	public PaintView(Context context) {
 		super(context);
@@ -74,6 +79,35 @@ public class PaintView extends RelativeLayout {
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
+		mCanvas = canvas;
 		canvas.drawPath(path, brush);
+	}
+	
+	public Bitmap getBitmap(){
+		if(mCanvas == null){
+			return null;
+		}
+		this.setDrawingCacheEnabled(true);
+		this.buildDrawingCache();
+		Bitmap bmp = Bitmap.createBitmap(this.getDrawingCache());
+		this.setDrawingCacheEnabled(false);
+		
+		Log.i(TAG,"returning "+bmp.toString()+" in get Bitmap");
+		
+		return bmp;
+	}
+	
+	public void clear(){
+		path.reset();
+		postInvalidate();
+	}
+	
+	public Path getPaths(){
+		return path;
+	}
+	
+	public void setPaths(Path newPath){
+		path = newPath;
+		postInvalidate();
 	}
 }
