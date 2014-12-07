@@ -35,7 +35,7 @@ public class PaintView extends ImageView {
 	
 	public void init(){
 		brush.setAntiAlias(true);
-		brush.setColor(Color.BLUE);
+		brush.setColor(Color.BLACK);
 		brush.setStyle(Paint.Style.STROKE);
 		brush.setStrokeJoin(Paint.Join.ROUND);
 		brush.setStrokeWidth(10f);
@@ -109,5 +109,9 @@ public class PaintView extends ImageView {
 	public void setPaths(Path newPath){
 		path = newPath;
 		postInvalidate();
+	}
+	
+	public void setColor(int color){
+		brush.setColor(color);
 	}
 }

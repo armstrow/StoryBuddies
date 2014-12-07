@@ -11,6 +11,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class CYOS_Creation_Page extends Activity {
@@ -35,6 +37,11 @@ public class CYOS_Creation_Page extends Activity {
 	Button undoButton;
 	EditText storyText;
 	PaintView drawing;
+	RadioButton color1;
+	RadioButton color2;
+	RadioButton color3;
+	RadioButton color4;
+	RadioButton color5;
 	
 	int currPageNumber = 0;
 	
@@ -61,10 +68,47 @@ public class CYOS_Creation_Page extends Activity {
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
 		drawing = (PaintView) findViewById(R.id.paintView);
 		undoButton = (Button) findViewById(R.id.undoButton);
+		color1 = (RadioButton) findViewById(R.id.color1);
+		color2 = (RadioButton) findViewById(R.id.color2);
+		color3 = (RadioButton) findViewById(R.id.color3);
+		color4 = (RadioButton) findViewById(R.id.color4);
+		color5 = (RadioButton) findViewById(R.id.color5);
 		
 		//Set up the first page for editing
 		newStory.addPage(new StoryPage());
 		updatePage(0);
+		
+		color1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				drawing.setColor(Color.BLACK);				
+			}
+		});
+		
+		color2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				drawing.setColor(Color.WHITE);				
+			}
+		});
+		color3.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				drawing.setColor(Color.BLUE);				
+			}
+		});
+		color4.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				drawing.setColor(Color.RED);				
+			}
+		});
+		color5.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				drawing.setColor(Color.YELLOW);				
+			}
+		});
 		
 		prevButton.setOnClickListener(new OnClickListener() {
 			@Override

@@ -23,7 +23,7 @@
         android:orientation="horizontal" >
 
         <RadioGroup
-            android:id="@+id/radioGroup1"
+            android:id="@+id/colorsRadioGroup"
             android:layout_width="184dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
@@ -31,32 +31,32 @@
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/radio0"
+                android:id="@+id/color1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:checked="true" />
 
             <RadioButton
-                android:id="@+id/radio1"
+                android:id="@+id/color2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
 
             <RadioButton
-                android:id="@+id/radio2"
+                android:id="@+id/color3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
 
             <RadioButton
-                android:id="@+id/radio3"
+                android:id="@+id/color4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
 
             <RadioButton
-                android:id="@+id/radio4"
+                android:id="@+id/color5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
