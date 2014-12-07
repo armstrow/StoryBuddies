@@ -83,8 +83,7 @@ public class CYOS_Creation_Page extends Activity {
 			public void onClick(View v) {
 				drawing.setColor(Color.BLACK);				
 			}
-		});
-		
+		});	
 		color2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -255,26 +254,30 @@ public class CYOS_Creation_Page extends Activity {
 		
 		//Save changes to newStory
 		pageList.get(currPageNumber).setmStoryText(storyText.getText().toString());
+		Log.i(TAG, "Pretty sure it gets here");
 		pageList.get(currPageNumber).setmPicture(drawing.getBitmap());
-		//TODO - save Bitmap as well
-		while(currPageNumber > myPaths.size()-1){
-			myPaths.add(new Path());
-		}
-		Log.i(TAG, "Not yet setting Page: myPaths size = " + myPaths.size());
-		myPaths.set(currPageNumber, drawing.getPaths());
-		Log.i(TAG, "Setting Page");
+		Log.i(TAG, "Hoping it gets here");
+		
+		//while(currPageNumber > myPaths.size()-1){
+		//	myPaths.add(new Path());
+		//}
+		//Log.i(TAG, "Not yet setting Page: myPaths size = " + myPaths.size());
+		//myPaths.set(currPageNumber, drawing.getPaths());
+		//Log.i(TAG, "Setting Page");
 		
 		currPageNumber += delta;
 		
-		while(currPageNumber > myPaths.size()-1){
-			myPaths.add(new Path());
-		}
+		///while(currPageNumber > myPaths.size()-1){
+		//	myPaths.add(new Path());
+		//}
 		
 		//Upload info for newPage
 		storyText.setText(pageList.get(currPageNumber).getmStoryText());
-		//drawing.setBitmap(pageList.get(currPageNumber).getmPicture());
-		//drawing.clear();
-		drawing.setPaths(myPaths.get(currPageNumber));
+		Log.i(TAG,"Gets Here");
+		drawing.clear();
+		drawing.setBitmap(pageList.get(currPageNumber).getmPicture());
+		//drawing.setPaths(myPaths.get(currPageNumber));
+		Log.i(TAG,"Gets here also?");
 		
 		if(currPageNumber == pageList.size()-1){
 			nextButton.setText("New Page");
