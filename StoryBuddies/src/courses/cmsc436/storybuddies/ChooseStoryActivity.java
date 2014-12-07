@@ -74,7 +74,7 @@ public class ChooseStoryActivity extends ListActivity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				if (deleteClicked != position) {
-					Toast.makeText(getApplicationContext(), "Long click story again to delete", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), "Long click story again to delete", Toast.LENGTH_SHORT).show();
 					deleteClicked = position;
 				} else if (deleteClicked == position) {
 					deleteItem(position);
