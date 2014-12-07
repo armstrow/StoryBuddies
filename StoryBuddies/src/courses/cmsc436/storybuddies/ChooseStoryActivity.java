@@ -38,6 +38,9 @@ public class ChooseStoryActivity extends ListActivity {
 	
 	private int deleteClicked = -1;
 	
+	private static final int REQUEST_CODE = 1;
+	public static final String STORY_FILE_LOC = "STORY_FILE";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,21 +97,46 @@ public class ChooseStoryActivity extends ListActivity {
 
 				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
 				Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
-				startActivity(cyosActivity); //TODO: startForResult
+				startActivityForResult(cyosActivity, REQUEST_CODE ); //TODO: startForResult
 			}
 		});
 		
 		lv.addFooterView(footerViewHolder);
+		
+		//loadItems();
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Log.i(TAG, "In ActivityResult rqCode: " + requestCode + ", result: " + resultCode);
+		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+			Log.i(TAG, "here");
+			try {
+				String newStory = data.getStringExtra(STORY_FILE_LOC);	
+				Log.i(TAG, "Got new story from creation" + newStory);
+				String dirToRead = getRootDir() + "/" + newStory.replace(" ", "_");
+				StoryBook story = StoryBuddiesUtils.readStoryFromDir(this, dirToRead);
+				mAdapter.add(story);
+			} catch (IOException e) {
+				Log.e(TAG, "Error: " + e);
+				Toast.makeText(getApplicationContext(), "Error loading new story", Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 	
 	protected void deleteItem(int position) {
-		String root_dir = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir);
+		String root_dir = getRootDir();
 		File to_del = new File(root_dir, ((StoryBook)mAdapter.getItem(position)).getmTitle().replace(" ",  "_"));
 		if (!StoryBuddiesUtils.removeDirectory(to_del)){
 			Toast.makeText(getApplicationContext(), "Error deleting story", Toast.LENGTH_LONG).show();
 		}	
-		StoryBuddiesBaseActivity.stories.remove(position);
 		mAdapter.remove(position);	
+	}
+
+	private String getRootDir() {
+		String root_dir = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir);
+		return root_dir;
 	}
 
 	@Override
@@ -116,7 +144,7 @@ public class ChooseStoryActivity extends ListActivity {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
 		speech.speak("Would you like to read a story!");
-		loadItems();
+		//loadItems();
 		//setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories)));
 	}
 	
@@ -124,10 +152,8 @@ public class ChooseStoryActivity extends ListActivity {
 	 * Loads default items from base activity
 	 */
 	private void loadItems(){
-		mAdapter.removeAllViews();
-		ArrayList<StoryBook> toAdd = StoryBuddiesBaseActivity.stories;
-		
-		toAdd.addAll(getSavedStories());
+		//mAdapter.removeAllViews();
+		/*ArrayList<StoryBook> toAdd = getSavedStories();
 		
 		for (int i = 0; i < toAdd.size(); i++)
 		{
@@ -135,69 +161,9 @@ public class ChooseStoryActivity extends ListActivity {
 			if (!mAdapter.contains(cur)) {
 				mAdapter.add(cur);
 			}
-		}
+		}*/
 	}
 
-	private Collection<? extends StoryBook> getSavedStories() {
-		ArrayList<StoryBook> savedStories = new ArrayList<StoryBook>();
-		if (Environment.MEDIA_MOUNTED.equals(Environment
-				.getExternalStorageState())) { 
-			File root_dir = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir));
-			if (!root_dir.exists() || root_dir.listFiles() == null) {
-				return savedStories;
-			}
-			for (File f : root_dir.listFiles()) {
-				if (f.isDirectory()) {
-					try {
-						savedStories.add(readStory(f.getAbsolutePath()));
-					} catch (IOException e) {
-						Log.e(TAG, "Error reading story " + f.getName() + ": " + e);
-						Toast.makeText(getApplicationContext(), "Error loading story from file: " + f.getName(), Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
-		}			
-		return savedStories;
-	}
-	
-	private StoryBook readStory(String dir) throws IOException {
-		File textFile = new File(dir, getString(R.string.text_file_name) + ".txt");
-		FileInputStream is = new FileInputStream(textFile);
-		InputStreamReader reader = new InputStreamReader(is);
-		JsonReader r = new JsonReader(reader);
-		StoryBook story = new StoryBook();
-		r.beginObject();
-		r.nextName();
-		story.setmTitle(r.nextString());
-		r.nextName();
-		story.setmAuthor(r.nextString());
-		r.nextName();
-		r.beginArray();
-		while (r.hasNext()) {
-			StoryPage page = new StoryPage();
-			r.beginObject();
-			r.nextName();
-			page.setmStoryText(r.nextString());
-			if (r.hasNext()) {
-				String type = r.nextName();
-				if (type.equals("PICTURE")) {
-					String fileName = r.nextString();
-					Bitmap pic = BitmapFactory.decodeFile(dir + "/" + fileName);
-					page.setmPicture(pic);
-				}
-			}
-			r.endObject();
-			story.addPage(page);
-		}
-		r.endArray();
-		r.endObject();
-		r.close();		
-		File cover = new File(dir, getString(R.string.cover_file_name) + ".png");
-		if (cover.exists()) {
-			Bitmap pic = BitmapFactory.decodeFile(dir + "/" + getString(R.string.cover_file_name) + ".png");
-			story.setmTitlePage(pic);
-		}
-		return story;
-	}	
+
 
 }

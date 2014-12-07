@@ -1,5 +1,7 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -12,6 +14,7 @@ import android.media.AudioManager;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -175,7 +178,24 @@ public class StoryBuddiesBaseActivity extends Activity {
 	}
 	
 	private void loadInternalStories(){
-		//TODO - Load any previously created stories and add them to the List of StoryBooks
+		if (Environment.MEDIA_MOUNTED.equals(Environment
+				.getExternalStorageState())) { 
+			File root_dir = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir));
+			if (!root_dir.exists() || root_dir.listFiles() == null) {
+				return;
+			}
+			for (File f : root_dir.listFiles()) {
+				if (f.isDirectory()) {
+					try {
+						StoryBook newStory = StoryBuddiesUtils.readStoryFromDir(this, f.getAbsolutePath());
+						stories.add(newStory);
+					} catch (IOException e) {
+						Log.e(TAG, "Error reading story " + f.getName() + ": " + e);
+						Toast.makeText(getApplicationContext(), "Error loading story from file: " + f.getName(), Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		}			
 	}
 	
 	private void deleteStories(){

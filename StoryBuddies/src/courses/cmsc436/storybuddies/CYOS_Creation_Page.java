@@ -1,15 +1,10 @@
 package courses.cmsc436.storybuddies;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.List;
 
 import android.app.Activity;
@@ -19,13 +14,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.JsonWriter;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class CYOS_Creation_Page extends Activity {
@@ -109,15 +101,22 @@ public class CYOS_Creation_Page extends Activity {
 				Log.i(TAG,"Entered submitButton OnClickListener");
 				//TODO - a popup asking if the user wants to continue should be implemented here
 				updatePage(0);
+				
 				if (saveStory(newStory))
 				{
-					finish();
+					Log.i(TAG,  "Story saved...returning");
+					Intent data = new Intent();
+					String s = newStory.getmTitle();
+					data.putExtra(ChooseStoryActivity.STORY_FILE_LOC, s);
+					CYOS_Creation_Page.this.setResult(RESULT_OK, data);
+					CYOS_Creation_Page.this.finish(); 
 				}
 				else {
 					Toast.makeText(getApplicationContext(), "Error saving story", Toast.LENGTH_LONG).show();
+					CYOS_Creation_Page.this.setResult(RESULT_CANCELED, new Intent());
+					CYOS_Creation_Page.this.finish();
 				}
-				//StoryBuddiesBaseActivity.stories.add(newStory);
-				finish();
+				
 			}
 		});
 	}

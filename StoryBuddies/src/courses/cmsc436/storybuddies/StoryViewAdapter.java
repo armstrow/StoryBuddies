@@ -12,10 +12,11 @@ import android.widget.TextView;
 
 public class StoryViewAdapter extends BaseAdapter {
 
-	private ArrayList<StoryBook> list = new ArrayList<StoryBook>();
+	//private ArrayList<StoryBook> list = new ArrayList<StoryBook>();
 	private static LayoutInflater inflater = null;
 	private Context mContext;
-
+	private ArrayList<StoryBook> list = StoryBuddiesBaseActivity.stories;
+	
 	public StoryViewAdapter(Context context) {
 		mContext = context;
 		inflater = LayoutInflater.from(mContext);
@@ -73,6 +74,7 @@ public class StoryViewAdapter extends BaseAdapter {
 	
 	public void add(StoryBook listItem) {
 		list.add(listItem);
+		//StoryBuddiesBaseActivity.stories.add(listItem);
 		notifyDataSetChanged();
 	}
 	
@@ -92,6 +94,7 @@ public class StoryViewAdapter extends BaseAdapter {
 
 	public void remove(int position) {
 		list.remove(position);
+		//StoryBuddiesBaseActivity.stories.remove(position);
 		this.notifyDataSetChanged();
 	}
 }

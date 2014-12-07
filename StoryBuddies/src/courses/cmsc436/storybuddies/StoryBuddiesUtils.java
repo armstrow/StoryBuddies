@@ -1,12 +1,17 @@
 package courses.cmsc436.storybuddies;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnSystemUiVisibilityChangeListener;
@@ -60,6 +65,46 @@ public class StoryBuddiesUtils {
 	        Log.e(TAG, "Error: " + e);
 	    }
 	}
+	
+	public static StoryBook readStoryFromDir(Activity currentActivity, String dir) throws IOException {
+		File textFile = new File(dir, currentActivity.getString(R.string.text_file_name) + ".txt");
+		FileInputStream is = new FileInputStream(textFile);
+		InputStreamReader reader = new InputStreamReader(is);
+		JsonReader r = new JsonReader(reader);
+		StoryBook story = new StoryBook();
+		r.beginObject();
+		r.nextName();
+		story.setmTitle(r.nextString());
+		r.nextName();
+		story.setmAuthor(r.nextString());
+		r.nextName();
+		r.beginArray();
+		while (r.hasNext()) {
+			StoryPage page = new StoryPage();
+			r.beginObject();
+			r.nextName();
+			page.setmStoryText(r.nextString());
+			if (r.hasNext()) {
+				String type = r.nextName();
+				if (type.equals("PICTURE")) {
+					String fileName = r.nextString();
+					Bitmap pic = BitmapFactory.decodeFile(dir + "/" + fileName);
+					page.setmPicture(pic);
+				}
+			}
+			r.endObject();
+			story.addPage(page);
+		}
+		r.endArray();
+		r.endObject();
+		r.close();		
+		File cover = new File(dir, currentActivity.getString(R.string.cover_file_name) + ".png");
+		if (cover.exists()) {
+			Bitmap pic = BitmapFactory.decodeFile(dir + "/" + currentActivity.getString(R.string.cover_file_name) + ".png");
+			story.setmTitlePage(pic);
+		}
+		return story;
+	}	
  
 	//Method below copied from http://www.java2s.com/Tutorial/Java/0180__File/Removeadirectoryandallofitscontents.htm
 		/**
