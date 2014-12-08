@@ -11,6 +11,7 @@ import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -84,13 +85,21 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	
 	private void updatePage(){
 		String currText = currStory.getmPages().get(currPage).getmStoryText();
-		Bitmap currBitmap = currStory.getmPages().get(currPage).getmPicture();
+		//TODO - Change to geting Bitmap from file or Resources as needed
+		Bitmap currBitmap = null;
+		if(currStory.getmPages().get(currPage).getmPicture() != -1){
+			//upload pic from resources
+			currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
+		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
+			//upload pic from file
+		}
+		
+		//Bitmap currBitmap = currStory.getmPages().get(currPage).getmPicture();
 		storyText.setText(currText);
 		speech.speak(currText);
 		if(currBitmap != null){
 			storyPic.setImageBitmap(currBitmap);
 		} 
-		//TODO - SetBitmap
 	}
 	
 	@Override
@@ -101,7 +110,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 
 	@Override
 	public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
-		// TODO Auto-generated method stub
+
 		ArrayList<Prediction> predictions = mLibrary.recognize(gesture);
 
 		if (predictions.size() > 0) {

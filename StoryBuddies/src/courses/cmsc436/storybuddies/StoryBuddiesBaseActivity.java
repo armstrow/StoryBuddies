@@ -168,9 +168,9 @@ public class StoryBuddiesBaseActivity extends Activity {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadBuiltInStories");
 		StoryBook testStory = new StoryBook("FirstTestStory");
 		
-		StoryPage page1 = new StoryPage(null, "the first pages text");
-		StoryPage page2 = new StoryPage(null, "the second pages text");
-		StoryPage page3 = new StoryPage(null, "The End");
+		StoryPage page1 = new StoryPage(-1, "the first pages text");
+		StoryPage page2 = new StoryPage(-1, "the second pages text");
+		StoryPage page3 = new StoryPage(-1, "The End");
 		
 		testStory.addPage(page1);
 		testStory.addPage(page2);
@@ -179,22 +179,22 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//Build Turtle and the Hare
 		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title));
 		
-		book1.setmTitlePage(getScaledBitmap(R.drawable.th1));
+		book1.setmTitlePage(R.drawable.th1);
 		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th1), text[0])); //BitmapFactory.decodeResource(getResources(), R.drawable.th1), text[0]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th2), text[1]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th3), text[2]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th4), text[3]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th5), text[4]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th6), text[5]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th7), text[6]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th8), text[7]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th9), text[8]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th10), text[9]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th11), text[10]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th12), text[11]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th13), text[12]));
-		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th14), text[13]));
+		book1.addPage(new StoryPage(R.drawable.th1, text[0])); //BitmapFactory.decodeResource(getResources(), R.drawable.th1), text[0]));
+		book1.addPage(new StoryPage(R.drawable.th2, text[1]));
+		book1.addPage(new StoryPage((R.drawable.th3), text[2]));
+		book1.addPage(new StoryPage((R.drawable.th4), text[3]));
+		book1.addPage(new StoryPage((R.drawable.th5), text[4]));
+		book1.addPage(new StoryPage((R.drawable.th6), text[5]));
+		book1.addPage(new StoryPage((R.drawable.th7), text[6]));
+		book1.addPage(new StoryPage((R.drawable.th8), text[7]));
+		book1.addPage(new StoryPage((R.drawable.th9), text[8]));
+		book1.addPage(new StoryPage((R.drawable.th10), text[9]));
+		book1.addPage(new StoryPage((R.drawable.th11), text[10]));
+		book1.addPage(new StoryPage((R.drawable.th12), text[11]));
+		book1.addPage(new StoryPage((R.drawable.th13), text[12]));
+		book1.addPage(new StoryPage((R.drawable.th14), text[13]));
 //		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th2), text[1]));
 //		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th3), text[2]));
 //		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th4), text[3]));

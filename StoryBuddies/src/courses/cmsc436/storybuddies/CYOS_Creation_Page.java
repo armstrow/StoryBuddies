@@ -11,6 +11,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Path;
 import android.os.Bundle;
@@ -27,10 +28,10 @@ import android.widget.Toast;
 public class CYOS_Creation_Page extends Activity {
 	
 	public final String TAG = "CYOS_Creation_Activity";
-	private List<Path> myPaths = new ArrayList<Path>();
 	private SpeechEngine speech;
 	
 	StoryBook newStory = new StoryBook();
+	List<Bitmap> newScreens = new ArrayList<Bitmap>();
 	Button prevButton;
 	Button nextButton;
 	Button submitButton;
@@ -53,6 +54,8 @@ public class CYOS_Creation_Page extends Activity {
 		speech = SpeechEngine.getInstance(getApplicationContext());
 		
 		speech.speak("How does our story start?");
+		
+		newScreens.add(null);
 		
 		//Get String extras from intent
 		String currTitle = getIntent().getStringExtra("currTitle");
@@ -134,6 +137,7 @@ public class CYOS_Creation_Page extends Activity {
 				} else {
 					Log.i(TAG,"Creating a new page");
 					newStory.addPage(new StoryPage());
+					newScreens.add(null);
 					speech.speak("What happens next!");
 					updatePage(1);
 				}			
@@ -185,21 +189,22 @@ public class CYOS_Creation_Page extends Activity {
 				}
 				writeStoryText(outFile, newStory);
 				
-				if (newStory.getmTitlePage() != null) {
+				if (newStory.getmTitlePage() != -1) {
 					outFile = new File(path, getString(R.string.cover_file_name) + ".png");
 					if (outFile.exists()) {
 						Log.e(TAG, "Book already exists!");
 						return false;
 					}
-					writeImageToMemory(outFile, newStory.getmTitlePage());
+					writeImageToMemory(outFile, BitmapFactory.decodeResource(getResources(), newStory.getmTitlePage()));
 				}
 				
 				List<StoryPage> pages = newStory.getmPages();
 				for (int i = 0; i < pages.size(); i++) {
 					StoryPage curPage = pages.get(i);
-					if (curPage.getmPicture() != null) {
+					//if (curPage.getmPicture() != null) { Changed to
+					if(newScreens.get(i) != null) {
 						outFile = new File(path, getString(R.string.page_file_name) + (i+1) + ".png");
-						writeImageToMemory(outFile, curPage.getmPicture());
+						writeImageToMemory(outFile, newScreens.get(i));
 					}
 				}				
 				
@@ -228,7 +233,7 @@ public class CYOS_Creation_Page extends Activity {
 			StoryPage page = pages.get(i);
 			w.beginObject();
 			w.name("TEXT").value(page.getmStoryText());
-			if (page.getmPicture() != null)
+			if (page.getmPictureFromFile() != null)
 				w.name("PICTURE").value("page" + (i+1) + ".png");
 			w.endObject();
 		}
@@ -255,7 +260,8 @@ public class CYOS_Creation_Page extends Activity {
 		//Save changes to newStory
 		pageList.get(currPageNumber).setmStoryText(storyText.getText().toString());
 		Log.i(TAG, "Pretty sure it gets here");
-		pageList.get(currPageNumber).setmPicture(drawing.getBitmap());
+		newScreens.set(currPageNumber, drawing.getBitmap());
+		//pageList.get(currPageNumber).setmPicture(drawing.getBitmap());
 		Log.i(TAG, "Hoping it gets here");
 		
 		//while(currPageNumber > myPaths.size()-1){
@@ -275,7 +281,10 @@ public class CYOS_Creation_Page extends Activity {
 		storyText.setText(pageList.get(currPageNumber).getmStoryText());
 		Log.i(TAG,"Gets Here");
 		drawing.clear();
-		drawing.setBitmap(pageList.get(currPageNumber).getmPicture());
+		//drawing.setBitmap(pageList.get(currPageNumber).getmPicture());
+		if(newScreens.get(currPageNumber) != null){
+			drawing.setBitmap(newScreens.get(currPageNumber));
+		}
 		//drawing.setPaths(myPaths.get(currPageNumber));
 		Log.i(TAG,"Gets here also?");
 		
