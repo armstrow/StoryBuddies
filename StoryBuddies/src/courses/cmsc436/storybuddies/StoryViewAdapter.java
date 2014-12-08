@@ -3,6 +3,7 @@ package courses.cmsc436.storybuddies;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,15 @@ public class StoryViewAdapter extends BaseAdapter {
 			holder = (ViewHolder) newView.getTag();
 		}
 
-		holder.cover.setImageBitmap(curr.getmTitlePage());
+		
+		if(curr.getmPages().get(0).getmPicture() != -1){
+			//upload pic from resources
+			//holder.cover.setImageResource(curr.getmPages().get(0).getmPicture());
+		} else if(curr.getmPages().get(0).getmPictureFromFile() != null){
+			//upload pic from file
+		}
+		
+		//holder.cover.setImageResource(curr.getmTitlePage());
 		holder.title.setText(curr.getmTitle());
 		holder.author.setText(curr.getmAuthor());
 

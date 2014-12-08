@@ -5,6 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.ndeftools.Message;
+import org.ndeftools.Record;
+import org.ndeftools.externaltype.AndroidApplicationRecord;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothA2dp;
@@ -16,10 +21,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.media.AudioManager;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -119,8 +126,39 @@ public class StoryBuddiesBaseActivity extends Activity {
 		mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 		mAudioManager.setSpeakerphoneOn(true);
 		
-	    if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(getIntent().getAction())) {
-	    	Log.i(TAG, "Started because of NFC tag");
+		Intent intent = getIntent();
+	    if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+	    	Parcelable[] messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+			if (messages != null) {
+
+				Log.d(TAG, "Found " + messages.length + " NDEF messages"); // is almost always just one
+
+				// parse to records
+				for (int i = 0; i < messages.length; i++) {
+					try {
+						List<Record> records = new Message((NdefMessage)messages[i]);
+						
+						Log.d(TAG, "Found " + records.size() + " records in message " + i);
+						
+						for(int k = 0; k < records.size(); k++) {
+							Log.d(TAG, " Record #" + k + " is of class " + records.get(k).getClass().getSimpleName());
+							
+							Record record = records.get(k);
+							
+		                    if(record instanceof AndroidApplicationRecord) {
+								AndroidApplicationRecord aar = (AndroidApplicationRecord)record;
+								Log.d(TAG, "Package is " + aar.getDomain() + " " + aar.getType());
+							}
+		
+						}
+					} catch (Exception e) {
+						Log.e(TAG, "Problem parsing message", e);
+					}
+
+ 				}
+			}
+	        	
+	    	/*Log.i(TAG, "Started because of NFC tag");
 	    	Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
 	    	byte[] a = tag.getId();
     	    StringBuilder sb = new StringBuilder(a.length * 2);
@@ -131,7 +169,7 @@ public class StoryBuddiesBaseActivity extends Activity {
     	   
     	    //writeTag(tag, "HELLO");
     	    //readTag(tag);
-    	    Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_SHORT).show();
+    	    Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_SHORT).show();*/
 	    }
 	}
 	

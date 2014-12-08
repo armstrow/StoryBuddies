@@ -88,8 +88,7 @@ public class StoryBuddiesUtils {
 				String type = r.nextName();
 				if (type.equals("PICTURE")) {
 					String fileName = r.nextString();
-					Bitmap pic = BitmapFactory.decodeFile(dir + "/" + fileName);
-					page.setmPicture(pic);
+					page.setmPictureFromFile(dir + "/" + fileName);
 				}
 			}
 			r.endObject();
@@ -98,11 +97,11 @@ public class StoryBuddiesUtils {
 		r.endArray();
 		r.endObject();
 		r.close();		
-		File cover = new File(dir, currentActivity.getString(R.string.cover_file_name) + ".png");
+		/*File cover = new File(dir, currentActivity.getString(R.string.cover_file_name) + ".png");
 		if (cover.exists()) {
 			Bitmap pic = BitmapFactory.decodeFile(dir + "/" + currentActivity.getString(R.string.cover_file_name) + ".png");
 			story.setmTitlePage(pic);
-		}
+		}*/ //TODO: Fix this
 		return story;
 	}	
  
