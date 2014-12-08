@@ -77,6 +77,12 @@ public class CYOS_Creation_Page extends Activity {
 		color4 = (RadioButton) findViewById(R.id.color4);
 		color5 = (RadioButton) findViewById(R.id.color5);
 		
+		color1.setBackgroundColor(Color.BLACK);
+		color2.setBackgroundColor(Color.WHITE);
+		color3.setBackgroundColor(Color.BLUE);
+		color4.setBackgroundColor(Color.RED);
+		color5.setBackgroundColor(Color.YELLOW);
+		
 		//Set up the first page for editing
 		newStory.addPage(new StoryPage());
 		updatePage(0);
