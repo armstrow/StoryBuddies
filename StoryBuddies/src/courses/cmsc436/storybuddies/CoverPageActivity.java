@@ -49,8 +49,7 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		//TODO - set author to appropriate text
 		
 		ImageButton coverView = (ImageButton) findViewById(R.id.bookCover);
-
-		currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
+		
 		coverView.setImageResource(currStory.getmTitlePage());
 		
 		coverView.setOnClickListener(new OnClickListener() {
