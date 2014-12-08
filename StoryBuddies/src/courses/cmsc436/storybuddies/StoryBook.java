@@ -9,14 +9,14 @@ import android.os.Parcelable;
 
 public class StoryBook  {
 
-	Bitmap mTitlePage;
+	int mTitlePage;
 	String mTitle;
 	String mVoiceOver;
 	String mAuthor = null;
 	ArrayList<StoryPage> mPages = new ArrayList<StoryPage>();
 	
 	// Constructors for Story Book ------------------------------------------------------------
-	public StoryBook(String title, Bitmap coverImage, String voice, List<StoryPage> pages){
+	public StoryBook(String title, int coverImage, String voice, List<StoryPage> pages){
 		mTitlePage = coverImage;
 		mTitle = title;
 		mVoiceOver = voice;
@@ -24,20 +24,20 @@ public class StoryBook  {
 			mPages = new ArrayList<StoryPage>(pages);
 	}
 	
-	public StoryBook(String title, Bitmap coverImage, String voice){
+	public StoryBook(String title, int coverImage, String voice){
 			this(title, coverImage, voice, null);
 	}
 	
-	public StoryBook(String title, Bitmap coverImage){
+	public StoryBook(String title, int coverImage){
 		this(title, coverImage, null, null);
 	}
 	
 	public StoryBook(String title){
-		this(title, null, null, null);
+		this(title, -1, null, null);
 	}
 	
 	public StoryBook(){
-		this("Default",null, null, null);
+		this("Default", -1, null, null);
 	}	
 	// End Constructors for StoryBook -------------------------------------------------------
 	
@@ -55,11 +55,11 @@ public class StoryBook  {
 		return mAuthor;
 	}
 	
-	public Bitmap getmTitlePage() {
+	public int getmTitlePage() {
 		return mTitlePage;
 	}
 
-	public void setmTitlePage(Bitmap mTitlePage) {
+	public void setmTitlePage(int mTitlePage) {
 		this.mTitlePage = mTitlePage;
 	}
 
