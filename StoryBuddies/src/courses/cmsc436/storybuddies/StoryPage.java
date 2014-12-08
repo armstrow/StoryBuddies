@@ -6,42 +6,51 @@ import android.graphics.Bitmap;
 
 public class StoryPage {
 	
-	Bitmap mPicture;
+	String mPictureFromFile;
+	int mPicture;
 	String mStoryText;
 	String mSpeechAudio;
 	String mGameActivity = null;//null will represent a story without a game link
 	
 	// Constructors for StoryPage ------------------------------------------------------------
-		public StoryPage(Bitmap picture, String words, String speech, String gameActivity){
+		public StoryPage(int picture, String words, String speech, String gameActivity){
 			mPicture = picture;
 			mStoryText = words;
 			mSpeechAudio = speech;
 			mGameActivity = gameActivity;
 		}
 		
-		public StoryPage(Bitmap picture, String words, String speech){
+		public StoryPage(int picture, String words, String speech){
 				this(picture, words, speech, null);
 		}
 		
-		public StoryPage(Bitmap picture, String words){
+		public StoryPage(int picture, String words){
 			this(picture, words, null, null);
 		}
 		
-		public StoryPage(Bitmap picture){
+		public StoryPage(int picture){
 			this(picture, null, null, null);
 		}
 		
 		public StoryPage(){
-			this(null,null, null, null);
+			this(-1,null, null, null);
 		}	
 		// End Constructors for StoryPage -------------------------------------------------------
 
 		//Start Getters and Setters -------------------------------------------------------------
-		public Bitmap getmPicture() {
+		public void setmPictureFromFile(String file){
+			mPictureFromFile = file;
+		}
+		
+		public String getmPictureFromFile(){
+			return mPictureFromFile;
+		}
+		
+		public int getmPicture() {
 			return mPicture;
 		}
 
-		public void setmPicture(Bitmap mPicture) {
+		public void setmPicture(int mPicture) {
 			this.mPicture = mPicture;
 		}
 
