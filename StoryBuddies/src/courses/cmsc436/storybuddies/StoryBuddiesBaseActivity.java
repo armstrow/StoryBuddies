@@ -9,9 +9,11 @@ import java.util.List;
 
 import org.ndeftools.Message;
 import org.ndeftools.Record;
+import org.ndeftools.wellknown.TextRecord;
 import org.ndeftools.externaltype.AndroidApplicationRecord;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -31,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StoryBuddiesBaseActivity extends Activity {
@@ -41,7 +44,8 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private BluetoothBroadcastReceiver mBluetooth;
 	private final int IMAGE_MAX_SIZE = 600;
 	
-	private final String MAC_ADDR="30:22:00:2E:BF:E9";
+	private String myMacAddr = null;
+	private String myAnimal = null;
 	
 	private boolean bluetoothWasEnabled = true;
 	
@@ -66,7 +70,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		}
 		
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (mBluetoothAdapter != null) {
+		if (mBluetoothAdapter != null && myMacAddr != null) {
 			mBluetooth = BluetoothBroadcastReceiver.getInstance();
 			if (!mBluetooth.isInitialized()) {
 				setUpBluetooth();
@@ -88,7 +92,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 
 	private void setUpBluetooth() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: setUpBluetooth");
-		mBluetooth.initialize(mBluetoothAdapter, getBaseContext(), MAC_ADDR);
+		mBluetooth.initialize(mBluetoothAdapter, getBaseContext(), myMacAddr);
 		
 		registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED));
 		registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED));
@@ -126,53 +130,15 @@ public class StoryBuddiesBaseActivity extends Activity {
 		mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 		mAudioManager.setSpeakerphoneOn(true);
 		
+		
+		//The following code for reading NFC tags based on code from https://code.google.com/p/ndef-tools-for-android/wiki/AndroidTutorial
 		Intent intent = getIntent();
 	    if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-	    	Parcelable[] messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-			if (messages != null) {
-
-				Log.d(TAG, "Found " + messages.length + " NDEF messages"); // is almost always just one
-
-				// parse to records
-				for (int i = 0; i < messages.length; i++) {
-					try {
-						List<Record> records = new Message((NdefMessage)messages[i]);
-						
-						Log.d(TAG, "Found " + records.size() + " records in message " + i);
-						
-						for(int k = 0; k < records.size(); k++) {
-							Log.d(TAG, " Record #" + k + " is of class " + records.get(k).getClass().getSimpleName());
-							
-							Record record = records.get(k);
-							
-		                    if(record instanceof AndroidApplicationRecord) {
-								AndroidApplicationRecord aar = (AndroidApplicationRecord)record;
-								Log.d(TAG, "Package is " + aar.getDomain() + " " + aar.getType());
-							}
-		
-						}
-					} catch (Exception e) {
-						Log.e(TAG, "Problem parsing message", e);
-					}
-
- 				}
-			}
+	    	handleNFCIntent(intent);
 	        	
-	    	/*Log.i(TAG, "Started because of NFC tag");
-	    	Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-	    	byte[] a = tag.getId();
-    	    StringBuilder sb = new StringBuilder(a.length * 2);
-    	    for(byte b: a)
-    	       sb.append(String.format("%02x", b & 0xff));
-    	    //"224a3c13"
-    	    Log.i(TAG, "nfc tag no: " + sb);
-    	   
-    	    //writeTag(tag, "HELLO");
-    	    //readTag(tag);
-    	    Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_SHORT).show();*/
 	    }
 	}
-	
+
 	@Override
 	public void onPause() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onPause");		
@@ -185,12 +151,16 @@ public class StoryBuddiesBaseActivity extends Activity {
 	public void onDestroy() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onDestroy");
 		super.onDestroy();
-		mBluetooth.disconnect();
+		if (mBluetooth != null) {
+			mBluetooth.disconnect();
+		}
 		if (!bluetoothWasEnabled && mBluetoothAdapter.isEnabled()) {
 			Log.i(TAG, "Re-disabling bluetooth");
 			mBluetoothAdapter.disable();
 		}
-	    unregisterReceiver(mBluetooth);
+	    if (mBluetooth != null) {
+	    	unregisterReceiver(mBluetooth); //TODO Better way to detect
+	    }
 	    
 	    deleteStories();
 	}
@@ -321,51 +291,99 @@ public class StoryBuddiesBaseActivity extends Activity {
 		stories.clear();
 	}
 	
-	//adapted from http://developer.android.com/guide/topi cs/connectivity/nfc/advanced-nfc.html 
-    /*public void writeTag(Tag tag, String tagText) {
-        MifareClassic mifare = MifareClassic.get(tag);
-        if (tagText.length() > 16)
-        	Log.e(TAG, "Text length must be < 16");
-        try {
-        	mifare.connect();
-        	mifare.writeBlock(0, tagText.getBytes());
-        	Log.i(TAG, "Text: " + tagText + " written to tag");
-        } catch (IOException e) {
-            Log.e(TAG, "IOException while closing MifareUltralight...", e);
-        } finally {
-            try {
-                mifare.close();
-            } catch (IOException e) {
-                Log.e(TAG, "IOException while closing MifareUltralight...", e);
-            }
-        }
-    }
+
+	
+	/********************************************************************
+	 * The following code for reading NFC tags based on code from 
+	 * https://code.google.com/p/ndef-tools-for-android/wiki/AndroidTutorial
+	 *************************************************************************/
+	protected NfcAdapter nfcAdapter;
+	protected PendingIntent nfcPendingIntent;
+
+	
+	public void nfcOnCreate(Bundle savedInstanceState) {
+		// initialize NFC
+		nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		nfcPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, this.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+	}
+
+	public void enableForegroundMode() {
+		Log.d(TAG, "enableForegroundMode");
+
+		IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED); // filter for all
+		IntentFilter[] writeTagFilters = new IntentFilter[] {tagDetected};
+		nfcAdapter.enableForegroundDispatch(this, nfcPendingIntent, writeTagFilters, null);
+	}
+
+	public void disableForegroundMode() {
+		Log.d(TAG, "disableForegroundMode");
+
+		nfcAdapter.disableForegroundDispatch(this);
+	}
+
+	@Override
+	public void onNewIntent(Intent intent) {
+		Log.d(TAG, "onNewIntent");
+
+		if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {			
+			handleNFCIntent(intent);
+		} else {
+			// ignore
+		}
+	}
+
+	private void handleNFCIntent(Intent intent) {
+		Parcelable[] messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+		if (messages != null) {
+	
+			Log.d(TAG, "Found " + messages.length + " NDEF messages"); // is almost always just one
+	
+			// parse to records
+			for (int i = 0; i < messages.length; i++) {
+				try {
+					List<Record> records = new Message((NdefMessage)messages[i]);
+					
+					Log.d(TAG, "Found " + records.size() + " records in message " + i);
+					
+					for(int k = 0; k < records.size(); k++) {
+						Log.d(TAG, " Record #" + k + " is of class " + records.get(k).getClass().getSimpleName());
+						
+						Record record = records.get(k);
+						
+		                if(record instanceof AndroidApplicationRecord) {
+							AndroidApplicationRecord aar = (AndroidApplicationRecord)record;
+							Log.d(TAG, "Package is " + aar.getDomain() + " " + aar.getType());
+						}
+		                else if (record instanceof TextRecord) {
+		                	TextRecord tr = (TextRecord) record;
+		                	String key = new String(tr.getId());
+							String value = tr.getText();
+							Log.d(TAG, "Text Record " + key + ": " + value);
+							if (key.equals("animal")) {
+								myAnimal = value;
+							}
+							else if (key.equals("speaker")) {
+								myMacAddr = value;
+							}
+		                }
+	
+					}
+				} catch (Exception e) {
+					Log.e(TAG, "Problem parsing message", e);
+				}
+	
+			}
+		}
+	}
+
+	protected void nfcResume() {
+		enableForegroundMode();
+	}
+
+	protected void nfcPause() {
+		disableForegroundMode();
+	}
 	
 	
-	public String readTag(Tag tag) {
-        NfcA mifare = NfcA.get(tag);
-        try {
-        	String s = "";
-            mifare.connect();
-            Log.i(TAG, "Connected");
-            for (int i = 0; i < mifare.getBlockCount(); i++) {
-            	byte[] payload = mifare.readBlock(i);
-            	s += new String(payload, Charset.forName("US-ASCII"));
-            }         
-            return s;
-        } catch (IOException e) {
-            Log.e(TAG, "IOException while writing MifareClassic message...", e);
-        } finally {
-            if (mifare != null) {
-               try {
-                   mifare.close();
-               }
-               catch (IOException e) {
-                   Log.e(TAG, "Error closing tag...", e);
-               }
-            }
-        }
-        return null;
-    }*/
 
 }
