@@ -1,6 +1,8 @@
 package courses.cmsc436.storybuddies;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,6 +14,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.media.AudioManager;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -29,6 +32,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private final String TAG = "Story_Buddies";
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothBroadcastReceiver mBluetooth;
+	private final int IMAGE_MAX_SIZE = 600;
 	
 	private final String MAC_ADDR="30:22:00:2E:BF:E9";
 	
@@ -174,9 +178,23 @@ public class StoryBuddiesBaseActivity extends Activity {
 		
 		//Build Turtle and the Hare
 		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title));
-//		book1.setmTitlePage(BitmapFactory.decodeResource(getResources(), R.drawable.tortoise_title));
+		
+		book1.setmTitlePage(getScaledBitmap(R.drawable.th1));
 		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
-		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th1), text[0]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th1), text[0])); //BitmapFactory.decodeResource(getResources(), R.drawable.th1), text[0]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th2), text[1]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th3), text[2]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th4), text[3]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th5), text[4]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th6), text[5]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th7), text[6]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th8), text[7]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th9), text[8]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th10), text[9]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th11), text[10]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th12), text[11]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th13), text[12]));
+		book1.addPage(new StoryPage(getScaledBitmap(R.drawable.th14), text[13]));
 //		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th2), text[1]));
 //		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th3), text[2]));
 //		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th4), text[3]));
@@ -222,6 +240,43 @@ public class StoryBuddiesBaseActivity extends Activity {
 				}
 			}
 		}			
+	}
+	
+	private Bitmap getScaledBitmap(int pointer){
+		Bitmap tempBitmap = BitmapFactory.decodeResource(getResources(),pointer);// R.drawable.tortoise_title);
+		tempBitmap = Bitmap.createScaledBitmap(tempBitmap, 200,225,true);//1200, 1350, true);
+		return tempBitmap;
+	}
+	
+	private Bitmap decodeFromFile(File f){
+		Bitmap bitmap = null;
+		try{
+			//Decode image size
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = true;
+			
+			FileInputStream fileIS = new FileInputStream(f);
+			BitmapFactory.decodeStream(fileIS, null, options);
+			fileIS.close();
+			
+			int scale = 1;
+			if(options.outHeight > IMAGE_MAX_SIZE || options.outWidth > IMAGE_MAX_SIZE){
+				scale = (int) Math.pow(2, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(options.outHeight, options.outWidth)) / Math.log(0.5)));
+			}
+			
+			//Decode with inSampleSize
+			BitmapFactory.Options options2 = new BitmapFactory.Options();
+			options2.inSampleSize = scale;
+			fileIS = new FileInputStream(f);
+			bitmap = BitmapFactory.decodeStream(fileIS, null, options2);
+			fileIS.close();
+		} catch (FileNotFoundException e) {
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bitmap;
 	}
 	
 	private void deleteStories(){
