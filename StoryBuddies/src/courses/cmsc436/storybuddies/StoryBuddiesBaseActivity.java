@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class StoryBuddiesBaseActivity extends Activity {
 	
 	public static ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
-	private final String TAG = "SB_Main";
+	private final String TAG = "Story_Buddies";
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothBroadcastReceiver mBluetooth;
 	
@@ -44,6 +44,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onCreate");
 		loadStories();
 			
 		speech = SpeechEngine.getInstance(getApplicationContext());
@@ -61,7 +62,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 			}
 		}
 		else {
-			Log.d(TAG, "bluetooth null");
+			Log.i(TAG, "bluetooth null");
 		}	
 		
 		Intent intent = new Intent(this, StartScreenActivity.class);
@@ -70,10 +71,12 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onActivityResult");
 		finish();
 	}
 
 	private void setUpBluetooth() {
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: setUpBluetooth");
 		mBluetooth.initialize(mBluetoothAdapter, getBaseContext(), MAC_ADDR);
 		
 		registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED));
@@ -97,6 +100,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onSaveInstanceState");
 	    savedInstanceState.putBoolean("bluetoothWasEnabled", bluetoothWasEnabled);
 	    super.onSaveInstanceState(savedInstanceState);
 	}
@@ -104,6 +108,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 	@Override
 	public void onResume() {
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onResume");
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
 		
@@ -128,7 +133,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 	@Override
 	public void onPause() {
-		
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onPause");		
 		super.onPause();
 		// Close proxy connection after use.
 		//mBluetoothAdapter.closeProfileProxy(0, mBluetoothSpeaker);
@@ -136,6 +141,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 	@Override
 	public void onDestroy() {
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onDestroy");
 		super.onDestroy();
 		mBluetooth.disconnect();
 		if (!bluetoothWasEnabled && mBluetoothAdapter.isEnabled()) {
@@ -148,12 +154,14 @@ public class StoryBuddiesBaseActivity extends Activity {
 	}
 	
 	private void loadStories(){
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadStories");
 		loadBuiltInStories();
 		loadInternalStories();
 	}
 	
 	private void loadBuiltInStories(){
 		//Build test Story
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadBuiltInStories");
 		StoryBook testStory = new StoryBook("FirstTestStory");
 		
 		StoryPage page1 = new StoryPage(null, "the first pages text");
@@ -166,6 +174,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		
 		//Build Turtle and the Hare
 		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title));
+//		book1.setmTitlePage(BitmapFactory.decodeResource(getResources(), R.drawable.tortoise_title));
 		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
 		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th1), text[0]));
 //		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th2), text[1]));
@@ -193,6 +202,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	}
 	
 	private void loadInternalStories(){
+		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadInternalStories");
 		if (Environment.MEDIA_MOUNTED.equals(Environment
 				.getExternalStorageState())) { 
 			File root_dir = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir));
@@ -201,6 +211,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 			}
 			for (File f : root_dir.listFiles()) {
 				if (f.isDirectory()) {
+					Log.i(TAG,"Loaded "+ f.toString());
 					try {
 						StoryBook newStory = StoryBuddiesUtils.readStoryFromDir(this, f.getAbsolutePath());
 						stories.add(newStory);
