@@ -89,7 +89,8 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		Bitmap currBitmap = null;
 		if(currStory.getmPages().get(currPage).getmPicture() != -1){
 			//upload pic from resources
-			currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
+			//currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
+			storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
 		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
 			//upload pic from file
 		}
@@ -97,9 +98,9 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		//Bitmap currBitmap = currStory.getmPages().get(currPage).getmPicture();
 		storyText.setText(currText);
 		speech.speak(currText);
-		if(currBitmap != null){
-			storyPic.setImageBitmap(currBitmap);
-		} 
+		//if(currBitmap != null){
+		//	storyPic.setImageBitmap(currBitmap);
+		//} 
 	}
 	
 	@Override
