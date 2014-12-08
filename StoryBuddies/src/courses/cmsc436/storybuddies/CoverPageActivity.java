@@ -10,11 +10,13 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,7 +48,7 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		
 		//TODO - set author to appropriate text
 		
-		ImageView coverView = (ImageView) findViewById(R.id.bookCover);
+		ImageButton coverView = (ImageButton) findViewById(R.id.bookCover);
 		
 		coverView.setOnClickListener(new OnClickListener() {
 			@Override

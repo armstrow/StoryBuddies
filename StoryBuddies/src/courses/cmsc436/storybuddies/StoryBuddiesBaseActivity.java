@@ -10,6 +10,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -163,10 +165,23 @@ public class StoryBuddiesBaseActivity extends Activity {
 		testStory.addPage(page3);
 		
 		//Build Turtle and the Hare
-		StoryBook book1 = new StoryBook("The Tortoise and the Hare");
-		book1.addPage(new StoryPage(null, "first text of tortoise and the Hare"));
-		book1.addPage(new StoryPage(null, "second text of tortoise and the Hare"));
-		book1.addPage(new StoryPage(null, "The end of tortoise and the Hare"));
+		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title));
+		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
+		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th1), text[0]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th2), text[1]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th3), text[2]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th4), text[3]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th5), text[4]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th6), text[5]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th7), text[6]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th8), text[7]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th9), text[8]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th10), text[9]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th11), text[10]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th12), text[11]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th13), text[12]));
+//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th14), text[13]));
+		
 		
 		//Add stories to ArrayList
 		stories.add(testStory);
