@@ -1,5 +1,6 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -12,6 +13,7 @@ import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -86,13 +88,15 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	private void updatePage(){
 		String currText = currStory.getmPages().get(currPage).getmStoryText();
 		//TODO - Change to geting Bitmap from file or Resources as needed
-		Bitmap currBitmap = null;
+		//Bitmap currBitmap = null;
+		Log.i(TAG, "Attemptin to load image: " + currStory.getmPages().get(currPage).getmPictureFromFile());
 		if(currStory.getmPages().get(currPage).getmPicture() != -1){
 			//upload pic from resources
 			//currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
 			storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
 		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
 			//upload pic from file
+						storyPic.setImageURI(Uri.fromFile(new File(currStory.getmPages().get(currPage).getmPictureFromFile())));
 		}
 		
 		//Bitmap currBitmap = currStory.getmPages().get(currPage).getmPicture();

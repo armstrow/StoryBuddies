@@ -233,7 +233,7 @@ public class CYOS_Creation_Page extends Activity {
 			StoryPage page = pages.get(i);
 			w.beginObject();
 			w.name("TEXT").value(page.getmStoryText());
-			if (page.getmPictureFromFile() != null)
+			if (newScreens.get(i) != null)
 				w.name("PICTURE").value("page" + (i+1) + ".png");
 			w.endObject();
 		}
