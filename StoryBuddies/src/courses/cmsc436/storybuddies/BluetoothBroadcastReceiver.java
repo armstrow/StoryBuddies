@@ -19,10 +19,8 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 	private BluetoothA2dp mBluetoothSpeaker;
 	private BluetoothDevice mBluetoothDev;
 	private BluetoothAdapter mBluetoothAdapter;
-	private String mMacAddr = null;
 	private final String TAG = "SB_BluetoothBroadcastReceiver";
 	private BluetoothProfile.ServiceListener mProfileListener;
-	private Context mContext;
 	private static BluetoothBroadcastReceiver instance;
 	private boolean isInitialized = false;
 	
@@ -30,17 +28,14 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		
 	}
 	
-	public void initialize(BluetoothAdapter adapter, Context context, String macAddr) {
+	public void initialize(BluetoothAdapter adapter, Context context) {
 		mBluetoothAdapter = adapter;
-		mMacAddr = macAddr;
-		mBluetoothDev = mBluetoothAdapter.getRemoteDevice(mMacAddr);
-		mContext = context;
 			 
 		mProfileListener = new BluetoothProfile.ServiceListener() {
 		    public void onServiceConnected(int profile, BluetoothProfile proxy) {
 		        if (profile == BluetoothProfile.A2DP) {
 		        	mBluetoothSpeaker = (BluetoothA2dp) proxy; 
-		        	if (mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_DISCONNECTED) {
+		        	if (mBluetoothDev != null && mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_DISCONNECTED) {
 		        		connect();
 		        	}
 		        }
@@ -55,6 +50,11 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		// Establish connection to the proxy.
 		mBluetoothAdapter.getProfileProxy(context, mProfileListener, BluetoothProfile.A2DP);
 		isInitialized = true;
+	}
+	
+	public void setBluetoothDev(String macAdd) {
+		mBluetoothDev = mBluetoothAdapter.getRemoteDevice(macAdd);
+		connect();
 	}
 	
 	public boolean isInitialized() {
@@ -126,6 +126,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 			//Do nothing
 		}
 		else if (mBluetoothDev.getBondState() == BluetoothDevice.BOND_NONE) {
+			mBluetoothDev.setPin(new byte[] {(byte)0, (byte)0, (byte)0, (byte)0});
 			if (!mBluetoothDev.createBond()) {
 				Log.e(TAG, "Could not start bonding!");
 			}

@@ -88,7 +88,6 @@ public class StoryBuddiesUtils {
 				String type = r.nextName();
 				if (type.equals("PICTURE")) {
 					String fileName = r.nextString();
-					Log.i(TAG, "setting picture: " + dir + "/" + fileName);
 					page.setmPictureFromFile(dir + "/" + fileName);
 				}
 			}

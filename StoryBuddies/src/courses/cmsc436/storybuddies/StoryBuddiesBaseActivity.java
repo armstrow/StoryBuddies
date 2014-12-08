@@ -46,9 +46,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 	private String myMacAddr = null;
 	private String myAnimal = null;
-	
-	private boolean bluetoothWasEnabled = true;
-	
+		
 	// AudioManager
 	private AudioManager mAudioManager;
 	private SpeechEngine speech;
@@ -58,19 +56,14 @@ public class StoryBuddiesBaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		//nfcOnCreate(savedInstanceState);
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onCreate");
 		loadStories();
 			
 		speech = SpeechEngine.getInstance(getApplicationContext());
-				
-		if (savedInstanceState != null)
-		{
-			bluetoothWasEnabled = savedInstanceState.getBoolean("bluetoothWasEnabled");
-		}
 		
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (mBluetoothAdapter != null && myMacAddr != null) {
+		if (mBluetoothAdapter != null) {
 			mBluetooth = BluetoothBroadcastReceiver.getInstance();
 			if (!mBluetooth.isInitialized()) {
 				setUpBluetooth();
@@ -92,7 +85,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 
 	private void setUpBluetooth() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: setUpBluetooth");
-		mBluetooth.initialize(mBluetoothAdapter, getBaseContext(), myMacAddr);
+		mBluetooth.initialize(mBluetoothAdapter, getBaseContext());
 		
 		registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED));
 		registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED));
@@ -100,12 +93,12 @@ public class StoryBuddiesBaseActivity extends Activity {
 		registerReceiver(mBluetooth, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 		
 		if (!mBluetoothAdapter.isEnabled()) {
-			bluetoothWasEnabled = false;
-			if (!mBluetoothAdapter.enable()) {
-				Log.e(TAG, "Could not enable bluetooth");
-			}				
-		    //Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		    //startActivityForResult(enableBtIntent, 0); 
+			//bluetoothWasEnabled = false;
+			//if (!mBluetoothAdapter.enable()) {
+			//	Log.e(TAG, "Could not enable bluetooth");
+			//}				
+		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+		    startActivityForResult(enableBtIntent, 0); 
 		}	
 		else {
 			Log.i(TAG, "Bluetooth already enabled, connecting...");
@@ -113,29 +106,24 @@ public class StoryBuddiesBaseActivity extends Activity {
 		}
 	}
 	
-	@Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
-		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onSaveInstanceState");
-	    savedInstanceState.putBoolean("bluetoothWasEnabled", bluetoothWasEnabled);
-	    super.onSaveInstanceState(savedInstanceState);
-	}
-	
 	
 	@Override
 	public void onResume() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onResume");
 		super.onResume();
+		//nfcResume();
 		StoryBuddiesUtils.hideSystemUI(this);
 		
 		mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 		mAudioManager.setSpeakerphoneOn(true);
 		
-		
-		//The following code for reading NFC tags based on code from https://code.google.com/p/ndef-tools-for-android/wiki/AndroidTutorial
 		Intent intent = getIntent();
 	    if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-	    	handleNFCIntent(intent);
-	        	
+	    	handleNFCIntent(intent);   	
+	    }
+	    
+	    if (stories.isEmpty()) { //Shouldn't happen because will always have a built-in story
+	    	loadStories();
 	    }
 	}
 
@@ -143,6 +131,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	public void onPause() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onPause");		
 		super.onPause();
+		//nfcPause();
 		// Close proxy connection after use.
 		//mBluetoothAdapter.closeProfileProxy(0, mBluetoothSpeaker);
 	}
@@ -151,27 +140,48 @@ public class StoryBuddiesBaseActivity extends Activity {
 	public void onDestroy() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onDestroy");
 		super.onDestroy();
-		if (mBluetooth != null) {
-			mBluetooth.disconnect();
+		if (mBluetoothAdapter != null) {
+			if (mBluetooth != null) {
+				Log.i(TAG, "Disconnecting Bluetooth");
+				mBluetooth.disconnect();
+				unregisterReceiver(mBluetooth); //TODO Better way to detect
+			}
+			/*if (!bluetoothWasEnabled && mBluetoothAdapter.isEnabled()) {
+				Log.i(TAG, "Re-disabling bluetooth");
+				mBluetoothAdapter.disable();
+			}*/
 		}
-		if (!bluetoothWasEnabled && mBluetoothAdapter.isEnabled()) {
-			Log.i(TAG, "Re-disabling bluetooth");
-			mBluetoothAdapter.disable();
-		}
-	    if (mBluetooth != null) {
-	    	unregisterReceiver(mBluetooth); //TODO Better way to detect
-	    }
 	    
 	    deleteStories();
 	}
 	
 	private void loadStories(){
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadStories");
-		loadBuiltInStories();
-		loadInternalStories();
+		List<StoryBook> internal = getBuiltInStories();
+		List<StoryBook> saved = getInternalStories();
+				
+		for (StoryBook story : internal) {
+			addStory(story);
+		}
+		for (StoryBook story : saved) {
+			addStory(story);
+		}
+	}
+
+	private void addStory(StoryBook story) {
+		boolean exists = false;
+		for (StoryBook story2 : stories) {
+			if (story.getmTitle().equals(story2.getmTitle())) {
+				exists = true;
+				break;
+			}
+		}
+		if (!exists) {
+			stories.add(story);
+		}
 	}
 	
-	private void loadBuiltInStories(){
+	private List<StoryBook> getBuiltInStories(){
 		//Build test Story
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadBuiltInStories");
 		StoryBook testStory = new StoryBook("FirstTestStory");
@@ -219,35 +229,35 @@ public class StoryBuddiesBaseActivity extends Activity {
 		
 		
 		//Add stories to ArrayList
-		stories.add(testStory);
-		stories.add(book1);
+		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
+		result.add(testStory);
+		result.add(book1);
 		
-		
-		//TODO - Create all the built in stories for the particular animal we are connected to
-		//	and add them to the list of StoryBooks
+		return result;
 	}
 	
-	private void loadInternalStories(){
+	private List<StoryBook> getInternalStories(){
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadInternalStories");
+		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
 		if (Environment.MEDIA_MOUNTED.equals(Environment
 				.getExternalStorageState())) { 
 			File root_dir = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir));
-			if (!root_dir.exists() || root_dir.listFiles() == null) {
-				return;
-			}
-			for (File f : root_dir.listFiles()) {
-				if (f.isDirectory()) {
-					Log.i(TAG,"Loaded "+ f.toString());
-					try {
-						StoryBook newStory = StoryBuddiesUtils.readStoryFromDir(this, f.getAbsolutePath());
-						stories.add(newStory);
-					} catch (IOException e) {
-						Log.e(TAG, "Error reading story " + f.getName() + ": " + e);
-						Toast.makeText(getApplicationContext(), "Error loading story from file: " + f.getName(), Toast.LENGTH_SHORT).show();
+			if (root_dir.exists() && root_dir.listFiles() == null) {
+				for (File f : root_dir.listFiles()) {
+					if (f.isDirectory()) {
+						Log.i(TAG,"Loaded "+ f.toString());
+						try {
+							StoryBook newStory = StoryBuddiesUtils.readStoryFromDir(this, f.getAbsolutePath());
+							result.add(newStory);
+						} catch (IOException e) {
+							Log.e(TAG, "Error reading story " + f.getName() + ": " + e);
+							Toast.makeText(getApplicationContext(), "Error loading story from file: " + f.getName(), Toast.LENGTH_SHORT).show();
+						}
 					}
 				}
 			}
-		}			
+		}	
+		return result;
 	}
 	
 	private Bitmap getScaledBitmap(int pointer){
@@ -297,7 +307,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	 * The following code for reading NFC tags based on code from 
 	 * https://code.google.com/p/ndef-tools-for-android/wiki/AndroidTutorial
 	 *************************************************************************/
-	protected NfcAdapter nfcAdapter;
+	/*protected NfcAdapter nfcAdapter;
 	protected PendingIntent nfcPendingIntent;
 
 	
@@ -330,7 +340,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		} else {
 			// ignore
 		}
-	}
+	}*/
 
 	private void handleNFCIntent(Intent intent) {
 		Parcelable[] messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -358,12 +368,13 @@ public class StoryBuddiesBaseActivity extends Activity {
 		                	TextRecord tr = (TextRecord) record;
 		                	String key = new String(tr.getId());
 							String value = tr.getText();
-							Log.d(TAG, "Text Record " + key + ": " + value);
+							Log.d(TAG, "Text Record " + key + ": \"" + value + "\"");
 							if (key.equals("animal")) {
 								myAnimal = value;
 							}
-							else if (key.equals("speaker")) {
-								myMacAddr = value;
+							else if (key.equals("speaker") && myMacAddr != value) {
+								myMacAddr = value.trim();
+								mBluetooth.setBluetoothDev(myMacAddr);
 							}
 		                }
 	
@@ -376,13 +387,13 @@ public class StoryBuddiesBaseActivity extends Activity {
 		}
 	}
 
-	protected void nfcResume() {
+	/*protected void nfcResume() {
 		enableForegroundMode();
 	}
 
 	protected void nfcPause() {
 		disableForegroundMode();
-	}
+	}*/
 	
 	
 
