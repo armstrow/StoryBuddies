@@ -195,7 +195,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		testStory.addPage(page3);
 		
 		//Build Turtle and the Hare
-		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title));
+		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title), R.drawable.th1);
 		
 		book1.setmTitlePage(R.drawable.th1);
 		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);

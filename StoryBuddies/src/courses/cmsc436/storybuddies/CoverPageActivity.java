@@ -50,6 +50,8 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		
 		ImageButton coverView = (ImageButton) findViewById(R.id.bookCover);
 		
+		coverView.setImageResource(currStory.getmTitlePage());
+		
 		coverView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
