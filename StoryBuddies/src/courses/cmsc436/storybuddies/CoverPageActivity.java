@@ -12,6 +12,7 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,7 +67,8 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
 		GestureOverlayView gestureOverlay = (GestureOverlayView) findViewById(R.id.gestureOverlay);
 		gestureOverlay.addOnGesturePerformedListener(this);
-
+		gestureOverlay.setUncertainGestureColor(Color.TRANSPARENT);
+		gestureOverlay.setGestureColor(Color.TRANSPARENT);
 		
 		if (!mLibrary.load()) {
 			finish();

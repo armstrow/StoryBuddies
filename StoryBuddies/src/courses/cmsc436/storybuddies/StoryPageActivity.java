@@ -16,6 +16,7 @@ import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,6 +64,8 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
 		GestureOverlayView gestureOverlay = (GestureOverlayView) findViewById(R.id.gestureOverlay);
 		gestureOverlay.addOnGesturePerformedListener(this);
+		gestureOverlay.setUncertainGestureColor(Color.TRANSPARENT);
+		gestureOverlay.setGestureColor(Color.TRANSPARENT);
 		
 		prevButton.setOnClickListener(new OnClickListener() {
 			@Override
