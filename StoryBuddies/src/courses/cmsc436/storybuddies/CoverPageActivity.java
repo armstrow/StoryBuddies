@@ -2,6 +2,8 @@ package courses.cmsc436.storybuddies;
 
 import java.util.ArrayList;
 
+import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.gesture.Gesture;
@@ -48,9 +50,11 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		
 		//TODO - set author to appropriate text
 		
-		ImageButton coverView = (ImageButton) findViewById(R.id.bookCover);
+		ImageView coverView = (ImageView) findViewById(R.id.bookCover);
 		
-		coverView.setImageResource(currStory.getmTitlePage());
+		//coverView.setImageResource(currStory.getmTitlePage());
+		BitmapWorkerTask imageLoader = new BitmapWorkerTask(coverView, getResources());
+		imageLoader.execute(currStory.getmTitlePage());
 		
 		coverView.setOnClickListener(new OnClickListener() {
 			@Override

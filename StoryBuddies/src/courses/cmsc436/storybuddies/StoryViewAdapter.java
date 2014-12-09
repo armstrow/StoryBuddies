@@ -2,6 +2,8 @@ package courses.cmsc436.storybuddies;
 
 import java.util.ArrayList;
 
+import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
+
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -59,7 +61,10 @@ public class StoryViewAdapter extends BaseAdapter {
 		}
 
 		
-		holder.cover.setImageResource(curr.getmTitlePage());
+		//holder.cover.setImageResource(curr.getmTitlePage());
+		BitmapWorkerTask imageLoader = new BitmapWorkerTask(holder.cover, mContext.getResources());
+		imageLoader.execute(curr.getmTitlePage());
+		
 		holder.title.setText(curr.getmTitle());
 		holder.author.setText(curr.getmAuthor());
 

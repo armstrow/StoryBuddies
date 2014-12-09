@@ -1,7 +1,10 @@
 package courses.cmsc436.storybuddies;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
+import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +17,7 @@ import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -93,10 +97,12 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		if(currStory.getmPages().get(currPage).getmPicture() != -1){
 			//upload pic from resources
 			//currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
-			storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
+			//storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
+			BitmapWorkerTask imageLoader = new BitmapWorkerTask(storyPic, getResources());
+			imageLoader.execute(currStory.getmPages().get(currPage).getmPicture());
 		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
-			//upload pic from file
-						storyPic.setImageURI(Uri.fromFile(new File(currStory.getmPages().get(currPage).getmPictureFromFile())));
+			//upload pic from file -- these will be of small enough resolution to load quickly
+			storyPic.setImageURI(Uri.fromFile(new File(currStory.getmPages().get(currPage).getmPictureFromFile())));
 		}
 		
 		//Bitmap currBitmap = currStory.getmPages().get(currPage).getmPicture();
@@ -151,5 +157,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 			startActivity(goToCoverIntent);
 			finish();
 		}
-	}
+	}	
+	
+	
 }
