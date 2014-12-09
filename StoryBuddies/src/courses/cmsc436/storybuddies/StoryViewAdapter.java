@@ -61,9 +61,9 @@ public class StoryViewAdapter extends BaseAdapter {
 		}
 
 		
-		//holder.cover.setImageResource(curr.getmTitlePage());
-		BitmapWorkerTask imageLoader = new BitmapWorkerTask(holder.cover, mContext.getResources());
-		imageLoader.execute(curr.getmTitlePage());
+		holder.cover.setImageResource(curr.getmTitlePage());
+		//BitmapWorkerTask imageLoader = new BitmapWorkerTask(holder.cover, mContext.getResources());
+		//imageLoader.execute(curr.getmTitlePage());
 		
 		holder.title.setText(curr.getmTitle());
 		holder.author.setText(curr.getmAuthor());

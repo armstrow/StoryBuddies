@@ -169,7 +169,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//TODO Load based on myAnimal
 		
 		//Build Turtle and the Hare
-		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title), R.drawable.th1);
+		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title), R.drawable.tortoise_title);
 		
 		book1.setmTitlePage(R.drawable.th1);
 		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
@@ -198,15 +198,17 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private List<StoryBook> getInternalStories(){
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadInternalStories");
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
-		if (Environment.MEDIA_MOUNTED.equals(Environment
-				.getExternalStorageState())) { 
-			File root_dir = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir));
-			if (root_dir.exists() && root_dir.listFiles() == null) {
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) { 
+			String s = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir);
+			File root_dir = new File(s);
+			Log.i(TAG, "Loading stories from " + s);
+			if (root_dir.exists() && root_dir.listFiles() == null) {				
 				for (File f : root_dir.listFiles()) {
 					if (f.isDirectory()) {
 						Log.i(TAG,"Loaded "+ f.toString());
 						try {
 							StoryBook newStory = StoryBuddiesUtils.readStoryFromDir(this, f.getAbsolutePath());
+							newStory.setmTitlePage(R.drawable.cyo_page);
 							result.add(newStory);
 						} catch (IOException e) {
 							Log.e(TAG, "Error reading story " + f.getName() + ": " + e);

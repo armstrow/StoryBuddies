@@ -117,6 +117,7 @@ public class ChooseStoryActivity extends ListActivity {
 				Log.i(TAG, "Got new story from creation" + newStory);
 				String dirToRead = getRootDir() + "/" + newStory.replace(" ", "_");
 				StoryBook story = StoryBuddiesUtils.readStoryFromDir(this, dirToRead);
+				story.setmTitlePage(R.drawable.cyo_page);
 				mAdapter.add(story);
 			} catch (IOException e) {
 				Log.e(TAG, "Error: " + e);
