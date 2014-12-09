@@ -1,22 +1,12 @@
 package courses.cmsc436.storybuddies;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
-import android.bluetooth.BluetoothA2dp;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.media.AudioManager;
-import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class StartScreenActivity extends Activity {
 	
@@ -42,6 +32,9 @@ public class StartScreenActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		SpeechEngine.getInstance(getApplicationContext()).speak("Ready to play? Touch Play to begin");
+		
 	}
 	
 	@Override

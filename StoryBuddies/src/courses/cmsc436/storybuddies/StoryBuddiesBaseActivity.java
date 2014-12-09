@@ -1,39 +1,28 @@
 package courses.cmsc436.storybuddies;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.ndeftools.Message;
 import org.ndeftools.Record;
-import org.ndeftools.wellknown.TextRecord;
 import org.ndeftools.externaltype.AndroidApplicationRecord;
+import org.ndeftools.wellknown.TextRecord;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.media.AudioManager;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class StoryBuddiesBaseActivity extends Activity {
@@ -44,14 +33,12 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private final String TAG = "Story_Buddies";
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothBroadcastReceiver mBluetooth;
-	private final int IMAGE_MAX_SIZE = 600;
 	
 	private String myMacAddr = null;
 	private String myAnimal = null;
 		
 	// AudioManager
 	private AudioManager mAudioManager;
-	private SpeechEngine speech;
 	
 	//Static variable used throughout the app
 	
@@ -61,8 +48,6 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//nfcOnCreate(savedInstanceState);
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onCreate");
 		
-		speech = SpeechEngine.getInstance(getApplicationContext());
-			
 		Intent intent = new Intent(this, StartScreenActivity.class);
 		startActivityForResult(intent, START_SCREEN);
 	}
@@ -133,15 +118,6 @@ public class StoryBuddiesBaseActivity extends Activity {
 	}
 
 	@Override
-	public void onPause() {
-		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onPause");		
-		super.onPause();
-		//nfcPause();
-		// Close proxy connection after use.
-		//mBluetoothAdapter.closeProfileProxy(0, mBluetoothSpeaker);
-	}
-	
-	@Override
 	public void onDestroy() {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onDestroy");
 		super.onDestroy();
@@ -149,7 +125,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 			if (mBluetooth != null) {
 				Log.i(TAG, "Disconnecting Bluetooth");
 				mBluetooth.disconnect();
-				unregisterReceiver(mBluetooth); //TODO Better way to detect
+				unregisterReceiver(mBluetooth); 
 			}
 			/*if (!bluetoothWasEnabled && mBluetoothAdapter.isEnabled()) {
 				Log.i(TAG, "Re-disabling bluetooth");
@@ -189,15 +165,8 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private List<StoryBook> getBuiltInStories(){
 		//Build test Story
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadBuiltInStories");
-		StoryBook testStory = new StoryBook("FirstTestStory");
 		
-		StoryPage page1 = new StoryPage(-1, "the first pages text");
-		StoryPage page2 = new StoryPage(-1, "the second pages text");
-		StoryPage page3 = new StoryPage(-1, "The End");
-		
-		testStory.addPage(page1);
-		testStory.addPage(page2);
-		testStory.addPage(page3);
+		//TODO Load based on myAnimal
 		
 		//Build Turtle and the Hare
 		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title), R.drawable.th1);
@@ -218,24 +187,9 @@ public class StoryBuddiesBaseActivity extends Activity {
 		book1.addPage(new StoryPage((R.drawable.th12), text[11]));
 		book1.addPage(new StoryPage((R.drawable.th13), text[12]));
 		book1.addPage(new StoryPage((R.drawable.th14), text[13]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th2), text[1]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th3), text[2]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th4), text[3]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th5), text[4]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th6), text[5]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th7), text[6]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th8), text[7]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th9), text[8]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th10), text[9]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th11), text[10]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th12), text[11]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th13), text[12]));
-//		book1.addPage(new StoryPage(BitmapFactory.decodeResource(getResources(), R.drawable.th14), text[13]));
-		
 		
 		//Add stories to ArrayList
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
-		result.add(testStory);
 		result.add(book1);
 		
 		return result;
@@ -263,43 +217,6 @@ public class StoryBuddiesBaseActivity extends Activity {
 			}
 		}	
 		return result;
-	}
-	
-	private Bitmap getScaledBitmap(int pointer){
-		Bitmap tempBitmap = BitmapFactory.decodeResource(getResources(),pointer);// R.drawable.tortoise_title);
-		tempBitmap = Bitmap.createScaledBitmap(tempBitmap, 200,225,true);//1200, 1350, true);
-		return tempBitmap;
-	}
-	
-	private Bitmap decodeFromFile(File f){
-		Bitmap bitmap = null;
-		try{
-			//Decode image size
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inJustDecodeBounds = true;
-			
-			FileInputStream fileIS = new FileInputStream(f);
-			BitmapFactory.decodeStream(fileIS, null, options);
-			fileIS.close();
-			
-			int scale = 1;
-			if(options.outHeight > IMAGE_MAX_SIZE || options.outWidth > IMAGE_MAX_SIZE){
-				scale = (int) Math.pow(2, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(options.outHeight, options.outWidth)) / Math.log(0.5)));
-			}
-			
-			//Decode with inSampleSize
-			BitmapFactory.Options options2 = new BitmapFactory.Options();
-			options2.inSampleSize = scale;
-			fileIS = new FileInputStream(f);
-			bitmap = BitmapFactory.decodeStream(fileIS, null, options2);
-			fileIS.close();
-		} catch (FileNotFoundException e) {
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return bitmap;
 	}
 	
 	private void deleteStories(){
