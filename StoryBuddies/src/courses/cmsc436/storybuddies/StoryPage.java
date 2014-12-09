@@ -1,8 +1,5 @@
 package courses.cmsc436.storybuddies;
 
-import java.util.List;
-
-import android.graphics.Bitmap;
 
 public class StoryPage {
 	

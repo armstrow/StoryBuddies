@@ -33,7 +33,7 @@ public class StartScreenActivity extends Activity {
 			}
 		});
 		
-		SpeechEngine.getInstance(getApplicationContext()).speak("Ready to play? Touch Play to begin");
+		SpeechEngine.getInstance(getApplicationContext()).speak(getString(R.string.ready));
 		
 	}
 	

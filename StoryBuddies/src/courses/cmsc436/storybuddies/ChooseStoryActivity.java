@@ -1,30 +1,18 @@
 package courses.cmsc436.storybuddies;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.JsonReader;
-import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -130,7 +118,7 @@ public class ChooseStoryActivity extends ListActivity {
 		String root_dir = getRootDir();
 		File to_del = new File(root_dir, ((StoryBook)mAdapter.getItem(position)).getmTitle().replace(" ",  "_"));
 		if (!StoryBuddiesUtils.removeDirectory(to_del)){
-			Toast.makeText(getApplicationContext(), "Error deleting story", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.error_delete), Toast.LENGTH_LONG).show();
 		}	
 		mAdapter.remove(position);	
 	}
@@ -144,7 +132,7 @@ public class ChooseStoryActivity extends ListActivity {
 	public void onResume() {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
-		speech.speak("Would you like to read a story!");
+		speech.speak(getString(R.string.read_story));
 		//loadItems();
 		//setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories)));
 	}

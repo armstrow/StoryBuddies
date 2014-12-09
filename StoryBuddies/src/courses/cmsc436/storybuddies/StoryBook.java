@@ -3,10 +3,6 @@ package courses.cmsc436.storybuddies;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public class StoryBook  {
 
 	int mTitlePage;

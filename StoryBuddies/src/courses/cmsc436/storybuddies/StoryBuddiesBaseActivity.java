@@ -77,10 +77,6 @@ public class StoryBuddiesBaseActivity extends Activity {
 				registerReceiver(mBluetooth, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 				
 				if (!mBluetoothAdapter.isEnabled()) {
-					//bluetoothWasEnabled = false;
-					//if (!mBluetoothAdapter.enable()) {
-					//	Log.e(TAG, "Could not enable bluetooth");
-					//}				
 				    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 				    startActivityForResult(enableBtIntent, BLUETOOTH_ENABLE); 
 				}	
@@ -127,10 +123,6 @@ public class StoryBuddiesBaseActivity extends Activity {
 				mBluetooth.disconnect();
 				unregisterReceiver(mBluetooth); 
 			}
-			/*if (!bluetoothWasEnabled && mBluetoothAdapter.isEnabled()) {
-				Log.i(TAG, "Re-disabling bluetooth");
-				mBluetoothAdapter.disable();
-			}*/
 		}
 	    
 	    deleteStories();
@@ -173,7 +165,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		
 		book1.setmTitlePage(R.drawable.th1);
 		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
-		book1.addPage(new StoryPage(R.drawable.th1, text[0])); //BitmapFactory.decodeResource(getResources(), R.drawable.th1), text[0]));
+		book1.addPage(new StoryPage(R.drawable.th1, text[0]));
 		book1.addPage(new StoryPage(R.drawable.th2, text[1]));
 		book1.addPage(new StoryPage((R.drawable.th3), text[2]));
 		book1.addPage(new StoryPage((R.drawable.th4), text[3]));

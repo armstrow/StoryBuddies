@@ -39,5 +39,11 @@
     <string name="cover_file_name">cover</string>
     <string name="page_file_name">page</string>
     <string name="tortoise_title">The Tortoise and the Hare</string>
+    <string name="read_story">Would you like to read a story?</string>
+    <string name="error_delete">Error deleting story</string>
+    <string name="todo">TODO - Go to a title screen clone activity</string>
+    <string name="error_save">Error saving story</string>
+    <string name="error_speech">Error initializing speech engine</string>
+    <string name="ready">Ready to play? Touch Play to begin</string>
 
 </resources>
