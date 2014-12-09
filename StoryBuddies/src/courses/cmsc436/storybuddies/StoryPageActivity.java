@@ -97,9 +97,9 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		if(currStory.getmPages().get(currPage).getmPicture() != -1){
 			//upload pic from resources
 			//currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
-			//storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
-			BitmapWorkerTask imageLoader = new BitmapWorkerTask(storyPic, getResources());
-			imageLoader.execute(currStory.getmPages().get(currPage).getmPicture());
+			storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
+			//BitmapWorkerTask imageLoader = new BitmapWorkerTask(storyPic, getResources());
+			//imageLoader.execute(currStory.getmPages().get(currPage).getmPicture());
 		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
 			//upload pic from file -- these will be of small enough resolution to load quickly
 			storyPic.setImageURI(Uri.fromFile(new File(currStory.getmPages().get(currPage).getmPictureFromFile())));

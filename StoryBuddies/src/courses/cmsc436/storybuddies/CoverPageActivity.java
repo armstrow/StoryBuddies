@@ -52,9 +52,9 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		
 		ImageView coverView = (ImageView) findViewById(R.id.bookCover);
 		
-		//coverView.setImageResource(currStory.getmTitlePage());
-		BitmapWorkerTask imageLoader = new BitmapWorkerTask(coverView, getResources());
-		imageLoader.execute(currStory.getmTitlePage());
+		coverView.setImageResource(currStory.getmTitlePage());
+		//BitmapWorkerTask imageLoader = new BitmapWorkerTask(coverView, getResources());
+		//imageLoader.execute(currStory.getmTitlePage());
 		
 		coverView.setOnClickListener(new OnClickListener() {
 			@Override
