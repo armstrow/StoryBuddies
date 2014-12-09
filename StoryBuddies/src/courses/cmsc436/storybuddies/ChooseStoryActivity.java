@@ -148,22 +148,4 @@ public class ChooseStoryActivity extends ListActivity {
 		//setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories)));
 	}
 	
-	/*
-	 * Loads default items from base activity
-	 */
-	private void loadItems(){
-		//mAdapter.removeAllViews();
-		/*ArrayList<StoryBook> toAdd = getSavedStories();
-		
-		for (int i = 0; i < toAdd.size(); i++)
-		{
-			StoryBook cur = toAdd.get(i);
-			if (!mAdapter.contains(cur)) {
-				mAdapter.add(cur);
-			}
-		}*/
-	}
-
-
-
 }

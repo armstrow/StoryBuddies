@@ -59,14 +59,7 @@ public class StoryViewAdapter extends BaseAdapter {
 		}
 
 		
-		if(curr.getmPages().get(0).getmPicture() != -1){
-			//upload pic from resources
-			//holder.cover.setImageResource(curr.getmPages().get(0).getmPicture());
-		} else if(curr.getmPages().get(0).getmPictureFromFile() != null){
-			//upload pic from file
-		}
-		
-		//holder.cover.setImageResource(curr.getmTitlePage());
+		holder.cover.setImageResource(curr.getmTitlePage());
 		holder.title.setText(curr.getmTitle());
 		holder.author.setText(curr.getmAuthor());
 
