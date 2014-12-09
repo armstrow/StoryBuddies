@@ -10,7 +10,7 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentRight="true"
 	    android:layout_alignParentTop="true"
-	    android:background="#00FF00"
+	    android:background="#FFFFFF"
 	    android:height="@dimen/cyos_paintview_height" />
 
     <LinearLayout
@@ -57,6 +57,12 @@
 
             <RadioButton
                 android:id="@+id/color5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+            
+            <RadioButton
+                android:id="@+id/color6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
