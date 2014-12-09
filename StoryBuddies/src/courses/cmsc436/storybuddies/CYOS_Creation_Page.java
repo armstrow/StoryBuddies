@@ -43,6 +43,7 @@ public class CYOS_Creation_Page extends Activity {
 	RadioButton color3;
 	RadioButton color4;
 	RadioButton color5;
+	RadioButton color6;
 	
 	int currPageNumber = 0;
 	
@@ -76,12 +77,14 @@ public class CYOS_Creation_Page extends Activity {
 		color3 = (RadioButton) findViewById(R.id.color3);
 		color4 = (RadioButton) findViewById(R.id.color4);
 		color5 = (RadioButton) findViewById(R.id.color5);
+		color6 = (RadioButton) findViewById(R.id.color6);
 		
 		color1.setBackgroundColor(Color.BLACK);
 		color2.setBackgroundColor(Color.WHITE);
 		color3.setBackgroundColor(Color.BLUE);
 		color4.setBackgroundColor(Color.RED);
 		color5.setBackgroundColor(Color.YELLOW);
+		color6.setBackgroundColor(Color.GREEN);
 		
 		//Set up the first page for editing
 		newStory.addPage(new StoryPage());
@@ -115,6 +118,12 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				drawing.setColor(Color.YELLOW);				
+			}
+		});
+		color6.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				drawing.setColor(Color.GREEN);				
 			}
 		});
 		
