@@ -47,7 +47,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		
 		speech = SpeechEngine.getInstance(getApplicationContext());
 		
-		final int currStoryPos = getIntent().getIntExtra("position",0);
+		currStoryPos = getIntent().getIntExtra("position",0);
 		currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
 		
 		updatePage();

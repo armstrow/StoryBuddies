@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="18"
+        android:minSdkVersion="19"
         android:targetSdkVersion="19" />
     
     <uses-permission android:name="android.permission.NFC" />
@@ -35,22 +35,28 @@
 			</intent-filter>
         </activity>
         <activity
-       	    android:name=".StartScreenActivity" >
+       	    android:name=".StartScreenActivity" 
+       	    android:screenOrientation="portrait" >
        	</activity>
         <activity
-       	    android:name=".ChooseStoryActivity"  >
+       	    android:name=".ChooseStoryActivity"
+       	    android:screenOrientation="portrait"  >
        	</activity>
        	<activity 
-       	    android:name=".CYOS_Title_Screen" >
+       	    android:name=".CYOS_Title_Screen"
+       	    android:screenOrientation="portrait" >
        	</activity>
        	<activity 
-       	    android:name=".CYOS_Creation_Page" >
+       	    android:name=".CYOS_Creation_Page"
+       	    android:screenOrientation="portrait" >
        	</activity>
        	<activity 
-       	    android:name=".CoverPageActivity"  >
+       	    android:name=".CoverPageActivity"
+       	    android:screenOrientation="portrait"  >
        	</activity>
        	<activity 
-       	    android:name=".StoryPageActivity"  >
+       	    android:name=".StoryPageActivity"
+       	    android:screenOrientation="portrait"  >
        	</activity>
     </application>
 

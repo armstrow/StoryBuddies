@@ -19,6 +19,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 	private BluetoothA2dp mBluetoothSpeaker;
 	private BluetoothDevice mBluetoothDev;
 	private BluetoothAdapter mBluetoothAdapter;
+	private String mMacAddr = null;
 	private final String TAG = "SB_BluetoothBroadcastReceiver";
 	private BluetoothProfile.ServiceListener mProfileListener;
 	private static BluetoothBroadcastReceiver instance;
@@ -28,14 +29,16 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		
 	}
 	
-	public void initialize(BluetoothAdapter adapter, Context context) {
+	public void initialize(BluetoothAdapter adapter, Context context, String macAddr) {
 		mBluetoothAdapter = adapter;
+		mMacAddr = macAddr;
+		mBluetoothDev = mBluetoothAdapter.getRemoteDevice(mMacAddr);
 			 
 		mProfileListener = new BluetoothProfile.ServiceListener() {
 		    public void onServiceConnected(int profile, BluetoothProfile proxy) {
 		        if (profile == BluetoothProfile.A2DP) {
 		        	mBluetoothSpeaker = (BluetoothA2dp) proxy; 
-		        	if (mBluetoothDev != null && mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_DISCONNECTED) {
+		        	if (mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_DISCONNECTED) {
 		        		connect();
 		        	}
 		        }
@@ -50,11 +53,6 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 		// Establish connection to the proxy.
 		mBluetoothAdapter.getProfileProxy(context, mProfileListener, BluetoothProfile.A2DP);
 		isInitialized = true;
-	}
-	
-	public void setBluetoothDev(String macAdd) {
-		mBluetoothDev = mBluetoothAdapter.getRemoteDevice(macAdd);
-		connect();
 	}
 	
 	public boolean isInitialized() {

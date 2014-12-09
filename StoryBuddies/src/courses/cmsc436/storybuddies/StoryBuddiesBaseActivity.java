@@ -38,6 +38,8 @@ import android.widget.Toast;
 
 public class StoryBuddiesBaseActivity extends Activity {
 	
+	private static final int BLUETOOTH_ENABLE = 0;
+	private static final int START_SCREEN = 1;
 	public static ArrayList<StoryBook> stories = new ArrayList<StoryBook>();
 	private final String TAG = "Story_Buddies";
 	private BluetoothAdapter mBluetoothAdapter;
@@ -58,52 +60,55 @@ public class StoryBuddiesBaseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		//nfcOnCreate(savedInstanceState);
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onCreate");
-		loadStories();
-			
+		
 		speech = SpeechEngine.getInstance(getApplicationContext());
-		
-		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (mBluetoothAdapter != null) {
-			mBluetooth = BluetoothBroadcastReceiver.getInstance();
-			if (!mBluetooth.isInitialized()) {
-				setUpBluetooth();
-			}
-		}
-		else {
-			Log.i(TAG, "bluetooth null");
-		}	
-		
+			
 		Intent intent = new Intent(this, StartScreenActivity.class);
-		startActivityForResult(intent, 0);
+		startActivityForResult(intent, START_SCREEN);
 	}
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onActivityResult");
-		finish();
-	}
-
-	private void setUpBluetooth() {
-		Log.i(TAG, "Entered StoryBuddiesBaseActivity: setUpBluetooth");
-		mBluetooth.initialize(mBluetoothAdapter, getBaseContext());
-		
-		registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED));
-		registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED));
-		registerReceiver(mBluetooth, new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED));
-		registerReceiver(mBluetooth, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
-		
-		if (!mBluetoothAdapter.isEnabled()) {
-			//bluetoothWasEnabled = false;
-			//if (!mBluetoothAdapter.enable()) {
-			//	Log.e(TAG, "Could not enable bluetooth");
-			//}				
-		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		    startActivityForResult(enableBtIntent, 0); 
-		}	
-		else {
-			Log.i(TAG, "Bluetooth already enabled, connecting...");
+		if (requestCode == START_SCREEN)
+		{
+			finish();
+		} else if (requestCode == BLUETOOTH_ENABLE) {
 			mBluetooth.connect();
 		}
+	}
+
+	private void setUpBluetooth() {		
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBluetoothAdapter != null) {
+			mBluetooth = BluetoothBroadcastReceiver.getInstance();
+			if (!mBluetooth.isInitialized()) {
+				Log.i(TAG, "Entered StoryBuddiesBaseActivity: setUpBluetooth");
+				mBluetooth.initialize(mBluetoothAdapter, getBaseContext(), myMacAddr);
+				
+				registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED));
+				registerReceiver(mBluetooth, new IntentFilter(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED));
+				registerReceiver(mBluetooth, new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED));
+				registerReceiver(mBluetooth, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
+				
+				if (!mBluetoothAdapter.isEnabled()) {
+					//bluetoothWasEnabled = false;
+					//if (!mBluetoothAdapter.enable()) {
+					//	Log.e(TAG, "Could not enable bluetooth");
+					//}				
+				    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+				    startActivityForResult(enableBtIntent, BLUETOOTH_ENABLE); 
+				}	
+				else {
+					Log.i(TAG, "Bluetooth already enabled, connecting...");
+					mBluetooth.connect();
+				}
+			}
+		}
+		else {
+			Log.i(TAG, "bluetooth null");
+		}	
+
 	}
 	
 	
@@ -374,7 +379,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 							}
 							else if (key.equals("speaker") && myMacAddr != value) {
 								myMacAddr = value.trim();
-								mBluetooth.setBluetoothDev(myMacAddr);
+								setUpBluetooth();
 							}
 		                }
 	
