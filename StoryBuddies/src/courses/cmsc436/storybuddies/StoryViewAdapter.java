@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +80,6 @@ public class StoryViewAdapter extends BaseAdapter {
 	
 	public void add(StoryBook listItem) {
 		list.add(listItem);
-		//StoryBuddiesBaseActivity.stories.add(listItem);
 		notifyDataSetChanged();
 	}
 	
@@ -101,7 +99,6 @@ public class StoryViewAdapter extends BaseAdapter {
 
 	public void remove(int position) {
 		list.remove(position);
-		//StoryBuddiesBaseActivity.stories.remove(position);
 		this.notifyDataSetChanged();
 	}
 }

@@ -12,13 +12,10 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,11 +45,9 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		TextView title = (TextView) findViewById(R.id.coverPageTitle);
 		title.setText(currStory.getmTitle());
 		
-		//TODO - set author to appropriate text
-		
+		//Set title view to appropriate image
 		ImageView coverView = (ImageView) findViewById(R.id.bookCover);
 		
-		//coverView.setImageResource(currStory.getmTitlePage());
 		BitmapWorkerTask imageLoader = new BitmapWorkerTask(coverView, getResources());
 		imageLoader.execute(currStory.getmTitlePage());
 		
@@ -70,16 +65,7 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
 		GestureOverlayView gestureOverlay = (GestureOverlayView) findViewById(R.id.gestureOverlay);
 		gestureOverlay.addOnGesturePerformedListener(this);
-		
-//		gestureOverlay.setOnTouchListener( new OnTouchListener() {
-//		
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				Log.i(TAG, "Entered startButton.OnTouchListener.onTouch()");
-//				return mGestureDetector.onTouchEvent(event);
-//
-//			}
-//		});
+
 		
 		if (!mLibrary.load()) {
 			finish();

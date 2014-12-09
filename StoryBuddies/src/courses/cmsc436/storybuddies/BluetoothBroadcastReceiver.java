@@ -9,8 +9,6 @@ import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
@@ -24,10 +22,6 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 	private BluetoothProfile.ServiceListener mProfileListener;
 	private static BluetoothBroadcastReceiver instance;
 	private boolean isInitialized = false;
-	
-	private void BluetoothBroadcastReceiver() {
-		
-	}
 	
 	public void initialize(BluetoothAdapter adapter, Context context, String macAddr) {
 		mBluetoothAdapter = adapter;
@@ -153,8 +147,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
 
 	public void disconnect() {
     	if (mBluetoothSpeaker != null && mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_CONNECTED) {
-        	Method disconnect;
-			try {
+        	try {
 				Log.i(TAG, "Disconnecting bluetooth");
 		        Method method = mBluetoothDev.getClass().getMethod("removeBond", (Class[]) null);
 	            method.invoke(mBluetoothDev, (Object[]) null);

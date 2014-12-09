@@ -36,7 +36,7 @@ public class SpeechEngine implements OnInitListener {
 			ttsReady = true;
 		}
 		else
-			Toast.makeText(mContext, "Error initializing speech engine", Toast.LENGTH_LONG);
+			Toast.makeText(mContext, "Error initializing speech engine", Toast.LENGTH_LONG).show();
 	}
 	
 	public void speak(String text) {

@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.JsonWriter;
@@ -134,7 +133,7 @@ public class CYOS_Creation_Page extends Activity {
 				if(currPageNumber > 0){
 					updatePage(-1);
 				} else {
-					Toast.makeText(getApplicationContext(),"TODO - Go to a title screen clone activity",Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),getString(R.string.todo),Toast.LENGTH_LONG).show();
 					//TODO - Create a new activity that looks like title screen so user can change title and author
 					//	if they wish. Will need to use startActivityforResult
 				} 
@@ -176,7 +175,7 @@ public class CYOS_Creation_Page extends Activity {
 					CYOS_Creation_Page.this.finish(); 
 				}
 				else {
-					Toast.makeText(getApplicationContext(), "Error saving story", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.error_save), Toast.LENGTH_LONG).show();
 					CYOS_Creation_Page.this.setResult(RESULT_CANCELED, new Intent());
 					CYOS_Creation_Page.this.finish();
 				}
@@ -215,8 +214,6 @@ public class CYOS_Creation_Page extends Activity {
 				
 				List<StoryPage> pages = newStory.getmPages();
 				for (int i = 0; i < pages.size(); i++) {
-					StoryPage curPage = pages.get(i);
-					//if (curPage.getmPicture() != null) { Changed to
 					if(newScreens.get(i) != null) {
 						outFile = new File(path, getString(R.string.page_file_name) + (i+1) + ".png");
 						writeImageToMemory(outFile, newScreens.get(i));

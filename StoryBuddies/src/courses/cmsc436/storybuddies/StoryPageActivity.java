@@ -92,12 +92,9 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	private void updatePage(){
 		String currText = currStory.getmPages().get(currPage).getmStoryText();
 		//TODO - Change to geting Bitmap from file or Resources as needed
-		//Bitmap currBitmap = null;
 		Log.i(TAG, "Attemptin to load image: " + currStory.getmPages().get(currPage).getmPictureFromFile());
 		if(currStory.getmPages().get(currPage).getmPicture() != -1){
 			//upload pic from resources
-			//currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
-			//storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
 			BitmapWorkerTask imageLoader = new BitmapWorkerTask(storyPic, getResources());
 			imageLoader.execute(currStory.getmPages().get(currPage).getmPicture());
 		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
@@ -105,12 +102,8 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 			storyPic.setImageURI(Uri.fromFile(new File(currStory.getmPages().get(currPage).getmPictureFromFile())));
 		}
 		
-		//Bitmap currBitmap = currStory.getmPages().get(currPage).getmPicture();
 		storyText.setText(currText);
 		speech.speak(currText);
-		//if(currBitmap != null){
-		//	storyPic.setImageBitmap(currBitmap);
-		//} 
 	}
 	
 	@Override
