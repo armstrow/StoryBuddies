@@ -195,7 +195,9 @@ public class CYOS_Creation_Page extends Activity {
 		try {
 			if (Environment.MEDIA_MOUNTED.equals(Environment
 					.getExternalStorageState())) {
-				String path = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir) + "/" + newStory.getmTitle().replace(" ", "_");
+				//String path = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir
+				String path = StoryBuddiesBaseActivity.storySaveLoc + "/" + newStory.getmTitle().replace(" ", "_");
+				Log.i(TAG, "Saving to: " + path);
 				File outFile = new File(path, getString(R.string.text_file_name) + ".txt");
 				if (!(new File(path)).mkdirs()) {
 					Log.e(TAG, "Could not create directory to store book");

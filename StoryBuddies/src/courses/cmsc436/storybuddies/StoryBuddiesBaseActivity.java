@@ -187,14 +187,16 @@ public class StoryBuddiesBaseActivity extends Activity {
 		return result;
 	}
 	
+	public static String storySaveLoc = "";
+	
 	private List<StoryBook> getInternalStories(){
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadInternalStories");
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) { 
-			String s = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir);
-			File root_dir = new File(s);
-			Log.i(TAG, "Loading stories from " + s);
-			if (root_dir.exists() && root_dir.listFiles() == null) {				
+			storySaveLoc = Environment.getExternalStorageDirectory() + "/" + getString(R.string.story_dir);
+			File root_dir = new File(storySaveLoc);
+			Log.i(TAG, "Loading stories from " + storySaveLoc);
+			if (root_dir.exists() && root_dir.listFiles() != null) {				
 				for (File f : root_dir.listFiles()) {
 					if (f.isDirectory()) {
 						Log.i(TAG,"Loaded "+ f.toString());
