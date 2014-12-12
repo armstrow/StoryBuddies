@@ -28,6 +28,7 @@ import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,6 +39,8 @@ public class CYOS_Creation_Page extends Activity {
 	
 	public final String TAG = "CYOS_Creation_Activity";
 	private SpeechEngine speech;
+	
+	private InputMethodManager imm;
 	
 	StoryBook newStory = new StoryBook();
 	List<Bitmap> newScreens = new ArrayList<Bitmap>();
@@ -65,6 +68,8 @@ public class CYOS_Creation_Page extends Activity {
 		setContentView(R.layout.activity_cyos_creation_screen);
 		
 		speech = SpeechEngine.getInstance(getApplicationContext());
+		
+		imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		
 		speech.speak("How does our story start?");
 		
@@ -145,6 +150,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered prevButton OnClickListener");
+				closeSoftKeyboard();
 				if(currPageNumber > 0){
 					updatePage(-1);
 				} else {
@@ -160,6 +166,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered nextButton OnClickListener");
+				closeSoftKeyboard();
 				if(currPageNumber < newStory.getmPages().size()-1){
 					Log.i(TAG,"going to the next page");
 					updatePage(1);	
@@ -170,7 +177,7 @@ public class CYOS_Creation_Page extends Activity {
 					sounds.add(null);
 					speech.speak("What happens next!");
 					updatePage(1);
-				}			
+				}
 			}
 		});
 		
@@ -178,7 +185,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered submitButton OnClickListener");
-				//TODO - a popup asking if the user wants to continue should be implemented here
+				closeSoftKeyboard();
 				updatePage(0);
 				
 				if (saveStory(newStory))
@@ -213,6 +220,10 @@ public class CYOS_Creation_Page extends Activity {
 				CYOS_Creation_Page.this.listen("Tell me what you'd like this page to say");
 			}
 		});
+	}
+	
+	private void closeSoftKeyboard(){
+		imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 	}
 
 	protected boolean saveStory(StoryBook newStory) {

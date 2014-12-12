@@ -78,22 +78,6 @@
             android:text="@string/cyos_undo_text" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/cyosStoryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="false"
-        android:layout_below="@+id/linearLayout1"
-        android:ems="10"
-        android:gravity="top|left"
-        android:height="@dimen/cyos_textview_min_height"
-        android:hint="@string/cyos_input_story_prompt"
-        android:inputType="textMultiLine" >
-
-        <requestFocus />
-    </EditText>
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="500dp"
@@ -101,7 +85,7 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/cyosStoryText" >
+        android:layout_below="@+id/linearLayout1" >
 
         <Button
             android:id="@+id/cyosPrevButton"
@@ -134,5 +118,22 @@
         android:layout_marginRight="25dp"
         android:layout_marginTop="20dp"
         android:src="@android:drawable/ic_btn_speak_now" />
+    
+    <EditText
+        android:id="@+id/cyosStoryText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false"
+        android:layout_below="@id/linearLayout2"
+        android:layout_toLeftOf="@+id/micrphone_button"
+        android:ems="10"
+        android:gravity="top|left"
+        android:height="@dimen/cyos_textview_min_height"
+        android:hint="@string/cyos_input_story_prompt"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>
