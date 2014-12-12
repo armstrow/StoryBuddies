@@ -29,6 +29,8 @@ public class ChooseStoryActivity extends ListActivity {
 	private static final int REQUEST_CODE = 1;
 	public static final String STORY_FILE_LOC = "STORY_FILE";
 	
+	private int selected = -1;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,11 +48,23 @@ public class ChooseStoryActivity extends ListActivity {
 		// Set an setOnItemClickListener on the ListView
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (selected != position) {
+					String storyTitle = ((StoryBook)mAdapter.getItem(position)).getmTitle();
+					Log.i(TAG, "Selected story: " + storyTitle);
+					speech.speak(storyTitle);
+					speech.pauseThenSpeak(5000, "Touch again to start reading");
+					
+					selected = position;
+				}
+				else {
+					selected = -1;
+					Intent goToBookIntent = new Intent(ChooseStoryActivity.this,CoverPageActivity.class);
+					goToBookIntent.putExtra("position", position);
+					Log.i(TAG, "Saving "+position+" to extra");
+					startActivity(goToBookIntent);
+				}
 				
-				Intent goToBookIntent = new Intent(ChooseStoryActivity.this,CoverPageActivity.class);
-				goToBookIntent.putExtra("position", position);
-				Log.i(TAG, "Saving "+position+" to extra");
-				startActivity(goToBookIntent);
+
 				
 				// Display a Toast message indicting the selected item
 				//Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();

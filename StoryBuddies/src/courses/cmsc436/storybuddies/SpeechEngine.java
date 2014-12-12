@@ -48,6 +48,25 @@ public class SpeechEngine implements OnInitListener {
 		}
 	}
 	
+	public void pause(int duration) {
+		if (ttsReady) {
+			HashMap<String, String> hash = new HashMap<String,String>();
+	        hash.put(TextToSpeech.Engine.KEY_PARAM_STREAM, 
+	                String.valueOf(AudioManager.STREAM_MUSIC));
+			tts.playSilence(duration, TextToSpeech.QUEUE_ADD, hash);
+		}		
+	}
+	
+	public void pauseThenSpeak(int duration, String text) {
+		if (ttsReady) {
+			HashMap<String, String> hash = new HashMap<String,String>();
+	        hash.put(TextToSpeech.Engine.KEY_PARAM_STREAM, 
+	                String.valueOf(AudioManager.STREAM_MUSIC));
+			tts.playSilence(duration, TextToSpeech.QUEUE_ADD, hash);
+			tts.speak(text, TextToSpeech.QUEUE_ADD, hash);
+		}		
+	}
+	
 	public boolean isReady() {
 		return ttsReady;
 	}
