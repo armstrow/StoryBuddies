@@ -32,6 +32,8 @@ public class ChooseStoryActivity extends ListActivity {
 	private static final int REQUEST_CODE = 1;
 	public static final String STORY_FILE_LOC = "STORY_FILE";
 	
+	private boolean cyosClicked = false;
+	private View footerViewHolder = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class ChooseStoryActivity extends ListActivity {
 		// Put divider between ToDoItems and FooterView
 		getListView().setFooterDividersEnabled(true);
 		
-		RelativeLayout footerViewHolder = (RelativeLayout) View.inflate(this, R.layout.footer_view, null);
+		footerViewHolder = (RelativeLayout) View.inflate(this, R.layout.footer_view, null);
 		TextView footerView = (TextView) footerViewHolder.findViewById(R.id.footerView);
 		
 		footerViewHolder.findViewById(R.id.footerButton).setOnClickListener(getFooterOnClickListener());
@@ -65,11 +67,13 @@ public class ChooseStoryActivity extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+		cyosClicked = false;
+		footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
 		if (mAdapter.getSelectedItem() != position) {
 			String storyTitle = ((StoryBook)mAdapter.getItem(position)).getmTitle();
 			Log.i(TAG, "Selected story: " + storyTitle);
 			speech.speak(storyTitle);
-			speech.pauseThenSpeak(5000, "Touch again to start reading");
+			speech.pauseThenSpeak(2000, "Touch again to start reading");
 			
 			mAdapter.setSelectedItem(position);
 			mAdapter.notifyDataSetChanged();
@@ -87,10 +91,20 @@ public class ChooseStoryActivity extends ListActivity {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
-				Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
-				startActivityForResult(cyosActivity, REQUEST_CODE ); //TODO: startForResult
+				if (cyosClicked) {					
+					cyosClicked = false;
+					footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
+					Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
+					startActivityForResult(cyosActivity, REQUEST_CODE ); 
+				} else {
+					cyosClicked = true;
+					speech.speak("Let's make a new story!");
+					speech.pauseThenSpeak(1000, "Touch again to start");
+					footerViewHolder.setBackgroundColor(getResources().getColor(R.color.selected));
+					mAdapter.setSelectedItem(-1);
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 		};
 	}
@@ -156,6 +170,8 @@ public class ChooseStoryActivity extends ListActivity {
 		speech.speak(getString(R.string.read_story));
 		mAdapter.setSelectedItem(-1);
 		mAdapter.notifyDataSetChanged();
+		cyosClicked = false;
+		footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
 		//loadItems();
 		//setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories)));
 	}
