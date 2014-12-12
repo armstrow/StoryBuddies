@@ -21,6 +21,10 @@ public class SpeechEngine implements OnInitListener {
 		tts = new TextToSpeech(context, this);
 	}
 	
+	public TextToSpeech getTTS() {
+		return tts;
+	}
+	
 	public static SpeechEngine getInstance(Context context) {
 		if (instance == null) {
 			Log.i(TAG, "Initializing Speech Engine");
@@ -28,6 +32,7 @@ public class SpeechEngine implements OnInitListener {
 		}
 		return instance;
 	}
+	
 	
 	@Override
 	public void onInit(int status) {

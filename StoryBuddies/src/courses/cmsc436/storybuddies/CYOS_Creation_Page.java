@@ -1,20 +1,29 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +31,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -46,6 +56,9 @@ public class CYOS_Creation_Page extends Activity {
 	RadioButton color4;
 	RadioButton color5;
 	RadioButton color6;
+	ImageView micButton;
+	
+	ArrayList<byte[]> sounds = new ArrayList<byte[]>();
 	
 	int currPageNumber = 0;
 	
@@ -61,6 +74,7 @@ public class CYOS_Creation_Page extends Activity {
 		speech.speak("How does our story start?");
 		
 		newScreens.add(null);
+		sounds.add(null);
 		
 		//Get String extras from intent
 		String currTitle = getIntent().getStringExtra("currTitle");
@@ -76,6 +90,7 @@ public class CYOS_Creation_Page extends Activity {
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
 		drawing = (PaintView) findViewById(R.id.paintView);
 		undoButton = (Button) findViewById(R.id.undoButton);
+		micButton = (ImageView) findViewById(R.id.micrphone_button);
 		color1 = (RadioButton) findViewById(R.id.color1);
 		color2 = (RadioButton) findViewById(R.id.color2);
 		color3 = (RadioButton) findViewById(R.id.color3);
@@ -159,6 +174,7 @@ public class CYOS_Creation_Page extends Activity {
 					Log.i(TAG,"Creating a new page");
 					newStory.addPage(new StoryPage());
 					newScreens.add(null);
+					sounds.add(null);
 					speech.speak("What happens next!");
 					updatePage(1);
 				}
@@ -196,6 +212,14 @@ public class CYOS_Creation_Page extends Activity {
 				drawing.clear();
 			}
 		});
+		
+		micButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG,"Entered micButton OnClickListener");
+				CYOS_Creation_Page.this.listen("Tell me what you'd like this page to say");
+			}
+		});
 	}
 	
 	private void closeSoftKeyboard(){
@@ -231,6 +255,10 @@ public class CYOS_Creation_Page extends Activity {
 						outFile = new File(path, getString(R.string.page_file_name) + (i+1) + ".png");
 						writeImageToMemory(outFile, newScreens.get(i));
 					}
+					if (sounds.get(i) != null) {
+						String fileName = path + "/audio" + (i+1) + ".amr";
+						writeAudioDataToFile(sounds.get(i), fileName);
+					}
 				}				
 				
 				return true;		
@@ -260,6 +288,8 @@ public class CYOS_Creation_Page extends Activity {
 			w.name("TEXT").value(page.getmStoryText());
 			if (newScreens.get(i) != null)
 				w.name("PICTURE").value("page" + (i+1) + ".png");
+			if (sounds.get(i) != null)
+				w.name("AUDIO").value("audio" + (i+1) + ".amr");
 			w.endObject();
 		}
 		w.endArray();
@@ -335,4 +365,110 @@ public class CYOS_Creation_Page extends Activity {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
 	}
+
+	public void listen(String prompt) {
+		//check for speaking
+		TextToSpeech tts = speech.getTTS();
+		Log.i(TAG, "Setting tts listener");
+		tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+
+			@Override
+			public void onDone(String arg0) {
+				Log.i(TAG, "Entered onDone");
+				CYOS_Creation_Page.this.runOnUiThread(new Runnable() {
+					public void run() {
+						startListening();
+					}
+				});
+			}
+
+			@Override
+			public void onError(String arg0) {
+				Log.i(TAG, "Entered onError");					
+			}
+
+			@Override
+			public void onStart(String arg0) {
+				Log.i(TAG, "Entered onStart");					
+			}
+			
+		});
+		
+		HashMap<String, String> hash = new HashMap<String,String>();
+        hash.put(TextToSpeech.Engine.KEY_PARAM_STREAM, 
+                String.valueOf(AudioManager.STREAM_MUSIC));
+        hash.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "speechPrompt");
+		tts.speak(prompt, TextToSpeech.QUEUE_FLUSH, hash);
+	}
+
+	
+	//From http://stackoverflow.com/questions/23047433/record-save-audio-from-voice-recognition-intent
+	private void startListening() {
+	   // Fire an intent to start the speech recognition activity.
+	   Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+	   // secret parameters that when added provide audio url in the result
+	   intent.putExtra("android.speech.extra.GET_AUDIO_FORMAT", "audio/AMR");
+	   intent.putExtra("android.speech.extra.GET_AUDIO", true);
+	   intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1);
+	   startActivityForResult(intent, 123);
+
+	}
+	
+	//from http://stackoverflow.com/questions/23047433/record-save-audio-from-voice-recognition-intent
+	// handle result of speech recognition
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    // the resulting text is in the getExtras:
+	    Bundle bundle = data.getExtras();
+	    ArrayList<String> matches = bundle.getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
+	    storyText.setText(matches.get(0));
+	    // the recording url is in getData:
+	    Uri audioUri = data.getData();
+	    ContentResolver contentResolver = getContentResolver();
+	    try {
+			InputStream filestream = contentResolver.openInputStream(audioUri);
+			
+			//from http://stackoverflow.com/questions/1264709/convert-inputstream-to-byte-array-in-java
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+			int nRead;
+			byte[] bytes = new byte[16384];
+
+			while ((nRead = filestream.read(bytes, 0, bytes.length)) != -1) {
+			  buffer.write(bytes, 0, nRead);
+			}
+
+			buffer.flush();
+
+			sounds.set(currPageNumber, buffer.toByteArray());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+    //From http://www.edumobile.org/android/android-development/audio-recording-in-wav-format-in-android-programming/
+    private void writeAudioDataToFile(byte[] audio, String filename){
+        FileOutputStream os = null;
+        
+        try {
+                os = new FileOutputStream(filename);
+        } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        }
+        
+        
+        if(null != os){
+                
+            try {
+                    os.write(audio);
+                    os.close();
+            } catch (IOException e) {
+                    e.printStackTrace();
+            }
+                
+        }
+    }
 }
