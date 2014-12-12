@@ -12,6 +12,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.util.JsonReader;
@@ -135,22 +136,19 @@ public class StoryBuddiesUtils {
 	
 	
 	//Code from http://developer.android.com/training/displaying-bitmaps/process-bitmap.html
-	public static class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
-	    private final WeakReference<ImageView> imageViewReference;
-	    private int data = 0;
-	    private Resources resources;
+	public static class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
+	    private final WeakReference<View> imageViewReference;
 
-	    public BitmapWorkerTask(ImageView imageView, Resources res) {
+	    public BitmapWorkerTask(View imageView) {
 	        // Use a WeakReference to ensure the ImageView can be garbage collected
-	        imageViewReference = new WeakReference<ImageView>(imageView);
-	        resources = res;
+	        imageViewReference = new WeakReference<View>(imageView);
 	    }
 
 	    // Decode image in background.
 	    @Override
-	    protected Bitmap doInBackground(Integer... params) {
-	        data = params[0];
-	        return decodeSampledBitmapFromResource(resources, data, 
+	    protected Bitmap doInBackground(String... params) {
+	        String path = params[0];
+	        return decodeSampledBitmapFromFile(path, 
 	        		imageViewReference.get().getWidth(), imageViewReference.get().getHeight());
 	    }
 
@@ -158,29 +156,28 @@ public class StoryBuddiesUtils {
 	    @Override
 	    protected void onPostExecute(Bitmap bitmap) {
 	        if (imageViewReference != null && bitmap != null) {
-	            final ImageView imageView = imageViewReference.get();
-	            if (imageView != null) {
-	                imageView.setImageBitmap(bitmap);
+	            final View view = imageViewReference.get();
+	            if (view != null) {
+	            	view.setBackground(new BitmapDrawable(bitmap));
 	            }
 	        }
 	    }
 	}
 
 	//Method below from http://developer.android.com/training/displaying-bitmaps/load-bitmap.html#decodeSampledBitmapFromResource
-	public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-	        int reqWidth, int reqHeight) {
+	public static Bitmap decodeSampledBitmapFromFile(String path, int reqWidth, int reqHeight) {
 
 	    // First decode with inJustDecodeBounds=true to check dimensions
 	    final BitmapFactory.Options options = new BitmapFactory.Options();
 	    options.inJustDecodeBounds = true;
-	    BitmapFactory.decodeResource(res, resId, options);
+	    BitmapFactory.decodeFile(path, options);
 
 	    // Calculate inSampleSize
 	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
 	    // Decode bitmap with inSampleSize set
 	    options.inJustDecodeBounds = false;
-	    return BitmapFactory.decodeResource(res, resId, options);
+	    return BitmapFactory.decodeFile(path, options);
 	}
 	
  

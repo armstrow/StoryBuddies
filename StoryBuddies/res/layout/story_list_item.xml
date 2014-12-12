@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="300dp" 
+    android:descendantFocusability="blocksDescendants" >
 
-    <ImageView
+    <ImageButton
         android:id="@+id/cover"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:padding="8dp"
-        android:scaleType="fitXY" />
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/th1" />
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/title_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/cover" >
-        
-        <TextView 
-            android:id="@+id/title_string"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-		    android:padding="10dp"
-		    android:textSize="24sp"
-		    android:textColor="@color/black_text_87" >
-		</TextView>
-
-        <TextView
-            android:id="@+id/author_string"
-            android:layout_alignLeft="@+id/title_string"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_below="@+id/title_string"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/black_text_87"  />
-
-    </RelativeLayout>
+        android:layout_alignTop="@+id/cover"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@+drawable/round_rect"
+        android:gravity="center_horizontal"
+        android:maxWidth="260dp"
+        android:shadowColor="#55FFFFFF"
+        android:text="Temp Title"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />    
+    
+    <TextView
+        android:id="@+id/author_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_string"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@+drawable/round_rect"
+        android:gravity="center_horizontal"
+        android:text="Temp Author"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF"
+        android:maxWidth="260dp" />
 
 </RelativeLayout>
-
-

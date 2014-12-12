@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:layout_width="match_parent"
-   android:layout_height="match_parent">
-
-   <TextView 
-    android:id="@+id/footerView"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:text="@string/add_story"
-    android:textSize="24sp" >
+    android:layout_height="300dp" >
 
-	</TextView>
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/footerButton"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/cyo_page" />
 
+   <TextView
+       android:id="@+id/footerView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignTop="@+id/imageButton1"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="67dp"
+       android:background="@+drawable/round_rect"
+       android:gravity="center_horizontal"
+       android:text="@string/add_story"
+       android:textColor="#FFFFFF"
+       android:textSize="24sp" />
+    
+</RelativeLayout>

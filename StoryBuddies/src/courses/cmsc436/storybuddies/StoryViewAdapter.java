@@ -1,14 +1,18 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +22,7 @@ public class StoryViewAdapter extends BaseAdapter {
 	private static LayoutInflater inflater = null;
 	private Context mContext;
 	private ArrayList<StoryBook> list = StoryBuddiesBaseActivity.stories;
+	private int selectedItem = -1;
 	
 	public StoryViewAdapter(Context context) {
 		mContext = context;
@@ -38,6 +43,7 @@ public class StoryViewAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
 
 	@Override	
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -50,7 +56,7 @@ public class StoryViewAdapter extends BaseAdapter {
 		if (null == convertView) {
 			holder = new ViewHolder();
 			newView = inflater.inflate(R.layout.story_list_item, parent, false);
-			holder.cover = (ImageView) newView.findViewById(R.id.cover);
+			holder.cover = (ImageButton) newView.findViewById(R.id.cover);
 			holder.title = (TextView) newView.findViewById(R.id.title_string);
 			holder.author = (TextView) newView.findViewById(R.id.author_string);
 			newView.setTag(holder);
@@ -59,11 +65,29 @@ public class StoryViewAdapter extends BaseAdapter {
 			holder = (ViewHolder) newView.getTag();
 		}
 
+		if (curr.getmPages().get(0).getmPicture() >= 0)
+		{
+			//newView.setBackgroundResource(curr.getmPages().get(0).getmPicture());
+			holder.cover.setImageResource(curr.getmPages().get(0).getmPicture());	
+		} else if (curr.getmPages().get(0).getmPictureFromFile() != null) {
+			holder.cover.setImageURI(Uri.fromFile(new File(curr.getmPages().get(0).getmPictureFromFile())));
+
+			//BitmapWorkerTask imageLoader = new BitmapWorkerTask(newView);
+			//imageLoader.execute(curr.getmPages().get(0).getmPictureFromFile());
+		}
+		//newView.setBackgroundResource(curr.getmTitlePage());
+		//holder.cover.setImageResource(curr.getmTitlePage());
+		//
+		//holder.cover.setOnClickListener(ChooseStoryActivity.getOnClickListener())
+		if (position == selectedItem) {
+			newView.setBackgroundColor(mContext.getResources().getColor(R.color.selected));
+		} else {
+			newView.setBackgroundColor(mContext.getResources().getColor(R.color.deselected));
+		}
 		
-		holder.cover.setImageResource(curr.getmTitlePage());
-		//BitmapWorkerTask imageLoader = new BitmapWorkerTask(holder.cover, mContext.getResources());
-		//imageLoader.execute(curr.getmTitlePage());
-		
+		//newView.setBackgroundColor(Color.WHITE);
+        holder.cover.setFocusable(false);
+        holder.cover.setClickable(false); 
 		holder.title.setText(curr.getmTitle());
 		holder.author.setText(curr.getmAuthor());
 
@@ -72,7 +96,7 @@ public class StoryViewAdapter extends BaseAdapter {
 	
 	static class ViewHolder {
 	
-		ImageView cover;
+		ImageButton cover;
 		TextView title;
 		TextView author;
 		
@@ -100,5 +124,13 @@ public class StoryViewAdapter extends BaseAdapter {
 	public void remove(int position) {
 		list.remove(position);
 		this.notifyDataSetChanged();
+	}
+
+	public int getSelectedItem() {
+		return selectedItem;
+	}
+
+	public void setSelectedItem(int selectedItem) {
+		this.selectedItem = selectedItem;
 	}
 }

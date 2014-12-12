@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -13,8 +14,10 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +32,6 @@ public class ChooseStoryActivity extends ListActivity {
 	private static final int REQUEST_CODE = 1;
 	public static final String STORY_FILE_LOC = "STORY_FILE";
 	
-	private int selected = -1;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,36 +44,60 @@ public class ChooseStoryActivity extends ListActivity {
 		
 		speech = SpeechEngine.getInstance(getApplicationContext());
 
-		// Enable filtering when the user types in the virtual keyboard
-		lv.setTextFilterEnabled(true);
-
 		// Set an setOnItemClickListener on the ListView
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (selected != position) {
-					String storyTitle = ((StoryBook)mAdapter.getItem(position)).getmTitle();
-					Log.i(TAG, "Selected story: " + storyTitle);
-					speech.speak(storyTitle);
-					speech.pauseThenSpeak(5000, "Touch again to start reading");
-					
-					selected = position;
-				}
-				else {
-					selected = -1;
-					Intent goToBookIntent = new Intent(ChooseStoryActivity.this,CoverPageActivity.class);
-					goToBookIntent.putExtra("position", position);
-					Log.i(TAG, "Saving "+position+" to extra");
-					startActivity(goToBookIntent);
-				}
-				
-
-				
-				// Display a Toast message indicting the selected item
-				//Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-			}
-		});
+		//lv.setOnItemClickListener(getOnItemClickListener());
+		lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		
-		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+		lv.setOnItemLongClickListener(getOnItemLongClickListener());
+		
+		// Put divider between ToDoItems and FooterView
+		getListView().setFooterDividersEnabled(true);
+		
+		RelativeLayout footerViewHolder = (RelativeLayout) View.inflate(this, R.layout.footer_view, null);
+		TextView footerView = (TextView) footerViewHolder.findViewById(R.id.footerView);
+		
+		footerViewHolder.findViewById(R.id.footerButton).setOnClickListener(getFooterOnClickListener());
+		footerView.setOnClickListener(getFooterOnClickListener());
+		
+		lv.addFooterView(footerViewHolder);
+		//loadItems();
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		if (mAdapter.getSelectedItem() != position) {
+			String storyTitle = ((StoryBook)mAdapter.getItem(position)).getmTitle();
+			Log.i(TAG, "Selected story: " + storyTitle);
+			speech.speak(storyTitle);
+			speech.pauseThenSpeak(5000, "Touch again to start reading");
+			
+			mAdapter.setSelectedItem(position);
+			mAdapter.notifyDataSetChanged();
+		}
+		else {
+			mAdapter.setSelectedItem(-1);
+			Intent goToBookIntent = new Intent(ChooseStoryActivity.this,CoverPageActivity.class);
+			goToBookIntent.putExtra("position", position);
+			Log.i(TAG, "Saving "+position+" to extra");
+			startActivity(goToBookIntent);
+		}
+	}
+
+	private OnClickListener getFooterOnClickListener() {
+		return new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
+				Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
+				startActivityForResult(cyosActivity, REQUEST_CODE ); //TODO: startForResult
+			}
+		};
+	}
+
+
+	private OnItemLongClickListener getOnItemLongClickListener() {
+		return new OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -84,29 +110,10 @@ public class ChooseStoryActivity extends ListActivity {
 					deleteClicked = -1;
 				}
 				return true;
-			}});
-		
-		// Put divider between ToDoItems and FooterView
-		getListView().setFooterDividersEnabled(true);
-		
-		LinearLayout footerViewHolder = (LinearLayout) View.inflate(this, R.layout.footer_view, null);
-		TextView footerView = (TextView) footerViewHolder.findViewById(R.id.footerView);
-		
-		
-		footerView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
-				Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
-				startActivityForResult(cyosActivity, REQUEST_CODE ); //TODO: startForResult
-			}
-		});
-		
-		lv.addFooterView(footerViewHolder);
-		
-		//loadItems();
+			}};
 	}
+	
+
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -147,6 +154,8 @@ public class ChooseStoryActivity extends ListActivity {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
 		speech.speak(getString(R.string.read_story));
+		mAdapter.setSelectedItem(-1);
+		mAdapter.notifyDataSetChanged();
 		//loadItems();
 		//setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories)));
 	}
