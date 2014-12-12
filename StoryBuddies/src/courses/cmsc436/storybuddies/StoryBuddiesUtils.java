@@ -52,17 +52,9 @@ public class StoryBuddiesUtils {
 	
 	public static void playMusic(Activity currentActivity, String filename) {
 	    MediaPlayer mPlayer = new MediaPlayer();
-	    AssetManager assetManager = currentActivity.getAssets();
-	    AssetFileDescriptor fd;
 	    try {
-	    	String s = ""; 
-	    	String[] assets = assetManager.list("sounds");
-	    	for (int i = 0; i < assets.length; i++)
-	    		s += assets[i] + ", ";
-	    	Log.i(TAG, s);
-	        fd = assetManager.openFd(filename);
-	        Log.i(TAG, "fd = " + fd);
-	        mPlayer.setDataSource(fd.getFileDescriptor());
+	    	Log.i(TAG, "Playing file " + filename);
+	        mPlayer.setDataSource(filename);
 	        mPlayer.prepare();
 	        Log.d(TAG, "start play music");
 	        mPlayer.start();
@@ -94,6 +86,13 @@ public class StoryBuddiesUtils {
 				if (type.equals("PICTURE")) {
 					String fileName = r.nextString();
 					page.setmPictureFromFile(dir + "/" + fileName);
+				} 
+			}
+			if (r.hasNext()) {
+				String type = r.nextName();
+				if (type.equals("AUDIO")) {
+					String fileName = r.nextString();
+					page.setmVoiceUri(dir + "/" + fileName);
 				}
 			}
 			r.endObject();
