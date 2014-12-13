@@ -40,7 +40,7 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		
 		String titleAudio = currStory.getmTitleAudio();
 		if (titleAudio != null) {
-			StoryBuddiesUtils.playMusic(this, titleAudio);
+			speech.playMusic(titleAudio);
 		} else {
 			speech.speak(currStory.getmTitle());
 		}

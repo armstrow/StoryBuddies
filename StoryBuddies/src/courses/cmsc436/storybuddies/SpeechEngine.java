@@ -1,11 +1,13 @@
 package courses.cmsc436.storybuddies;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -20,10 +22,13 @@ public class SpeechEngine implements OnInitListener {
 	private Context mContext;
 	private static final String TAG = "SB_SpeechEngine";
 	public static final int AUDIO_INPUT_ACTIVITY = 37;
+	private MediaPlayer mPlayer;
 	
 	public SpeechEngine(Context context) {
 		mContext = context;
 		tts = new TextToSpeech(context, this);
+		mPlayer = new MediaPlayer();
+		mPlayer.setVolume((float)1, (float)1);
 	}
 	
 	public TextToSpeech getTTS() {
@@ -51,10 +56,13 @@ public class SpeechEngine implements OnInitListener {
 	
 	public void speak(String text) {
 		if (ttsReady) {
+			
 			HashMap<String, String> hash = new HashMap<String,String>();
 	        hash.put(TextToSpeech.Engine.KEY_PARAM_STREAM, 
 	                String.valueOf(AudioManager.STREAM_MUSIC));
-			tts.speak(text, TextToSpeech.QUEUE_FLUSH, hash);
+		    mPlayer.pause();
+		    mPlayer.stop(); //Stop any other speech from playing
+	        tts.speak(text, TextToSpeech.QUEUE_FLUSH, hash);
 		}
 	}
 	
@@ -116,6 +124,21 @@ public class SpeechEngine implements OnInitListener {
 		tts.speak(prompt, TextToSpeech.QUEUE_FLUSH, hash);
 	}
 
+	public void playMusic(String filename) {
+		tts.stop(); //Empty out speech queue, as if this were speech
+	    mPlayer.pause();
+	    mPlayer.stop(); //Stop any other speech from playing
+	    mPlayer.reset();
+	    try {	    	
+	    	Log.i(TAG, "Playing file " + filename);
+	        mPlayer.setDataSource(filename);
+	        mPlayer.prepare();
+	        Log.d(TAG, "start play music");
+	        mPlayer.start();
+	    } catch (IOException e) {
+	        Log.e(TAG, "Error: " + e);
+	    }
+	}
 	
 	//From http://stackoverflow.com/questions/23047433/record-save-audio-from-voice-recognition-intent
 	private void startListening(Activity activity) {

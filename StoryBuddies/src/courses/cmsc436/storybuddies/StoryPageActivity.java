@@ -138,7 +138,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		if (currStory.getmPages().get(currPage).getmVoiceUri() == null) {
 			speech.speak(currText);
 		} else {
-			StoryBuddiesUtils.playMusic(this, currStory.getmPages().get(currPage).getmVoiceUri());
+			speech.playMusic(currStory.getmPages().get(currPage).getmVoiceUri());
 		}
 	}
 	

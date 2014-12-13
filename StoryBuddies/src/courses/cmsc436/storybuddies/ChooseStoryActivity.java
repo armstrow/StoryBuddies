@@ -75,7 +75,7 @@ public class ChooseStoryActivity extends ListActivity {
 			
 			String titleAudio = ((StoryBook)mAdapter.getItem(position)).getmTitleAudio();
 			if (titleAudio != null) {
-				StoryBuddiesUtils.playMusic(this, titleAudio);
+				speech.playMusic(titleAudio);
 			} else {
 				speech.speak(storyTitle);
 			}

@@ -52,20 +52,7 @@ public class StoryBuddiesUtils {
 	            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 	}	
 	
-	public static void playMusic(Activity currentActivity, String filename) {
-	    MediaPlayer mPlayer = new MediaPlayer();
-	    try {
-	    	mPlayer.setVolume((float)1, (float)1);
-	    	Log.i(TAG, "Playing file " + filename);
-	        mPlayer.setDataSource(filename);
-	        mPlayer.prepare();
-	        Log.d(TAG, "start play music");
-	        mPlayer.start();
-	    } catch (IOException e) {
-	        Log.e(TAG, "Error: " + e);
-	    }
-	}
-	
+
 	public static StoryBook readStoryFromDir(Activity currentActivity, String dir) throws IOException {
 		File textFile = new File(dir, currentActivity.getString(R.string.text_file_name) + ".txt");
 		FileInputStream is = new FileInputStream(textFile);
