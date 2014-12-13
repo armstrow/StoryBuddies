@@ -86,7 +86,6 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		StoryBuddiesUtils.hideSystemUI(this);
 	}
 	
-
 	@Override
 	public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
 		// TODO Auto-generated method stub

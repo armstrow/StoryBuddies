@@ -42,4 +42,9 @@ public class StartScreenActivity extends Activity {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
 	}
+	
+	@Override
+	public void onBackPressed(){
+		Log.i(TAG, "Entered onBackPressed but purposefully not doing anything");
+	}
 }
