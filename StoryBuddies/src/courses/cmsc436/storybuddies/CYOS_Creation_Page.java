@@ -226,7 +226,8 @@ public class CYOS_Creation_Page extends Activity {
 	}
 	
 	private void closeSoftKeyboard(){
-		imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 	}
 
 	protected boolean saveStory(StoryBook newStory) {

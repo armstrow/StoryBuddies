@@ -166,7 +166,9 @@ public class StoryBuddiesBaseActivity extends Activity {
 		book1.setmTitlePage(R.drawable.th1);
 		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
 		book1.addPage(new StoryPage(R.drawable.th1, text[0]));
-		book1.addPage(new StoryPage(R.drawable.th2, text[1]));
+		StoryPage pageWithGame = new StoryPage(R.drawable.th2,text[1]);
+		pageWithGame.setmGameActivity("GameFindTheRabbitActivity");
+		book1.addPage(pageWithGame);
 		book1.addPage(new StoryPage((R.drawable.th3), text[2]));
 		book1.addPage(new StoryPage((R.drawable.th4), text[3]));
 		book1.addPage(new StoryPage((R.drawable.th5), text[4]));
