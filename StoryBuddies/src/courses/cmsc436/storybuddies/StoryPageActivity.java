@@ -90,8 +90,16 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG, "Entered StoryPage's GameButon setOnClickListener");
-				Intent goToGameIntent = new Intent(StoryPageActivity.this,CoverPageActivity.class);
-				startActivity(goToGameIntent);
+				String myActivity = currStory.getmPages().get(currPage).getmGameActivity();
+				if(myActivity != null){
+					Log.i(TAG, "Starting GameActivity");
+					Intent goToGameIntent = new Intent();
+					//goToGameIntent.setClass(StoryPageActivity.this,GameFindTheRabbitActivity.class);
+					goToGameIntent.setClassName("courses.cmsc436.storybuddies","courses.cmsc436.storybuddies."+myActivity);
+					startActivity(goToGameIntent);
+				} else {
+					Log.i(TAG,"Activity field was null. Cannot proceede to an activity");
+				}
 			}
 		});
 		
