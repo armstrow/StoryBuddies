@@ -59,6 +59,10 @@
        	    android:name=".StoryPageActivity"
        	    android:screenOrientation="portrait"  >
        	</activity>
+       	<activity
+       	    android:name=".GameFindTheRabbitActivity"
+       	    android:screenOrientation="portrait" >
+       	</activity>
     </application>
 
 </manifest>
