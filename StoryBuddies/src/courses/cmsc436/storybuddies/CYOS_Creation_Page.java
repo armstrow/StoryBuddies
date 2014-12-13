@@ -59,7 +59,6 @@ public class CYOS_Creation_Page extends Activity {
 	RadioButton color5;
 	RadioButton color6;
 	ImageView micButton;
-	boolean submitPressed = false;
 	
 	ArrayList<byte[]> sounds = new ArrayList<byte[]>();
 	
@@ -173,18 +172,11 @@ public class CYOS_Creation_Page extends Activity {
 
 			@Override
 			public void onFocusChange(View arg0, boolean hasFocus) {
-				if (!hasFocus) {
-					selectionChanged();
-					submitPressed = false;
-					//submitButton.setBackgroundColor(getResources().getColor(R.color.deselected));
-					submitButton.setSelected(false);
-					
-					
-				} else {
-					submitPressed = true;
+				if (hasFocus) {
+					closeSoftKeyboard();
 					speech.speak("Are you finished with your story? Press submit again to save it");
 					//submitButton.setBackgroundColor(getResources().getColor(R.color.selected));
-					submitButton.setSelected(true);
+					//submitButton.setSelected(true);
 				}
 				
 			}
