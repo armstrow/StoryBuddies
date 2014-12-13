@@ -86,6 +86,15 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 			}
 		});
 		
+		gameButton.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG, "Entered StoryPage's GameButon setOnClickListener");
+				Intent goToGameIntent = new Intent(StoryPageActivity.this,CoverPageActivity.class);
+				startActivity(goToGameIntent);
+			}
+		});
+		
 		if (!mLibrary.load()) {
 			finish();
 		}
