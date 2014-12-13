@@ -13,20 +13,29 @@ public class GameFindTheRabbitActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.i(TAG, "Entered Game Activity");
+		Log.i(TAG, "Entered Rabbit Game Activity");
 		super.onCreate(savedInstanceState);
 		speech = SpeechEngine.getInstance(getApplicationContext());
 		setContentView(R.layout.activity_find_the_rabbit);
 	
 		ImageView hiddenRabbit = (ImageView) findViewById(R.id.hiddenRabbit);
+		ImageView backgroundView = (ImageView) findViewById(R.id.findTheRabbitBackground);
 		
 		hiddenRabbit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered hiddenRabbit OnClickListener");
 				speech.speak("Great Job! You have found the sleeping hare!");
-				Log.i(TAG, "Leaving Game Activity");
+				Log.i(TAG, "Leaving Rabbit Game Activity");
 				finish();							
+			}
+		});
+		
+		backgroundView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG,"Entered backgroundView OnClickListener");
+				speech.speak("Try Again! Can you find the sleeping hare");						
 			}
 		});
 	}

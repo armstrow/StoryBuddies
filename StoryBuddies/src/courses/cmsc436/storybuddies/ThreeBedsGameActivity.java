@@ -43,7 +43,7 @@ public class ThreeBedsGameActivity extends Activity {
 			public void onClick(View v) {
 				Log.i(TAG,"Entered smallBed OnClickListener");
 				speech.speak("This Bed is just right");	
-				Log.i(TAG, "Leaving Game Activity");
+				Log.i(TAG, "Leaving Three Beds Game Activity");
 				finish();
 			}
 		});
