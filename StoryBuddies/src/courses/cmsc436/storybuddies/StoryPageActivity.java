@@ -36,6 +36,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	private SpeechEngine speech;
 	private TextView storyText;
 	private ImageView storyPic;
+	private ImageButton gameButton;
 	
 	private int currStoryPos;
 	
@@ -55,11 +56,11 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		currStoryPos = getIntent().getIntExtra("position",0);
 		currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
 		
-		updatePage();
-		
 		ImageButton prevButton = (ImageButton) findViewById(R.id.lastPage);
 		ImageButton nextButton = (ImageButton) findViewById(R.id.nextPage);
+		gameButton = (ImageButton) findViewById(R.id.gameButton);		
 		
+		updatePage();
 
 		mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
 		GestureOverlayView gestureOverlay = (GestureOverlayView) findViewById(R.id.gestureOverlay);
@@ -91,10 +92,18 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	}
 	
 	//TODO - configure back button to respond the same as prevButton's OnClickListener
-	
 	private void updatePage(){
+		//sets gamebutton to invisible and unclickable if there is not game
+		Log.i(TAG,"Entered updatePage");		
+		if(currStory.getmPages().get(currPage).getmGameActivity() == null){
+			Log.i(TAG, "Setting GameButton to not clickable or visible");
+			gameButton.setClickable(false);
+			gameButton.setVisibility(ImageButton.GONE);
+		} else {
+			gameButton.setClickable(true);
+			gameButton.setVisibility(ImageButton.VISIBLE);
+		}
 		String currText = currStory.getmPages().get(currPage).getmStoryText();
-		//TODO - Change to geting Bitmap from file or Resources as needed
 		Log.i(TAG, "Attemptin to load image: " + currStory.getmPages().get(currPage).getmPictureFromFile());
 		if(currStory.getmPages().get(currPage).getmPicture() != -1){
 			//upload pic from resources

@@ -1,5 +1,7 @@
 package courses.cmsc436.storybuddies;
 
+import android.util.Log;
+
 
 public class StoryPage {
 	
@@ -9,6 +11,7 @@ public class StoryPage {
 	String mSpeechAudio;
 	private String mVoiceUri;
 	String mGameActivity = null;//null will represent a story without a game link
+	private final String TAG = "StoryPage";
 	
 	// Constructors for StoryPage ------------------------------------------------------------
 		public StoryPage(int picture, String words, String speech, String gameActivity){
@@ -69,6 +72,7 @@ public class StoryPage {
 		}
 
 		public String getmGameActivity() {
+			Log.i(TAG, "Entered StoryPage getmGameActivity");
 			return mGameActivity;
 		}
 
