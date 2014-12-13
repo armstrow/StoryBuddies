@@ -11,6 +11,8 @@ public class StoryPage {
 	String mSpeechAudio;
 	private String mVoiceUri;
 	String mGameActivity = null;//null will represent a story without a game link
+	
+	
 	private final String TAG = "StoryPage";
 	
 	// Constructors for StoryPage ------------------------------------------------------------
@@ -79,7 +81,6 @@ public class StoryPage {
 		public void setmGameActivity(String mGameActivity) {
 			this.mGameActivity = mGameActivity;
 		}
-		//END Getters and Setters ---------------------------------------------------------------
 
 		public String getmVoiceUri() {
 			return mVoiceUri;
@@ -88,4 +89,5 @@ public class StoryPage {
 		public void setmVoiceUri(String mVoiceUri) {
 			this.mVoiceUri = mVoiceUri;
 		}
+		//END Getters and Setters ---------------------------------------------------------------
 }

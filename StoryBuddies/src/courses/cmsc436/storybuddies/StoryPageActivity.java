@@ -108,9 +108,8 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		}
 	}
 	
-	//TODO - configure back button to respond the same as prevButton's OnClickListener
 	private void updatePage(){
-		//sets gamebutton to invisible and unclickable if there is not game
+		//sets game button to invisible and unclickable if there is not game
 		Log.i(TAG,"Entered updatePage");		
 		if(currStory.getmPages().get(currPage).getmGameActivity() == null){
 			Log.i(TAG, "Setting GameButton to not clickable or visible");
@@ -121,19 +120,22 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 			gameButton.setVisibility(ImageButton.VISIBLE);
 		}
 		String currText = currStory.getmPages().get(currPage).getmStoryText();
+		String currSpeech = currStory.getmPages().get(currPage).getmSpeechAudio();
+		
 		Log.i(TAG, "Attemptin to load image: " + currStory.getmPages().get(currPage).getmPictureFromFile());
 		if(currStory.getmPages().get(currPage).getmPicture() != -1){
-			//upload pic from resources
-			//currBitmap = BitmapFactory.decodeResource(getResources(), currStory.getmPages().get(currPage).getmPicture());
+			//upload bitmap from resources
 			storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
-			//BitmapWorkerTask imageLoader = new BitmapWorkerTask(storyPic, getResources());
-			//imageLoader.execute(currStory.getmPages().get(currPage).getmPicture());
 		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
-			//upload pic from file -- these will be of small enough resolution to load quickly
+			//upload bitmap from file -- these will be of small enough resolution to load quickly
 			storyPic.setImageURI(Uri.fromFile(new File(currStory.getmPages().get(currPage).getmPictureFromFile())));
 		}
 		
-		storyText.setText(currText);
+		if(currSpeech != null){
+			storyText.setText(currSpeech);
+		} else {
+			storyText.setText(currText);
+		}
 		
 		if (currStory.getmPages().get(currPage).getmVoiceUri() == null) {
 			speech.speak(currText);
