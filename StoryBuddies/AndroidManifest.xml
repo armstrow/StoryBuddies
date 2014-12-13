@@ -63,6 +63,10 @@
        	    android:name=".GameFindTheRabbitActivity"
        	    android:screenOrientation="portrait" >
        	</activity>
+       	<activity 
+       	    android:name=".ThreeBedsGameActivity"
+       	    android:screenOrientation="portrait" >
+       	</activity>
     </application>
 
 </manifest>
