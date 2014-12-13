@@ -9,6 +9,7 @@ public class StoryBook  {
 	String mTitle;
 	String mVoiceOver;
 	String mAuthor = null;
+	private String mTitleAudio = null;
 	ArrayList<StoryPage> mPages = new ArrayList<StoryPage>();
 	
 	// Constructors for Story Book ------------------------------------------------------------
@@ -88,4 +89,14 @@ public class StoryBook  {
 	public String toString() {
 		return mTitle;
 	}
+
+	String getmTitleAudio() {
+		return mTitleAudio;
+	}
+
+	void setmTitleAudio(String mTitleAudio) {
+		this.mTitleAudio = mTitleAudio;
+	}
+
+
 }

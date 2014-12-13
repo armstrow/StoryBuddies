@@ -72,8 +72,15 @@ public class ChooseStoryActivity extends ListActivity {
 		if (mAdapter.getSelectedItem() != position) {
 			String storyTitle = ((StoryBook)mAdapter.getItem(position)).getmTitle();
 			Log.i(TAG, "Selected story: " + storyTitle);
-			speech.speak(storyTitle);
-			speech.pauseThenSpeak(2000, "Touch again to start reading");
+			
+			String titleAudio = ((StoryBook)mAdapter.getItem(position)).getmTitleAudio();
+			if (titleAudio != null) {
+				StoryBuddiesUtils.playMusic(this, titleAudio);
+			} else {
+				speech.speak(storyTitle);
+			}
+			
+			speech.pauseThenSpeak(4000, "Touch again to start reading");
 			
 			mAdapter.setSelectedItem(position);
 			mAdapter.notifyDataSetChanged();

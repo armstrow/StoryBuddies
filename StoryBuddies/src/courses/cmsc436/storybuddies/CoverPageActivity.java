@@ -2,16 +2,14 @@ package courses.cmsc436.storybuddies;
 
 import java.util.ArrayList;
 
-import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
-import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.gesture.Prediction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +38,12 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		currStoryPos = getIntent().getIntExtra("position",0);
 		StoryBook currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
 		
-		speech.speak(currStory.toString());
+		String titleAudio = currStory.getmTitleAudio();
+		if (titleAudio != null) {
+			StoryBuddiesUtils.playMusic(this, titleAudio);
+		} else {
+			speech.speak(currStory.getmTitle());
+		}
 		
 		//Set title view to appropriate text
 		TextView title = (TextView) findViewById(R.id.coverPageTitle);

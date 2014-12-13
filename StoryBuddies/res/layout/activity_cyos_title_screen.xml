@@ -55,6 +55,14 @@
 
         <requestFocus />
     </EditText>
-    
+
+    <ImageView
+        android:id="@+id/micImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CYOS_submit_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:src="@android:drawable/ic_btn_speak_now" />
 
 </RelativeLayout>

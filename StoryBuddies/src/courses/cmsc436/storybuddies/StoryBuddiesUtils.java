@@ -2,6 +2,8 @@ package courses.cmsc436.storybuddies;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
@@ -53,6 +55,7 @@ public class StoryBuddiesUtils {
 	public static void playMusic(Activity currentActivity, String filename) {
 	    MediaPlayer mPlayer = new MediaPlayer();
 	    try {
+	    	mPlayer.setVolume((float)1, (float)1);
 	    	Log.i(TAG, "Playing file " + filename);
 	        mPlayer.setDataSource(filename);
 	        mPlayer.prepare();
@@ -101,6 +104,11 @@ public class StoryBuddiesUtils {
 		r.endArray();
 		r.endObject();
 		r.close();		
+		
+		File titleAudio = new File(dir, "title.amr");
+		if (titleAudio.exists()) {
+			story.setmTitleAudio(titleAudio.getAbsolutePath());
+		}
 		/*File cover = new File(dir, currentActivity.getString(R.string.cover_file_name) + ".png");
 		if (cover.exists()) {
 			Bitmap pic = BitmapFactory.decodeFile(dir + "/" + currentActivity.getString(R.string.cover_file_name) + ".png");
@@ -229,5 +237,30 @@ public class StoryBuddiesUtils {
 
 		  return directory.delete();
 		}
-	
+
+		
+		
+		//From http://www.edumobile.org/android/android-development/audio-recording-in-wav-format-in-android-programming/
+	    public static void writeAudioDataToFile(byte[] audio, String filename){
+	        FileOutputStream os = null;
+	        
+	        try {
+	                os = new FileOutputStream(filename);
+	        } catch (FileNotFoundException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	        }
+	        
+	        
+	        if(null != os){
+	                
+	            try {
+	                    os.write(audio);
+	                    os.close();
+	            } catch (IOException e) {
+	                    e.printStackTrace();
+	            }
+	                
+	        }
+	    }
 }

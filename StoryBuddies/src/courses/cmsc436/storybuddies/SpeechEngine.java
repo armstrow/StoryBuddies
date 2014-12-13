@@ -2,9 +2,13 @@ package courses.cmsc436.storybuddies;
 
 import java.util.HashMap;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,6 +19,7 @@ public class SpeechEngine implements OnInitListener {
 	private static SpeechEngine instance = null;
 	private Context mContext;
 	private static final String TAG = "SB_SpeechEngine";
+	public static final int AUDIO_INPUT_ACTIVITY = 37;
 	
 	public SpeechEngine(Context context) {
 		mContext = context;
@@ -74,5 +79,53 @@ public class SpeechEngine implements OnInitListener {
 	
 	public boolean isReady() {
 		return ttsReady;
+	}
+	
+	
+	public void listen(String prompt, final Activity curActivity) {
+		//check for speaking
+		Log.i(TAG, "Setting tts listener");
+		tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+
+			@Override
+			public void onDone(String arg0) {
+				Log.i(TAG, "Entered onDone");
+				curActivity.runOnUiThread(new Runnable() {
+					public void run() {
+						startListening(curActivity);
+					}
+				});
+			}
+
+			@Override
+			public void onError(String arg0) {
+				Log.i(TAG, "Entered onError");					
+			}
+
+			@Override
+			public void onStart(String arg0) {
+				Log.i(TAG, "Entered onStart");					
+			}
+			
+		});
+		
+		HashMap<String, String> hash = new HashMap<String,String>();
+        hash.put(TextToSpeech.Engine.KEY_PARAM_STREAM, 
+                String.valueOf(AudioManager.STREAM_MUSIC));
+        hash.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "speechPrompt");
+		tts.speak(prompt, TextToSpeech.QUEUE_FLUSH, hash);
+	}
+
+	
+	//From http://stackoverflow.com/questions/23047433/record-save-audio-from-voice-recognition-intent
+	private void startListening(Activity activity) {
+	   // Fire an intent to start the speech recognition activity.
+	   Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+	   // secret parameters that when added provide audio url in the result
+	   intent.putExtra("android.speech.extra.GET_AUDIO_FORMAT", "audio/AMR");
+	   intent.putExtra("android.speech.extra.GET_AUDIO", true);
+	   intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1);
+	   activity.startActivityForResult(intent, AUDIO_INPUT_ACTIVITY);
+
 	}
 }
