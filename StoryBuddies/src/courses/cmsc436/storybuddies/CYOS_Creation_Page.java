@@ -21,6 +21,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.CalendarContract.Colors;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -28,6 +29,7 @@ import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +59,7 @@ public class CYOS_Creation_Page extends Activity {
 	RadioButton color5;
 	RadioButton color6;
 	ImageView micButton;
+	boolean submitPressed = false;
 	
 	ArrayList<byte[]> sounds = new ArrayList<byte[]>();
 	
@@ -115,37 +118,75 @@ public class CYOS_Creation_Page extends Activity {
 		color1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectionChanged();
 				drawing.setColor(Color.BLACK);				
 			}
 		});	
 		color2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectionChanged();
 				drawing.setColor(Color.WHITE);				
 			}
 		});
 		color3.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectionChanged();
 				drawing.setColor(Color.BLUE);				
 			}
 		});
 		color4.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectionChanged();
 				drawing.setColor(Color.RED);				
 			}
 		});
 		color5.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectionChanged();
 				drawing.setColor(Color.YELLOW);				
 			}
 		});
 		color6.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				selectionChanged();
 				drawing.setColor(Color.GREEN);				
+			}
+		});
+		
+		storyText.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View arg0, boolean hasFocus) {
+				if (hasFocus) {
+					selectionChanged();
+				}
+				
+			}
+		});
+		
+		submitButton.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View arg0, boolean hasFocus) {
+				if (!hasFocus) {
+					selectionChanged();
+					submitPressed = false;
+					//submitButton.setBackgroundColor(getResources().getColor(R.color.deselected));
+					submitButton.setSelected(false);
+					
+					
+				} else {
+					submitPressed = true;
+					speech.speak("Are you finished with your story? Press submit again to save it");
+					//submitButton.setBackgroundColor(getResources().getColor(R.color.selected));
+					submitButton.setSelected(true);
+				}
+				
 			}
 		});
 		
@@ -153,7 +194,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered prevButton OnClickListener");
-				closeSoftKeyboard();
+				selectionChanged();
 				if(currPageNumber > 0){
 					updatePage(-1);
 				} else {
@@ -169,7 +210,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered nextButton OnClickListener");
-				closeSoftKeyboard();
+				selectionChanged();
 				if(currPageNumber < newStory.getmPages().size()-1){
 					Log.i(TAG,"going to the next page");
 					updatePage(1);	
@@ -188,7 +229,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered submitButton OnClickListener");
-				closeSoftKeyboard();
+				closeSoftKeyboard();				
 				updatePage(0);
 				
 				if (saveStory(newStory))
@@ -212,6 +253,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered undoButton OnClickListener");
+				selectionChanged();
 				drawing.clear();
 			}
 		});
@@ -220,6 +262,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered micButton OnClickListener");
+				selectionChanged();
 				speech.listen("Tell me what you'd like this page to say", CYOS_Creation_Page.this);
 			}
 		});
@@ -227,7 +270,7 @@ public class CYOS_Creation_Page extends Activity {
 	
 	private void closeSoftKeyboard(){
 		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+		imm.hideSoftInputFromWindow(storyText.getWindowToken(), 0);
 	}
 
 	protected boolean saveStory(StoryBook newStory) {
@@ -320,6 +363,8 @@ public class CYOS_Creation_Page extends Activity {
 	public void updatePage(int delta){
 		List<StoryPage> pageList = newStory.getmPages();
 		
+		selectionChanged();
+		
 		//Save changes to newStory
 		pageList.get(currPageNumber).setmStoryText(storyText.getText().toString());
 		Log.i(TAG, "Pretty sure it gets here");
@@ -372,6 +417,7 @@ public class CYOS_Creation_Page extends Activity {
 	public void onResume() {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
+		selectionChanged();
 	}
 
 
@@ -409,6 +455,11 @@ public class CYOS_Creation_Page extends Activity {
 				e.printStackTrace();
 			}
 	    }
+	}
+
+	public void selectionChanged() {
+		storyText.requestFocus();
+		closeSoftKeyboard();
 	}
 	
 	
