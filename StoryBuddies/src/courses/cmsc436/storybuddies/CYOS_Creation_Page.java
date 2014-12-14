@@ -33,6 +33,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -59,6 +60,7 @@ public class CYOS_Creation_Page extends Activity {
 	RadioButton color5;
 	RadioButton color6;
 	ImageView micButton;
+	private ImageButton exitButton;
 	
 	ArrayList<byte[]> sounds = new ArrayList<byte[]>();
 	
@@ -96,6 +98,7 @@ public class CYOS_Creation_Page extends Activity {
 		drawing = (PaintView) findViewById(R.id.paintView);
 		undoButton = (Button) findViewById(R.id.undoButton);
 		micButton = (ImageView) findViewById(R.id.micrphone_button);
+		exitButton = (ImageButton) findViewById(R.id.exitButton2);
 		color1 = (RadioButton) findViewById(R.id.color1);
 		color2 = (RadioButton) findViewById(R.id.color2);
 		color3 = (RadioButton) findViewById(R.id.color3);
@@ -165,6 +168,25 @@ public class CYOS_Creation_Page extends Activity {
 					closeSoftKeyboard();
 				}
 				
+			}
+		});
+		
+		
+		exitButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish(); 
+				Log.i(TAG,"Entered nextButton OnClickListener");
+							
+			}
+		});
+		exitButton.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View arg0, boolean hasFocus) {
+				if (hasFocus) {
+					speech.speak("I have not saved your story. Click the X again to exit.  Click the check to save.");
+				}			
 			}
 		});
 		
