@@ -17,6 +17,8 @@
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent" 
 		        android:layout_weight="0.1">
+		        
+			   
 
 		        <ImageSwitcher
 		            android:id="@+id/illustration"
@@ -24,8 +26,22 @@
 		            android:layout_height="match_parent"
 		            android:layout_weight="0.5"
 		            android:src="@drawable/book_cover" 
-		            android:layout_gravity="top"/>
+		            android:layout_gravity="top">
+
+
+
+		        </ImageSwitcher>
 	    
+		        
+		         <ImageButton
+		                android:id="@+id/exitButton"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:src="@drawable/ic_launcher" 
+		                android:layout_gravity="top|right"
+		                android:focusable="true"
+		                android:focusableInTouchMode="true"
+		                 />
    			</android.gesture.GestureOverlayView>
 		
 	        <TextView
@@ -38,7 +54,9 @@
 	            android:minLines="3"
 	            android:fontFamily="sans"
 	            android:textStyle="italic"
-	            android:textSize="40sp" />
+	            android:textSize="40sp" 
+	            android:focusable="true" 
+	            android:focusableInTouchMode="true" />
 	
 	       <TableRow
 	            android:id="@+id/tableRow1"

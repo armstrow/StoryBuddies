@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -54,6 +55,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.story_page);
 		storyText = (TextView) findViewById(R.id.text);
+		storyText.requestFocus();
 		//storyPic = (ImageView) findViewById(R.id.illustration);
 		setUpAnimation();
 		
@@ -62,8 +64,9 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		currStoryPos = getIntent().getIntExtra("position",0);
 		currStory = StoryBuddiesBaseActivity.stories.get(currStoryPos);
 		
-		ImageButton prevButton = (ImageButton) findViewById(R.id.lastPage);
+		ImageButton prevButton = (ImageButton) findViewById(R.id.lastPage);  
 		ImageButton nextButton = (ImageButton) findViewById(R.id.nextPage);
+		ImageButton exitButton = (ImageButton) findViewById(R.id.exitButton);
 		gameButton = (ImageButton) findViewById(R.id.gameButton);		
 		
 		updatePage(true);
@@ -77,6 +80,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		prevButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				storyText.requestFocus();
 				prevPage();
 				Log.i(TAG,"Entered prevButton OnClickListener");
 				
@@ -86,9 +90,35 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		nextButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				storyText.requestFocus();
 				nextPage();
 				Log.i(TAG,"Entered nextButton OnClickListener");
 							
+			}
+		});
+		
+		exitButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+				Log.i(TAG,"Entered nextButton OnClickListener");
+							
+			}
+		});
+		exitButton.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View arg0, boolean hasFocus) {
+				if (hasFocus) {
+					speech.speak("Are you done reading your story? Click the X again to exit");
+				}				
+			}
+		});
+		
+		imageSwitcher.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				storyText.requestFocus();
 			}
 		});
 		
@@ -96,6 +126,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG, "Entered StoryPage's GameButon setOnClickListener");
+				storyText.requestFocus();
 				String myActivity = currStory.getmPages().get(currPage).getmGameActivity();
 				if(myActivity != null){
 					Log.i(TAG, "Starting GameActivity");
