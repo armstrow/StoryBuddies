@@ -27,7 +27,7 @@
         android:maxWidth="260dp"
         android:shadowColor="#55FFFFFF"
         android:text="Temp Title"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp" />    
     
     <TextView
@@ -39,9 +39,8 @@
         android:layout_marginTop="22dp"
         android:background="@+drawable/round_rect"
         android:gravity="center_horizontal"
-        android:text="Temp Author"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:maxWidth="260dp" />
 
 </RelativeLayout>

@@ -93,7 +93,9 @@ public class StoryViewAdapter extends BaseAdapter {
         holder.cover.setFocusable(false);
         holder.cover.setClickable(false); 
 		holder.title.setText(curr.getmTitle());
-		holder.author.setText(curr.getmAuthor());
+		
+		if (curr.getmAuthor() != null && curr.getmAuthor() != "")
+			holder.author.setText("by: " + curr.getmAuthor());
 
 		return newView;
 	}
