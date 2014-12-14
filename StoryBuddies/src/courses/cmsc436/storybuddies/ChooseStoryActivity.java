@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,10 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,7 +51,7 @@ public class ChooseStoryActivity extends ListActivity {
 		
 		lv.setOnItemLongClickListener(getOnItemLongClickListener());
 		
-		// Put divider between ToDoItems and FooterView
+		// Put divider between Items and FooterView
 		getListView().setFooterDividersEnabled(true);
 		
 		footerViewHolder = (RelativeLayout) View.inflate(this, R.layout.footer_view, null);

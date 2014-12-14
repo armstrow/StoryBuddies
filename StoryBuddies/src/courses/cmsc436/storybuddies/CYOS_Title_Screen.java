@@ -17,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class CYOS_Title_Screen extends Activity {
 	
@@ -116,7 +115,6 @@ public class CYOS_Title_Screen extends Activity {
 	
 				audio = buffer.toByteArray();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
