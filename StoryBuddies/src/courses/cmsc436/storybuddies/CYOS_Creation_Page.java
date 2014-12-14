@@ -22,9 +22,11 @@ import android.os.Environment;
 import android.speech.RecognizerIntent;
 import android.util.JsonWriter;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +44,7 @@ public class CYOS_Creation_Page extends Activity {
 	
 	StoryBook newStory = new StoryBook();
 	List<Bitmap> newScreens = new ArrayList<Bitmap>();
+	List<Boolean> hasChanged = new ArrayList<Boolean>();
 	Button prevButton;
 	Button nextButton;
 	Button submitButton;
@@ -76,6 +79,7 @@ public class CYOS_Creation_Page extends Activity {
 		
 		newScreens.add(null);
 		sounds.add(null);
+		hasChanged.add(false);
 		
 		//Get String extras from intent
 		String currTitle = getIntent().getStringExtra("currTitle");
@@ -93,6 +97,7 @@ public class CYOS_Creation_Page extends Activity {
 		drawing = (PaintView) findViewById(R.id.paintView);
 		undoButton = (Button) findViewById(R.id.undoButton);
 		micButton = (ImageView) findViewById(R.id.micrphone_button);
+		
 		exitButton = (ImageButton) findViewById(R.id.exitButton2);
 		color1 = (RadioButton) findViewById(R.id.color1);
 		color2 = (RadioButton) findViewById(R.id.color2);
@@ -227,6 +232,7 @@ public class CYOS_Creation_Page extends Activity {
 					Log.i(TAG,"Creating a new page");
 					newStory.addPage(new StoryPage());
 					newScreens.add(null);
+					hasChanged.add(false);
 					sounds.add(null);
 					speech.speak("What happens next!");
 					updatePage(1);
@@ -240,6 +246,7 @@ public class CYOS_Creation_Page extends Activity {
 				Log.i(TAG,"Entered submitButton OnClickListener");
 				closeSoftKeyboard();				
 				updatePage(0);
+				findBlankPages();
 				
 				if (saveStory(newStory))
 				{
@@ -262,6 +269,7 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered undoButton OnClickListener");
+				hasChanged.set(currPageNumber,false);
 				selectionChanged();
 				drawing.clear();
 			}
@@ -273,6 +281,15 @@ public class CYOS_Creation_Page extends Activity {
 				Log.i(TAG,"Entered micButton OnClickListener");
 				selectionChanged();
 				speech.listen("Tell me what you'd like this page to say", CYOS_Creation_Page.this);
+			}
+		});
+		
+		drawing.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				Log.i(TAG, "drawingView has been clicked");
+				hasChanged.set(currPageNumber, true);
+				return false;
 			}
 		});
 	}
@@ -378,33 +395,20 @@ public class CYOS_Creation_Page extends Activity {
 		pageList.get(currPageNumber).setmStoryText(storyText.getText().toString());
 		Log.i(TAG, "Pretty sure it gets here");
 		newScreens.set(currPageNumber, drawing.getBitmap());
-		//pageList.get(currPageNumber).setmPicture(drawing.getBitmap());
 		Log.i(TAG, "Hoping it gets here");
 		
-		//while(currPageNumber > myPaths.size()-1){
-		//	myPaths.add(new Path());
-		//}
-		//Log.i(TAG, "Not yet setting Page: myPaths size = " + myPaths.size());
-		//myPaths.set(currPageNumber, drawing.getPaths());
-		//Log.i(TAG, "Setting Page");
-		
+		//Update Page number
 		currPageNumber += delta;
-		
-		///while(currPageNumber > myPaths.size()-1){
-		//	myPaths.add(new Path());
-		//}
 		
 		//Upload info for newPage
 		storyText.setText(pageList.get(currPageNumber).getmStoryText());
-		Log.i(TAG,"Gets Here");
 		drawing.clear();
 		//drawing.setBitmap(pageList.get(currPageNumber).getmPicture());
 		if(newScreens.get(currPageNumber) != null){
 			drawing.setBitmap(newScreens.get(currPageNumber));
 		}
-		//drawing.setPaths(myPaths.get(currPageNumber));
-		Log.i(TAG,"Gets here also?");
 		
+		//Sets buttons to display appropriately
 		if(currPageNumber == pageList.size()-1){
 			nextButton.setText("New Page");
 		} else {
@@ -420,6 +424,18 @@ public class CYOS_Creation_Page extends Activity {
 		}
 		
 		return;
+	}
+	
+	private void findBlankPages(){
+		Log.i(TAG,"Entered findBlankPages");
+		Log.i(TAG,"hasChanged: " + hasChanged.toString());
+		List<StoryPage> pages = newStory.getmPages();
+		for (int i = 0; i < pages.size(); i++) {
+			StoryPage page = pages.get(i);
+			if (hasChanged.get(i) == false && page.getmStoryText().equals("")){
+				Log.i(TAG,"Page "+i+" is completely blank and needs deleting");
+			} 
+		}
 	}
 	
 	@Override
@@ -473,3 +489,4 @@ public class CYOS_Creation_Page extends Activity {
 	
     
 }
+
