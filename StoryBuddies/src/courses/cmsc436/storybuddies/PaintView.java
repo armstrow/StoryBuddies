@@ -51,7 +51,7 @@ public class PaintView extends ImageView {
 		Log.i(TAG, "Entered PaintView: onTouchEvent");
 		float pointX = event.getX();
 		float pointY = event.getY();
-		
+		this.requestFocus();
 		switch(event.getAction()){
 		case MotionEvent.ACTION_DOWN:
 			path.moveTo(pointX, pointY);

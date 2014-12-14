@@ -161,8 +161,8 @@ public class CYOS_Creation_Page extends Activity {
 
 			@Override
 			public void onFocusChange(View arg0, boolean hasFocus) {
-				if (hasFocus) {
-					selectionChanged();
+				if (!hasFocus) {
+					closeSoftKeyboard();
 				}
 				
 			}
