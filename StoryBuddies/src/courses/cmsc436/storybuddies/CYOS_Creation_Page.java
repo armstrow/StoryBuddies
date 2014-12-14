@@ -244,23 +244,33 @@ public class CYOS_Creation_Page extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered submitButton OnClickListener");
-				closeSoftKeyboard();				
+				closeSoftKeyboard();
 				updatePage(0);
 				findBlankPages();
 				
-				if (saveStory(newStory))
-				{
-					Log.i(TAG,  "Story saved...returning");
-					Intent data = new Intent();
-					String s = newStory.getmTitle();
-					data.putExtra(ChooseStoryActivity.STORY_FILE_LOC, s);
-					CYOS_Creation_Page.this.setResult(RESULT_OK, data);
-					CYOS_Creation_Page.this.finish(); 
-				}
-				else {
-					Toast.makeText(getApplicationContext(), getString(R.string.error_save), Toast.LENGTH_LONG).show();
-					CYOS_Creation_Page.this.setResult(RESULT_CANCELED, new Intent());
-					CYOS_Creation_Page.this.finish();
+				if(newStory.getmPages().size() <= 0){
+					Log.i(TAG,"User attempted to save empty story:");
+					speech.speak("Your story is empty. What would you like to draw");
+					newStory.addPage(new StoryPage());
+					newScreens.add(null);
+					hasChanged.add(false);
+					sounds.add(null);
+				} else {
+					Log.i(TAG,"Saving a non-empty story");
+					if (saveStory(newStory))
+					{
+						Log.i(TAG,  "Story saved...returning");
+						Intent data = new Intent();
+						String s = newStory.getmTitle();
+						data.putExtra(ChooseStoryActivity.STORY_FILE_LOC, s);
+						CYOS_Creation_Page.this.setResult(RESULT_OK, data);
+						CYOS_Creation_Page.this.finish(); 
+					}
+					else {
+						Toast.makeText(getApplicationContext(), getString(R.string.error_save), Toast.LENGTH_LONG).show();
+						CYOS_Creation_Page.this.setResult(RESULT_CANCELED, new Intent());
+						CYOS_Creation_Page.this.finish();
+					}
 				}
 			}
 		});
@@ -428,12 +438,15 @@ public class CYOS_Creation_Page extends Activity {
 	
 	private void findBlankPages(){
 		Log.i(TAG,"Entered findBlankPages");
-		Log.i(TAG,"hasChanged: " + hasChanged.toString());
 		List<StoryPage> pages = newStory.getmPages();
-		for (int i = 0; i < pages.size(); i++) {
+		for (int i = pages.size() -1; i >= 0; i--) {
 			StoryPage page = pages.get(i);
 			if (hasChanged.get(i) == false && page.getmStoryText().equals("")){
-				Log.i(TAG,"Page "+i+" is completely blank and needs deleting");
+				Log.i(TAG,"Page "+i+" is completely blank and is being deleted deleting");
+				pages.remove(i);
+				newScreens.remove(i);
+				hasChanged.remove(i);
+				sounds.remove(i);
 			} 
 		}
 	}
