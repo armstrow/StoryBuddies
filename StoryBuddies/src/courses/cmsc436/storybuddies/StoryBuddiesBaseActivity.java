@@ -169,29 +169,54 @@ public class StoryBuddiesBaseActivity extends Activity {
 		
 		StoryPage rabbitGame = new StoryPage(R.drawable.th2,text[1],writtenText[1]);
 		rabbitGame.setmGameActivity("GameFindTheRabbitActivity");
-		
-		StoryPage bearGame = new StoryPage(R.drawable.th4,text[3]);
-		bearGame.setmGameActivity("ThreeBedsGameActivity");
-		
-		
+				
 		book1.addPage(new StoryPage(R.drawable.th1, text[0],writtenText[0]));	
 		book1.addPage(rabbitGame);
 		book1.addPage(new StoryPage((R.drawable.th3), text[2],writtenText[2]));
-		book1.addPage(bearGame);
-		book1.addPage(new StoryPage((R.drawable.th5), text[4]));
-		book1.addPage(new StoryPage((R.drawable.th6), text[5]));
-		book1.addPage(new StoryPage((R.drawable.th7), text[6]));
-		book1.addPage(new StoryPage((R.drawable.th8), text[7]));
-		book1.addPage(new StoryPage((R.drawable.th9), text[8]));
-		book1.addPage(new StoryPage((R.drawable.th10), text[9]));
-		book1.addPage(new StoryPage((R.drawable.th11), text[10]));
-		book1.addPage(new StoryPage((R.drawable.th12), text[11]));
-		book1.addPage(new StoryPage((R.drawable.th13), text[12]));
-		book1.addPage(new StoryPage((R.drawable.th14), text[13]));
+		book1.addPage(new StoryPage((R.drawable.th4), text[3], writtenText[3]));
+		book1.addPage(new StoryPage((R.drawable.th5), text[4], writtenText[4]));
+		book1.addPage(new StoryPage((R.drawable.th6), text[5], writtenText[5]));
+		book1.addPage(new StoryPage((R.drawable.th7), text[6], writtenText[6]));
+		book1.addPage(new StoryPage((R.drawable.th8), text[7], writtenText[7]));
+		book1.addPage(new StoryPage((R.drawable.th9), text[8], writtenText[8]));
+		book1.addPage(new StoryPage((R.drawable.th10), text[9], writtenText[9]));
+		book1.addPage(new StoryPage((R.drawable.th11), text[10], writtenText[10]));
+		book1.addPage(new StoryPage((R.drawable.th12), text[11], writtenText[11]));
+		book1.addPage(new StoryPage((R.drawable.th13), text[12], writtenText[12]));
+		book1.addPage(new StoryPage((R.drawable.th14), text[13], writtenText[13]));
 		
 		//Add stories to ArrayList
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
 		result.add(book1);
+		
+		
+		
+		//Build Goldilocks
+		StoryBook book2 = new StoryBook("Goldilocks and the Three Bears", R.drawable.b1);
+		
+		book1.setmTitlePage(R.drawable.th1);
+		text = new String[] {"Once upon a time, there was a girl named Goldilocks. She went for a walk in the forest.",
+				"She came upon a house. She knocked but no one answered.", 
+				"She walked right in. At the table in the kitchen, there were three bowls of porridge. Goldilocks was hungry.",
+				"She tasted 3 bowls of porridge, and decided to eat the last one.",
+				"Goldilocks was very tired by this time, so she went upstairs to the bedroom. She lay down in the bed and fell asleep.",
+				"After a while, the three bears came home. They found Goldilocks ate their porridge and slept in their bed."
+				};
+		writtenText = new String[] {};
+		
+		StoryPage bearGame = new StoryPage(R.drawable.b3,text[2], ""); //TODO: prompt with instructions after pause
+		bearGame.setmGameActivity("ThreeBedsGameActivity");
+		
+		
+		book2.addPage(new StoryPage(R.drawable.b1, text[0],""));	
+		book2.addPage(new StoryPage((R.drawable.b2), text[1],""));
+		//book2.addPage(new StoryPage((R.drawable.b3), text[2],""));
+		book2.addPage(bearGame);
+		book2.addPage(new StoryPage((R.drawable.b5), text[3],""));
+		book2.addPage(new StoryPage((R.drawable.b6), text[4],""));
+		book2.addPage(new StoryPage((R.drawable.b7), text[5],""));
+
+		result.add(book2);
 		
 		return result;
 	}
