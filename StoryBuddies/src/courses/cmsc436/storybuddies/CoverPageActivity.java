@@ -88,7 +88,6 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 	
 	@Override
 	public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
-		// TODO Auto-generated method stub
 		ArrayList<Prediction> predictions = mLibrary.recognize(gesture);
 
 		if (predictions.size() > 0) {

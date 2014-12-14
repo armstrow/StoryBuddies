@@ -9,19 +9,13 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnSystemUiVisibilityChangeListener;
-import android.widget.ImageView;
 
 public class StoryBuddiesUtils {
 	
@@ -100,7 +94,7 @@ public class StoryBuddiesUtils {
 		if (cover.exists()) {
 			Bitmap pic = BitmapFactory.decodeFile(dir + "/" + currentActivity.getString(R.string.cover_file_name) + ".png");
 			story.setmTitlePage(pic);
-		}*/ //TODO: Fix this
+		}*/ 
 		return story;
 	}	
 	
@@ -234,7 +228,6 @@ public class StoryBuddiesUtils {
 	        try {
 	                os = new FileOutputStream(filename);
 	        } catch (FileNotFoundException e) {
-	                // TODO Auto-generated catch block
 	                e.printStackTrace();
 	        }
 	        
