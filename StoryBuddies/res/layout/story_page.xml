@@ -36,6 +36,8 @@
 	            android:ems="10"
 	            android:gravity="center"
 	            android:minLines="3"
+	            android:fontFamily="sans"
+	            android:textStyle="italic"
 	            android:textSize="40sp" />
 	
 	       <TableRow
