@@ -16,6 +16,8 @@ public class ThreeBedsGameActivity extends Activity {
 		Log.i(TAG, "Entered ThreeBedsGame Activity");
 		super.onCreate(savedInstanceState);
 		speech = SpeechEngine.getInstance(getApplicationContext());
+		speech.speak("Find the right porridge for Goldilocks");
+		speech.pauseThenSpeak(2000, "Touch the porridge bowls");
 		setContentView(R.layout.activity_bear_bed_game);
 	
 		ImageView bigBed = (ImageView) findViewById(R.id.bigBed);

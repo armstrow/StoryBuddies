@@ -108,9 +108,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	    	handleNFCIntent(intent);   	
 	    }
 	    
-	    if (stories.isEmpty()) { //Shouldn't happen because will always have a built-in story
-	    	loadStories();
-	    }
+	    loadStories();
 	}
 
 	@Override
@@ -130,14 +128,16 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 	private void loadStories(){
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadStories");
-		List<StoryBook> internal = getBuiltInStories();
 		List<StoryBook> saved = getInternalStories();
-				
-		for (StoryBook story : internal) {
-			addStory(story);
+		List<StoryBook> builtIn = getBuiltInStories();
+		
+		for (int i = 0; i < builtIn.size(); i++) {
+			Log.i(TAG, "Attemptint to add: " + builtIn.get(i));
+			addStory(builtIn.get(i));
 		}
-		for (StoryBook story : saved) {
-			addStory(story);
+		for (int i = 0; i < saved.size(); i++) {
+			Log.i(TAG, "Attemptint to add: " + saved.get(i));
+			addStory(saved.get(i));
 		}
 	}
 
@@ -145,6 +145,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		boolean exists = false;
 		for (StoryBook story2 : stories) {
 			if (story.getmTitle().equals(story2.getmTitle())) {
+				Log.e(TAG, "Story already exists: " + story);
 				exists = true;
 				break;
 			}
@@ -159,64 +160,68 @@ public class StoryBuddiesBaseActivity extends Activity {
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadBuiltInStories");
 		
 		//TODO Load based on myAnimal
-		
-		//Build Turtle and the Hare
-		StoryBook book1 = new StoryBook(getString(R.string.tortoise_title), R.drawable.tortoise_title);
-		
-		book1.setmTitlePage(R.drawable.th1);
-		String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
-		String[] writtenText = getResources().getStringArray(R.array.tortoise_and_hare_text);
-		
-		StoryPage rabbitGame = new StoryPage(R.drawable.th2,text[1],writtenText[1]);
-		rabbitGame.setmGameActivity("GameFindTheRabbitActivity");
-				
-		book1.addPage(new StoryPage(R.drawable.th1, text[0],writtenText[0]));	
-		book1.addPage(rabbitGame);
-		book1.addPage(new StoryPage((R.drawable.th3), text[2],writtenText[2]));
-		book1.addPage(new StoryPage((R.drawable.th4), text[3], writtenText[3]));
-		book1.addPage(new StoryPage((R.drawable.th5), text[4], writtenText[4]));
-		book1.addPage(new StoryPage((R.drawable.th6), text[5], writtenText[5]));
-		book1.addPage(new StoryPage((R.drawable.th7), text[6], writtenText[6]));
-		book1.addPage(new StoryPage((R.drawable.th8), text[7], writtenText[7]));
-		book1.addPage(new StoryPage((R.drawable.th9), text[8], writtenText[8]));
-		book1.addPage(new StoryPage((R.drawable.th10), text[9], writtenText[9]));
-		book1.addPage(new StoryPage((R.drawable.th11), text[10], writtenText[10]));
-		book1.addPage(new StoryPage((R.drawable.th12), text[11], writtenText[11]));
-		book1.addPage(new StoryPage((R.drawable.th13), text[12], writtenText[12]));
-		book1.addPage(new StoryPage((R.drawable.th14), text[13], writtenText[13]));
-		
 		//Add stories to ArrayList
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
-		result.add(book1);
+		//myAnimal="hare";
+		if (myAnimal != null && myAnimal.equals("hare"))
+		{
+		
+			//Build Turtle and the Hare
+			StoryBook book1 = new StoryBook(getString(R.string.tortoise_title), R.drawable.tortoise_title);
+			
+			book1.setmTitlePage(R.drawable.th1);
+			String[] text = getResources().getStringArray(R.array.tortoise_and_hare);
+			String[] writtenText = getResources().getStringArray(R.array.tortoise_and_hare_text);
+			
+			StoryPage rabbitGame = new StoryPage(R.drawable.th2,text[1],writtenText[1]);
+			rabbitGame.setmGameActivity("GameFindTheRabbitActivity");
+					
+			book1.addPage(new StoryPage(R.drawable.th1, text[0],writtenText[0]));	
+			book1.addPage(rabbitGame);
+			book1.addPage(new StoryPage((R.drawable.th3), text[2],writtenText[2]));
+			book1.addPage(new StoryPage((R.drawable.th4), text[3], writtenText[3]));
+			book1.addPage(new StoryPage((R.drawable.th5), text[4], writtenText[4]));
+			book1.addPage(new StoryPage((R.drawable.th6), text[5], writtenText[5]));
+			book1.addPage(new StoryPage((R.drawable.th7), text[6], writtenText[6]));
+			book1.addPage(new StoryPage((R.drawable.th8), text[7], writtenText[7]));
+			book1.addPage(new StoryPage((R.drawable.th9), text[8], writtenText[8]));
+			book1.addPage(new StoryPage((R.drawable.th10), text[9], writtenText[9]));
+			book1.addPage(new StoryPage((R.drawable.th11), text[10], writtenText[10]));
+			book1.addPage(new StoryPage((R.drawable.th12), text[11], writtenText[11]));
+			book1.addPage(new StoryPage((R.drawable.th13), text[12], writtenText[12]));
+			book1.addPage(new StoryPage((R.drawable.th14), text[13], writtenText[13]));
+			
+			result.add(book1);
+		}
+		if (myAnimal != null && myAnimal.equals("bear")) {
 		
 		
-		
-		//Build Goldilocks
-		StoryBook book2 = new StoryBook("Goldilocks and the Three Bears", R.drawable.b1);
-		
-		book1.setmTitlePage(R.drawable.th1);
-		text = new String[] {"Once upon a time, there was a girl named Goldilocks. She went for a walk in the forest.",
-				"She came upon a house. She knocked but no one answered.", 
-				"She walked right in. At the table in the kitchen, there were three bowls of porridge. Goldilocks was hungry.",
-				"She tasted 3 bowls of porridge, and decided to eat the last one.",
-				"Goldilocks was very tired by this time, so she went upstairs to the bedroom. She lay down in the bed and fell asleep.",
-				"After a while, the three bears came home. They found Goldilocks ate their porridge and slept in their bed."
-				};
-		writtenText = new String[] {};
-		
-		StoryPage bearGame = new StoryPage(R.drawable.b3,text[2], ""); //TODO: prompt with instructions after pause
-		bearGame.setmGameActivity("ThreeBedsGameActivity");
-		
-		
-		book2.addPage(new StoryPage(R.drawable.b1, text[0],""));	
-		book2.addPage(new StoryPage((R.drawable.b2), text[1],""));
-		//book2.addPage(new StoryPage((R.drawable.b3), text[2],""));
-		book2.addPage(bearGame);
-		book2.addPage(new StoryPage((R.drawable.b5), text[3],""));
-		book2.addPage(new StoryPage((R.drawable.b6), text[4],""));
-		book2.addPage(new StoryPage((R.drawable.b7), text[5],""));
-
-		result.add(book2);
+			//Build Goldilocks
+			StoryBook book2 = new StoryBook("Goldilocks and the Three Bears", R.drawable.b1);
+			
+			book2.setmTitlePage(R.drawable.th1);
+			String[] text = new String[] {"Once upon a time, there was a girl named Goldilocks. She went for a walk in the forest.",
+					"She came upon a house. She knocked but no one answered.", 
+					"She walked right in. At the table in the kitchen, there were three bowls of porridge. Goldilocks was hungry.",
+					"She tasted 3 bowls of porridge, and decided to eat the last one.",
+					"Goldilocks was very tired by this time, so she went upstairs to the bedroom. She lay down in the bed and fell asleep.",
+					"After a while, the three bears came home. They found Goldilocks ate their porridge and slept in their bed."
+					};
+			
+			StoryPage bearGame = new StoryPage(R.drawable.b3,text[2], ""); 
+			bearGame.setmGameActivity("ThreeBedsGameActivity");
+			
+			
+			book2.addPage(new StoryPage(R.drawable.b1, text[0],""));	
+			book2.addPage(new StoryPage((R.drawable.b2), text[1],""));
+			//book2.addPage(new StoryPage((R.drawable.b3), text[2],""));
+			book2.addPage(bearGame);
+			book2.addPage(new StoryPage((R.drawable.b5), text[3],""));
+			book2.addPage(new StoryPage((R.drawable.b6), text[4],""));
+			book2.addPage(new StoryPage((R.drawable.b7), text[5],""));
+	
+			result.add(book2);
+		}
 		
 		return result;
 	}

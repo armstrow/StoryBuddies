@@ -16,6 +16,8 @@ public class GameFindTheRabbitActivity extends Activity {
 		Log.i(TAG, "Entered Rabbit Game Activity");
 		super.onCreate(savedInstanceState);
 		speech = SpeechEngine.getInstance(getApplicationContext());
+		speech.speak("Can you find the sleeping hare?");
+		speech.pauseThenSpeak(2000, "Touch the hare to win!");
 		setContentView(R.layout.activity_find_the_rabbit);
 	
 		ImageView hiddenRabbit = (ImageView) findViewById(R.id.hiddenRabbit);
