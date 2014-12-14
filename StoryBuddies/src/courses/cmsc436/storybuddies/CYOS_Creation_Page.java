@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CYOS_Creation_Page extends Activity {
@@ -50,6 +51,7 @@ public class CYOS_Creation_Page extends Activity {
 	Button submitButton;
 	Button undoButton;
 	EditText storyText;
+	TextView pageDisplay;
 	PaintView drawing;
 	RadioButton color1;
 	RadioButton color2;
@@ -94,6 +96,7 @@ public class CYOS_Creation_Page extends Activity {
 		nextButton = (Button) findViewById(R.id.cyosNextButton);
 		submitButton = (Button) findViewById(R.id.cyosSubmitButton);
 		storyText = (EditText) findViewById(R.id.cyosStoryText);
+		pageDisplay = (TextView) findViewById(R.id.pageNumViewCYOS);
 		drawing = (PaintView) findViewById(R.id.paintView);
 		undoButton = (Button) findViewById(R.id.undoButton);
 		micButton = (ImageView) findViewById(R.id.micrphone_button);
@@ -408,8 +411,9 @@ public class CYOS_Creation_Page extends Activity {
 		newScreens.set(currPageNumber, drawing.getBitmap());
 		Log.i(TAG, "Hoping it gets here");
 		
-		//Update Page number
+		//Update Page number and page number display
 		currPageNumber += delta;
+		pageDisplay.setText("Page "+(currPageNumber+1));//the plus one is so we don't have a page 0
 		
 		//Upload info for newPage
 		storyText.setText(pageList.get(currPageNumber).getmStoryText());

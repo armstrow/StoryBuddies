@@ -97,4 +97,18 @@
     android:scaleType="fitXY"
     android:src="@drawable/game_play" />
 
+<TextView
+    android:id="@+id/pageNumView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:fontFamily="sans"
+    android:gravity="center"
+    android:text=""
+    android:textSize="20sp"
+    android:textStyle="italic" />
+
 </RelativeLayout>

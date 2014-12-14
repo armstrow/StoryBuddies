@@ -43,6 +43,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	private TextView storyText;
 	private ImageView storyPic;
 	private ImageButton gameButton;
+	private TextView pageDisplay;
 	
 	private int currStoryPos;
 	
@@ -67,6 +68,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		ImageButton prevButton = (ImageButton) findViewById(R.id.lastPage);  
 		ImageButton nextButton = (ImageButton) findViewById(R.id.nextPage);
 		ImageButton exitButton = (ImageButton) findViewById(R.id.exitButton);
+		pageDisplay = (TextView) findViewById(R.id.pageNumView);
 		gameButton = (ImageButton) findViewById(R.id.gameButton);		
 		
 		updatePage(true);
@@ -147,7 +149,8 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	
 	private void updatePage(boolean forward){
 		//sets game button to invisible and unclickable if there is not game
-		Log.i(TAG,"Entered updatePage");		
+		Log.i(TAG,"Entered updatePage");
+		pageDisplay.setText("Page "+(currPage+1));//the plus one is so we don't have a page 0
 		if(currStory.getmPages().get(currPage).getmGameActivity() == null){
 			Log.i(TAG, "Setting GameButton to not clickable or visible");
 			gameButton.setClickable(false);
