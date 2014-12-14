@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:scaleType="fitXY"
-        android:src="@drawable/cyo_page" 
+        android:src="@drawable/cyos_icon" 
         android:background="@drawable/button_selector"/>
 
    <TextView

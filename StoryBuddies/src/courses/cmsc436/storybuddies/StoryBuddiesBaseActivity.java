@@ -242,7 +242,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 						Log.i(TAG,"Loaded "+ f.toString());
 						try {
 							StoryBook newStory = StoryBuddiesUtils.readStoryFromDir(this, f.getAbsolutePath());
-							newStory.setmTitlePage(R.drawable.cyo_page);
+							newStory.setmTitlePage(R.drawable.cyos_icon);
 							result.add(newStory);
 						} catch (IOException e) {
 							Log.e(TAG, "Error reading story " + f.getName() + ": " + e);
