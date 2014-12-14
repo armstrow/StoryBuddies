@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class GameFindTheRabbitActivity extends Activity {
 	private final String TAG = "GameFindTheRabbitActivity";
@@ -20,8 +21,9 @@ public class GameFindTheRabbitActivity extends Activity {
 		speech.pauseThenSpeak(2000, "Touch the hare to win!");
 		setContentView(R.layout.activity_find_the_rabbit);
 	
-		ImageView hiddenRabbit = (ImageView) findViewById(R.id.hiddenRabbit);
-		ImageView backgroundView = (ImageView) findViewById(R.id.findTheRabbitBackground);
+		
+		final ImageView hiddenRabbit = (ImageView) findViewById(R.id.hiddenRabbit);
+		final ImageView backgroundView = (ImageView) findViewById(R.id.findTheRabbitBackground);
 		
 		hiddenRabbit.setOnClickListener(new OnClickListener() {
 			@Override
@@ -29,6 +31,8 @@ public class GameFindTheRabbitActivity extends Activity {
 				Log.i(TAG,"Entered hiddenRabbit OnClickListener");
 				speech.speak("Great Job! You have found the sleeping hare!");
 				Log.i(TAG, "Leaving Rabbit Game Activity");
+				//attempting to remove view to help with memory leak
+				((LinearLayout)backgroundView.getParent()).removeView(backgroundView);
 				finish();							
 			}
 		});

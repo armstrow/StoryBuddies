@@ -32,7 +32,7 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.title_page);
 		
-		speech = SpeechEngine.getInstance(getApplicationContext()); 
+		speech = SpeechEngine.getInstance(getApplicationContext());
 		
 		//Get currentStory from static variable
 		currStoryPos = getIntent().getIntExtra("position",0);
@@ -76,7 +76,6 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		if (!mLibrary.load()) {
 			finish();
 		}
-		
 		
 	}
 
