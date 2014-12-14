@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +95,8 @@ public class StoryViewAdapter extends BaseAdapter {
         holder.cover.setClickable(false); 
 		holder.title.setText(curr.getmTitle());
 		
-		if (curr.getmAuthor() != null && curr.getmAuthor() != "")
+		Log.i("SB_StoryAdapter", "Author: [" + curr.getmAuthor() + "]");
+		if (curr.getmAuthor() != null && !curr.getmAuthor().trim().equals(""))
 			holder.author.setText("by: " + curr.getmAuthor());
 
 		return newView;

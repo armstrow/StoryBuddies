@@ -89,6 +89,7 @@ public class SpeechEngine implements OnInitListener {
 		return ttsReady;
 	}
 	
+	String mPrompt = "";
 	
 	public void listen(String prompt, final Activity curActivity) {
 		//check for speaking
@@ -116,7 +117,7 @@ public class SpeechEngine implements OnInitListener {
 			}
 			
 		});
-		
+		mPrompt = prompt;
 		HashMap<String, String> hash = new HashMap<String,String>();
         hash.put(TextToSpeech.Engine.KEY_PARAM_STREAM, 
                 String.valueOf(AudioManager.STREAM_MUSIC));
@@ -148,6 +149,7 @@ public class SpeechEngine implements OnInitListener {
 	   intent.putExtra("android.speech.extra.GET_AUDIO_FORMAT", "audio/AMR");
 	   intent.putExtra("android.speech.extra.GET_AUDIO", true);
 	   intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1);
+	   intent.putExtra("android.speech.extra.PROMPT", mPrompt);
 	   activity.startActivityForResult(intent, AUDIO_INPUT_ACTIVITY);
 
 	}
