@@ -200,7 +200,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 			//Build Goldilocks
 			StoryBook book2 = new StoryBook("Goldilocks and the Three Bears", R.drawable.b1);
 			
-			book2.setmTitlePage(R.drawable.th1);
+			book2.setmTitlePage(R.drawable.b1);
 			String[] text = new String[] {"Once upon a time, there was a girl named Goldilocks. She went for a walk in the forest.",
 					"She came upon a house. She knocked but no one answered.", 
 					"She walked right in. At the table in the kitchen, there were three bowls of porridge. Goldilocks was hungry.",
