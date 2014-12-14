@@ -307,6 +307,7 @@ public class CYOS_Creation_Page extends Activity {
 	private void closeSoftKeyboard(){
 		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 		imm.hideSoftInputFromWindow(storyText.getWindowToken(), 0);
+		StoryBuddiesUtils.hideSystemUI(this);
 	}
 
 	protected boolean saveStory(StoryBook newStory) {
@@ -419,11 +420,11 @@ public class CYOS_Creation_Page extends Activity {
 		}
 		
 		//Sets buttons to display appropriately
-		if(currPageNumber == pageList.size()-1){
+		/*if(currPageNumber == pageList.size()-1){
 			nextButton.setText("New Page");
 		} else {
 			nextButton.setText("Next Page");
-		}
+		}*/
 		
 		if(currPageNumber == 0){
 			prevButton.setAlpha(.5f);

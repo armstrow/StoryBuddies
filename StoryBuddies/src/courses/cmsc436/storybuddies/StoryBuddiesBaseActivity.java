@@ -162,7 +162,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//TODO Load based on myAnimal
 		//Add stories to ArrayList
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
-		//myAnimal="hare";
+		myAnimal="hare";
 		if (myAnimal != null && myAnimal.equals("hare"))
 		{
 		
@@ -193,6 +193,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 			
 			result.add(book1);
 		}
+		myAnimal="bear";
 		if (myAnimal != null && myAnimal.equals("bear")) {
 		
 		

@@ -32,16 +32,15 @@
 
 		        </ImageSwitcher>
 	    
-		        
 		         <ImageButton
-		                android:id="@+id/exitButton"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:src="@drawable/ic_launcher" 
-		                android:layout_gravity="top|right"
-		                android:focusable="true"
-		                android:focusableInTouchMode="true"
-		                 />
+		             android:id="@+id/exitButton"
+		             android:layout_width="80dp"
+		             android:layout_height="80dp"
+		             android:layout_gravity="top|right"
+		             android:background="@drawable/close_selector"
+		             android:focusable="true"
+		             android:focusableInTouchMode="true" />
+
    			</android.gesture.GestureOverlayView>
 		
 	        <TextView
@@ -66,19 +65,19 @@
 	            <ImageButton
 	                android:id="@+id/lastPage"
 	                android:layout_width="wrap_content"
-	                android:layout_height="fill_parent"
-	                android:src="@drawable/left_button" 
+	                android:layout_height="80dp" 
 	                android:layout_weight="2" 
-	                android:layout_gravity="bottom"/>
+	                android:layout_gravity="bottom"
+	                android:background="@drawable/left_selector"/>
 	
 	
 	            <ImageButton
 	                android:id="@+id/nextPage"
 	                android:layout_width="wrap_content"
-	                android:layout_height="fill_parent"
-	                android:src="@drawable/right_button"
+	                android:layout_height="80dp"
 	                android:layout_weight="2" 
-	                android:layout_gravity="bottom"/>"
+	                android:layout_gravity="bottom"
+	                android:background="@drawable/right_selector"/>
 	
 	        </TableRow>
 	
