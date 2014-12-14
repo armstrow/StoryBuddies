@@ -93,6 +93,6 @@
     android:layout_alignParentTop="true"
     android:layout_marginTop="350dp"
     android:gravity="center"
-    android:src="@drawable/left_button"/>
+    android:src="@drawable/game_play"/>
 
 </RelativeLayout>
