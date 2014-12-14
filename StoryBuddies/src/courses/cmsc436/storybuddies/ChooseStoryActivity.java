@@ -6,6 +6,7 @@ import java.io.IOException;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class ChooseStoryActivity extends ListActivity {
 	
 	private boolean cyosClicked = false;
 	private View footerViewHolder = null;
+	private ImageButton cyosButton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,10 @@ public class ChooseStoryActivity extends ListActivity {
 		footerViewHolder = (RelativeLayout) View.inflate(this, R.layout.footer_view, null);
 		TextView footerView = (TextView) footerViewHolder.findViewById(R.id.footerView);
 		
-		footerViewHolder.findViewById(R.id.footerButton).setOnClickListener(getFooterOnClickListener());
+		cyosButton = (ImageButton) footerViewHolder.findViewById(R.id.footerButton);
+		cyosButton.setOnClickListener(getFooterOnClickListener());
+		
+
 		footerView.setOnClickListener(getFooterOnClickListener());
 		
 		lv.addFooterView(footerViewHolder);
@@ -68,7 +73,8 @@ public class ChooseStoryActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		cyosClicked = false;
-		footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
+		//footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
+		cyosButton.getBackground().setColorFilter(getResources().getColor(R.color.deselected), Mode.MULTIPLY);
 		if (mAdapter.getSelectedItem() != position) {
 			String storyTitle = ((StoryBook)mAdapter.getItem(position)).getmTitle();
 			Log.i(TAG, "Selected story: " + storyTitle);
@@ -101,14 +107,16 @@ public class ChooseStoryActivity extends ListActivity {
 				Log.i(TAG,"Entered footerView.OnClickListener.onClick()");
 				if (cyosClicked) {					
 					cyosClicked = false;
-					footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
+					cyosButton.getBackground().setColorFilter(getResources().getColor(R.color.deselected), Mode.MULTIPLY);
+					//footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
 					Intent cyosActivity = new Intent(ChooseStoryActivity.this,CYOS_Title_Screen.class);
 					startActivityForResult(cyosActivity, REQUEST_CODE ); 
 				} else {
 					cyosClicked = true;
 					speech.speak("Let's make a new story!");
 					speech.pauseThenSpeak(1000, "Touch again to start");
-					footerViewHolder.setBackgroundColor(getResources().getColor(R.color.selected));
+					cyosButton.getBackground().setColorFilter(getResources().getColor(R.color.selected), Mode.MULTIPLY);
+					//footerViewHolder.setBackgroundColor(getResources().getColor(R.color.selected));
 					mAdapter.setSelectedItem(-1);
 					mAdapter.notifyDataSetChanged();
 				}
@@ -178,7 +186,8 @@ public class ChooseStoryActivity extends ListActivity {
 		mAdapter.setSelectedItem(-1);
 		mAdapter.notifyDataSetChanged();
 		cyosClicked = false;
-		footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
+		cyosButton.getBackground().setColorFilter(getResources().getColor(R.color.deselected), Mode.MULTIPLY);
+		//footerViewHolder.setBackgroundColor(getResources().getColor(R.color.deselected));
 		//loadItems();
 		//setListAdapter(new ArrayAdapter<String>(this, R.layout.story_list_item,toMyStringArray(StoryBuddiesBaseActivity.stories)));
 	}

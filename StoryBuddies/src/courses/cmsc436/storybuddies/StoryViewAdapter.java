@@ -7,6 +7,7 @@ import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,10 +81,13 @@ public class StoryViewAdapter extends BaseAdapter {
 		//
 		//holder.cover.setOnClickListener(ChooseStoryActivity.getOnClickListener())
 		if (position == selectedItem) {
-			newView.setBackgroundColor(mContext.getResources().getColor(R.color.selected));
+			//newView.setBackgroundColor(mContext.getResources().getColor(R.color.selected));
+			holder.cover.getBackground().setColorFilter(mContext.getResources().getColor(R.color.selected), Mode.MULTIPLY);
 		} else {
-			newView.setBackgroundColor(mContext.getResources().getColor(R.color.deselected));
+			holder.cover.getBackground().setColorFilter(mContext.getResources().getColor(R.color.deselected), Mode.MULTIPLY);
+			//newView.setBackgroundColor(mContext.getResources().getColor(R.color.deselected));
 		}
+		
 		
 		//newView.setBackgroundColor(Color.WHITE);
         holder.cover.setFocusable(false);
