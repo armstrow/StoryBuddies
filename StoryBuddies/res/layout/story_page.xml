@@ -87,12 +87,14 @@
 
 <ImageButton
     android:id="@+id/gameButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="350dp"
+    android:layout_marginBottom="169dp"
+    android:background="#00000000"
     android:gravity="center"
-    android:src="@drawable/game_play"/>
+    android:scaleType="fitXY"
+    android:src="@drawable/game_play" />
 
 </RelativeLayout>
