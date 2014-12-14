@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import courses.cmsc436.storybuddies.StoryBuddiesUtils.BitmapWorkerTask;
 
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
 import android.gesture.Gesture;
@@ -24,9 +25,13 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher.ViewFactory;
 
 public class StoryPageActivity extends Activity implements OnGesturePerformedListener{
 	
@@ -49,7 +54,8 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.story_page);
 		storyText = (TextView) findViewById(R.id.text);
-		storyPic = (ImageView) findViewById(R.id.illustration);
+		//storyPic = (ImageView) findViewById(R.id.illustration);
+		setUpAnimation();
 		
 		speech = SpeechEngine.getInstance(getApplicationContext());
 		
@@ -60,7 +66,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		ImageButton nextButton = (ImageButton) findViewById(R.id.nextPage);
 		gameButton = (ImageButton) findViewById(R.id.gameButton);		
 		
-		updatePage();
+		updatePage(true);
 
 		mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
 		GestureOverlayView gestureOverlay = (GestureOverlayView) findViewById(R.id.gestureOverlay);
@@ -108,7 +114,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		}
 	}
 	
-	private void updatePage(){
+	private void updatePage(boolean forward){
 		//sets game button to invisible and unclickable if there is not game
 		Log.i(TAG,"Entered updatePage");		
 		if(currStory.getmPages().get(currPage).getmGameActivity() == null){
@@ -123,13 +129,19 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		String currSpeech = currStory.getmPages().get(currPage).getmSpeechAudio();
 		
 		Log.i(TAG, "Attemptin to load image: " + currStory.getmPages().get(currPage).getmPictureFromFile());
-		if(currStory.getmPages().get(currPage).getmPicture() != -1){
+		if (forward) {
+			next(currStory.getmPages().get(currPage).getmPictureFromFile(), currStory.getmPages().get(currPage).getmPicture());
+		} else {
+			previous(currStory.getmPages().get(currPage).getmPictureFromFile(), currStory.getmPages().get(currPage).getmPicture());
+			
+		}
+		/*if(currStory.getmPages().get(currPage).getmPicture() != -1){
 			//upload bitmap from resources
 			storyPic.setImageResource(currStory.getmPages().get(currPage).getmPicture());
 		} else if(currStory.getmPages().get(currPage).getmPictureFromFile() != null){
 			//upload bitmap from file -- these will be of small enough resolution to load quickly
 			storyPic.setImageURI(Uri.fromFile(new File(currStory.getmPages().get(currPage).getmPictureFromFile())));
-		}
+		}*/
 		
 		if(currSpeech != null){
 			storyText.setText(currSpeech);
@@ -172,7 +184,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	private void nextPage() {
 		if(currPage < currStory.getmPages().size()-1){
 			currPage++;
-			updatePage();	
+			updatePage(true);	
 		} else {
 			finish();
 		}
@@ -181,7 +193,7 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 	private void prevPage() {
 		if(currPage > 0){
 			currPage--;
-			updatePage();
+			updatePage(false);
 		} else {
 			Intent goToCoverIntent = new Intent(StoryPageActivity.this,CoverPageActivity.class);
 			goToCoverIntent.putExtra("position", currStoryPos);
@@ -190,5 +202,50 @@ public class StoryPageActivity extends Activity implements OnGesturePerformedLis
 		}
 	}	
 	
+	//Code from http://www.tutorialspoint.com/android/android_imageswitcher.htm
+		private ImageSwitcher imageSwitcher;
+		private void setUpAnimation() {
+		    imageSwitcher = (ImageSwitcher)findViewById(R.id.illustration);
+
+		    imageSwitcher.setFactory(new ViewFactory() {
+			   @Override
+			   public View makeView() {
+			      ImageView myView = new ImageView(getApplicationContext());
+			      myView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+			      myView.setLayoutParams(new ImageSwitcher.LayoutParams(LayoutParams.
+			      FILL_PARENT,LayoutParams.FILL_PARENT));
+			      return myView;
+			       }
+
+			   });
+		}
+
+	   public void next(String newImageStr, int newImageInt){
+		   Log.i(TAG, "In next");
+	      Animation in = AnimationUtils.loadAnimation(this,
+	      R.anim.slide_in_right);
+	      Animation out = AnimationUtils.loadAnimation(this,
+	      R.anim.slide_out_left);
+	      imageSwitcher.setInAnimation(in);
+	      imageSwitcher.setOutAnimation(out);
+	      if (newImageInt != -1) {
+	    	  imageSwitcher.setImageResource(newImageInt);
+	      } else {
+	    	  imageSwitcher.setImageURI(Uri.fromFile(new File(newImageStr)));
+	      }
+	   }
+	   public void previous(String newImageStr, int newImageInt){
+	      Animation in = AnimationUtils.loadAnimation(this,
+	      android.R.anim.slide_out_right);
+	      Animation out = AnimationUtils.loadAnimation(this,
+	      android.R.anim.slide_in_left);
+	      imageSwitcher.setInAnimation(out);
+	      imageSwitcher.setOutAnimation(in);
+	      if (newImageInt != -1) {
+	    	  imageSwitcher.setImageResource(newImageInt);
+	      } else {
+	    	  imageSwitcher.setImageURI(Uri.fromFile(new File(newImageStr)));
+	      }
+	   }
 	
 }
