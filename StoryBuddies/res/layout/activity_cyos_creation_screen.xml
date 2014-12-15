@@ -37,40 +37,37 @@
 
             <RadioButton
                 android:id="@+id/color1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:checked="true" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:checked="true" 
+                android:button="@drawable/black_selector"/>
 
-            <RadioButton
+                        <RadioButton
                 android:id="@+id/color2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
-            <RadioButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/white_selector" />
+                                    <RadioButton
                 android:id="@+id/color3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
-            <RadioButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/blue_selector" />
+                                                <RadioButton
                 android:id="@+id/color4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
-            <RadioButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/red_selector" />
+                                                            <RadioButton
                 android:id="@+id/color5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/yellow_selector" />
             
             <RadioButton
                 android:id="@+id/color6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/green_selector" />
         </RadioGroup>
 
         <Button

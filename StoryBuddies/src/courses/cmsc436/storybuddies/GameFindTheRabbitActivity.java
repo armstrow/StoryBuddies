@@ -45,4 +45,10 @@ public class GameFindTheRabbitActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		StoryBuddiesUtils.hideSystemUI(this);
+	}
 }

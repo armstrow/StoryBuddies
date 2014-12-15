@@ -51,6 +51,11 @@ public class ThreeBedsGameActivity extends Activity {
 		});
 	}
 	
+	@Override
+	public void onResume() {
+		super.onResume();
+		StoryBuddiesUtils.hideSystemUI(this);
+	}
 	
 	
 }

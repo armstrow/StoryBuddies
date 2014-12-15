@@ -42,6 +42,7 @@ public class ChooseStoryActivity extends ListActivity {
 		setListAdapter(mAdapter);
 
 		ListView lv = getListView();
+		lv.setBackground(getResources().getDrawable(R.drawable.background));
 		
 		speech = SpeechEngine.getInstance(getApplicationContext());
 

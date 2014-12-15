@@ -41,7 +41,7 @@
         android:layout_below="@+id/CYOS_Name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/CYOS_submit_text" />
+        android:background="@drawable/submit_selector" />
 
     <EditText
         android:id="@+id/CYOS_Title"
