@@ -43,12 +43,15 @@ public class SpeechEngine implements OnInitListener {
 		return instance;
 	}
 	
+	String curSpeech = "";
 	
 	@Override
 	public void onInit(int status) {
 		if (status == TextToSpeech.SUCCESS) {
 			Log.i(TAG, "Speech Engine Ready");			
 			ttsReady = true;
+			speak(curSpeech);
+			curSpeech = "";
 		}
 		else
 			Toast.makeText(mContext, "Error initializing speech engine", Toast.LENGTH_LONG).show();
@@ -63,6 +66,8 @@ public class SpeechEngine implements OnInitListener {
 		    mPlayer.pause();
 		    mPlayer.stop(); //Stop any other speech from playing
 	        tts.speak(text, TextToSpeech.QUEUE_FLUSH, hash);
+		} else {
+			curSpeech = text;
 		}
 	}
 	

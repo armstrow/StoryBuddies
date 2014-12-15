@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 public class StartScreenActivity extends Activity {
 	
 	private final String TAG = "SB_StartScreen";
-	
+	private SpeechEngine se;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,7 +23,7 @@ public class StartScreenActivity extends Activity {
 		String animal = getIntent().getStringExtra("animal");
 		if (animal.equals("hare")) {
 			startButton.setBackground(getResources().getDrawable(R.drawable.turtle_play_selector));
-		} else if (animal.equals("bear")){
+		} else if (animal.equals("bear")	){
 			startButton.setBackground(getResources().getDrawable(R.drawable.bear_play_selector));
 		} else {
 			startButton.setBackground(getResources().getDrawable(R.drawable.androidicon));
@@ -43,7 +43,8 @@ public class StartScreenActivity extends Activity {
 			}
 		});
 		
-		SpeechEngine.getInstance(getApplicationContext()).speak(getString(R.string.ready));
+		se = SpeechEngine.getInstance(getApplicationContext());
+
 		
 	}
 	
@@ -51,6 +52,8 @@ public class StartScreenActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 		StoryBuddiesUtils.hideSystemUI(this);
+		
+		se.speak(getString(R.string.ready));
 	}
 	
 	@Override

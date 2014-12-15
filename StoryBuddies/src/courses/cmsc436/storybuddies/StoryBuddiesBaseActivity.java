@@ -48,7 +48,8 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//nfcOnCreate(savedInstanceState);
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onCreate");
 		
-
+		//initialize speechEngine
+		SpeechEngine se = SpeechEngine.getInstance(getApplicationContext());
 	}
 	
 	@Override

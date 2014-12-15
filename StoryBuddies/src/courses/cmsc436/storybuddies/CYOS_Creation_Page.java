@@ -209,7 +209,7 @@ public class CYOS_Creation_Page extends Activity {
 				if(currPageNumber > 0){
 					updatePage(-1);
 				} else {
-					Toast.makeText(getApplicationContext(),getString(R.string.todo),Toast.LENGTH_LONG).show();
+					//Toast.makeText(getApplicationContext(),getString(R.string.todo),Toast.LENGTH_LONG).show();
 					//TODO - Create a new activity that looks like title screen so user can change title and author
 					//	if they wish. Will need to use startActivityforResult
 				} 
