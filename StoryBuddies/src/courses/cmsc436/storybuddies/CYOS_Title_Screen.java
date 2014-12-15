@@ -61,7 +61,6 @@ public class CYOS_Title_Screen extends Activity {
 					currTitle = currName + "'s Story";					
 				} 
 				if (currTitle.equals("")) {
-					//TODO: Create an automatic title and leave title page blank
 					//Toast.makeText(getApplicationContext(), "Please enter your title!", Toast.LENGTH_LONG).show();
 					//speech.listen("I'm sorry,  what should I call this story?", CYOS_Title_Screen.this);
 					int i = 1;

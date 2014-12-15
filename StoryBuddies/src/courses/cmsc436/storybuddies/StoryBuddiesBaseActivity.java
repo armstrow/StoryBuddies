@@ -35,7 +35,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private BluetoothBroadcastReceiver mBluetooth;
 	
 	private String myMacAddr = null;
-	private String myAnimal = "bear";
+	private String myAnimal = "";
 		
 	// AudioManager
 	private AudioManager mAudioManager;
@@ -163,10 +163,8 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//Build test Story
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: loadBuiltInStories");
 		
-		//TODO Load based on myAnimal
 		//Add stories to ArrayList
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
-		//myAnimal="hare"; //TODO
 		if (myAnimal != null && myAnimal.equals("hare"))
 		{
 		
@@ -197,7 +195,6 @@ public class StoryBuddiesBaseActivity extends Activity {
 			
 			result.add(book1);
 		}
-		//myAnimal="bear"; //TODO
 		if (myAnimal != null && myAnimal.equals("bear")) {
 		
 		
@@ -227,7 +224,6 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 			result.add(book2);
 		}
-		//myAnimal = "hare";//TODO
 		
 		return result;
 	}
