@@ -32,7 +32,9 @@ public class GameFindTheRabbitActivity extends Activity {
 				speech.speak("Great Job! You have found the sleeping hare!");
 				Log.i(TAG, "Leaving Rabbit Game Activity");
 				//attempting to remove view to help with memory leak
+				backgroundView.setImageDrawable(getResources().getDrawable(R.drawable.rabbit_victory));
 				((LinearLayout)backgroundView.getParent()).removeView(backgroundView);
+				
 				finish();							
 			}
 		});

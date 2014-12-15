@@ -42,7 +42,7 @@ public class CoverPageActivity extends Activity implements OnGesturePerformedLis
 		if (titleAudio != null) {
 			speech.playMusic(titleAudio);
 		} else {
-			speech.speak(currStory.getmTitle());
+			speech.speak("This is the story of " + currStory.getmTitle());
 		}
 		
 		//Set title view to appropriate text
