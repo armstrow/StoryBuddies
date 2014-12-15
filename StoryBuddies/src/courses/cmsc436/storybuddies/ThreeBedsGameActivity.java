@@ -20,33 +20,68 @@ public class ThreeBedsGameActivity extends Activity {
 		speech.pauseThenSpeak(2000, "Touch the porridge bowls");
 		setContentView(R.layout.activity_bear_bed_game);
 	
-		ImageView bigBed = (ImageView) findViewById(R.id.bigBed);
-		ImageView medBed = (ImageView) findViewById(R.id.mediumBed);
-		ImageView smallBed = (ImageView) findViewById(R.id.smallBed);
-		
-		bigBed.setOnClickListener(new OnClickListener() {
+		ImageView baby = (ImageView) findViewById(R.id.babyPorridge);
+		ImageView mom = (ImageView) findViewById(R.id.momPorridge);
+		ImageView dad = (ImageView) findViewById(R.id.dadPorridge);
+		ImageView bg = (ImageView) findViewById(R.id.threeBearBackground);
+			
+		bg.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered BigBed OnClickListener");
-				speech.speak("This Bed is to hard!");							
+				speech.speak("Touch a porridge bowl");							
 			}
 		});
 		
-		medBed.setOnClickListener(new OnClickListener() {
+		dad.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG,"Entered BigBed OnClickListener");
+				speech.speak("This porridge is too cold!");							
+			}
+		});
+		
+		mom.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered medBed OnClickListener");
-				speech.speak("This Bed is to soft!");							
+				speech.speak("This porridge is too hot!");							
 			}
 		});
 		
-		smallBed.setOnClickListener(new OnClickListener() {
+		baby.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG,"Entered smallBed OnClickListener");
-				speech.speak("This Bed is just right");	
+				speech.speak("Great job! This porridge is just right");	
 				Log.i(TAG, "Leaving Three Beds Game Activity");
-				finish();
+				//from http://pjdietz.com/android/android-delayed-execution-on-ui-thread/
+				// Create a new thread inside your Actvity.
+				Thread thread = new Thread() {
+				    
+				    @Override
+				    public void run() {
+				 
+				        // Block this thread for 2 seconds.
+				        try {
+				            Thread.sleep(2000);
+				        } catch (InterruptedException e) {
+				        }
+				 
+				        // After sleep finished blocking, create a Runnable to run on the UI Thread.
+				        runOnUiThread(new Runnable() {
+				            @Override
+				            public void run() {
+				                finish();
+				            }
+				        });
+				        
+				    }
+				    
+				};
+				 
+				// Don't forget to start the thread.
+				thread.start();
 			}
 		});
 	}

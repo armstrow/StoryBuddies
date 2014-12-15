@@ -3,40 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <LinearLayout
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent" >
-		    
-	   		<ImageView
-	        	android:id="@+id/threeBearBackground"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:src="@drawable/book_cover" />
-	    
-	    </LinearLayout>
-	    
+
+        <ImageView
+            android:id="@+id/threeBearBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/b4" />
+
 	    <ImageView
-	        android:id="@+id/bigBed"
-	        android:src="@drawable/left_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="100dp" />
-	    
+	        android:id="@+id/momPorridge"
+	        android:layout_width="75dp"
+	        android:layout_height="75dp"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/babyPorridge"
+	        />
+
 	    <ImageView
-	        android:id="@+id/mediumBed"
-	        android:src="@drawable/left_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="200dp" />
-	    
+	        android:id="@+id/babyPorridge"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignTop="@+id/momPorridge"
+	        android:layout_marginRight="29dp"
+	        android:layout_marginTop="60dp"
+	        />
+
 	    <ImageView
-	        android:id="@+id/smallBed"
-	        android:src="@drawable/right_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="300dp" />
+	        android:id="@+id/dadPorridge"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:layout_alignBottom="@+id/momPorridge"
+	        android:layout_marginRight="18dp"
+	        android:layout_toLeftOf="@+id/momPorridge"
+	        />
 
 </RelativeLayout>
