@@ -95,7 +95,7 @@
     android:background="#00000000"
     android:gravity="center"
     android:scaleType="fitXY"
-    android:src="@drawable/game_play" />
+    android:src="@drawable/game_play_selector" />
 
 <TextView
     android:id="@+id/pageNumView"
