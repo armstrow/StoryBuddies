@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -25,6 +26,7 @@ public class CYOS_Title_Screen extends Activity {
 	private EditText mTitle;
 	private EditText mName;
 	private byte[] audio = null;
+	private ImageView micButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,12 @@ public class CYOS_Title_Screen extends Activity {
 		mName = (EditText) findViewById(R.id.CYOS_Name);
 		final Button CYOS_Continue_Button = (Button) findViewById(R.id.CYOS_submit_button);
 		
-		final ImageView micButton = (ImageView) findViewById(R.id.micImage);
+		micButton = (ImageView) findViewById(R.id.micImage);
+		micButton.setColorFilter(getResources().getColor(R.color.deselected), Mode.MULTIPLY);
 		micButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				speech.listen("What would you like to call your story?", CYOS_Title_Screen.this);
+				speech.listen("What would you like to call your story?", CYOS_Title_Screen.this);				
 			}
 		});
 		
@@ -124,6 +127,7 @@ public class CYOS_Title_Screen extends Activity {
 				buffer.flush();
 	
 				audio = buffer.toByteArray();
+				micButton.setColorFilter(getResources().getColor(R.color.selected), Mode.MULTIPLY);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

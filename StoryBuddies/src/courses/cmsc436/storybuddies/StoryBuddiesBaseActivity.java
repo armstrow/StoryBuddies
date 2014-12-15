@@ -226,7 +226,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 			result.add(book2);
 		}
-		myAnimal = "hare";//TODO
+		//myAnimal = "hare";//TODO
 		
 		return result;
 	}

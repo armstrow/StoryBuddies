@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -281,6 +282,7 @@ public class CYOS_Creation_Page extends Activity {
 			}
 		});
 		
+		
 		micButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -431,6 +433,12 @@ public class CYOS_Creation_Page extends Activity {
 			prevButton.setClickable(true);
 		}
 		
+		if (sounds.size() > currPageNumber && sounds.get(currPageNumber) != null) {
+			micButton.setColorFilter(getResources().getColor(R.color.selected), Mode.MULTIPLY);
+		} else {
+			micButton.setColorFilter(getResources().getColor(R.color.deselected), Mode.MULTIPLY);
+		}
+		
 		return;
 	}
 	
@@ -486,6 +494,8 @@ public class CYOS_Creation_Page extends Activity {
 				buffer.flush();
 	
 				sounds.set(currPageNumber, buffer.toByteArray());
+
+				micButton.setColorFilter(getResources().getColor(R.color.selected), Mode.MULTIPLY);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
