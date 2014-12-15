@@ -139,7 +139,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 			addStory(builtIn.get(i));
 		}
 		for (int i = 0; i < saved.size(); i++) {
-			Log.i(TAG, "Attemptint to add: " + saved.get(i));
+			Log.i(TAG, "Attempting to add: " + saved.get(i));
 			addStory(saved.get(i));
 		}
 	}
@@ -165,7 +165,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//TODO Load based on myAnimal
 		//Add stories to ArrayList
 		ArrayList<StoryBook> result = new ArrayList<StoryBook>();
-		myAnimal="hare";
+		myAnimal="hare"; //TODO
 		if (myAnimal != null && myAnimal.equals("hare"))
 		{
 		
@@ -196,7 +196,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 			
 			result.add(book1);
 		}
-		myAnimal="bear";
+		myAnimal="bear"; //TODO
 		if (myAnimal != null && myAnimal.equals("bear")) {
 		
 		
@@ -226,7 +226,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	
 			result.add(book2);
 		}
-		myAnimal = "hare";
+		myAnimal = "hare";//TODO
 		
 		return result;
 	}
