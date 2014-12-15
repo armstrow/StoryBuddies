@@ -35,7 +35,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private BluetoothBroadcastReceiver mBluetooth;
 	
 	private String myMacAddr = null;
-	private String myAnimal = "";
+	private String myAnimal = "hare";
 		
 	// AudioManager
 	private AudioManager mAudioManager;
