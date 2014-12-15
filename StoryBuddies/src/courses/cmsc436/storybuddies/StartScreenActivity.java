@@ -22,9 +22,9 @@ public class StartScreenActivity extends Activity {
 		ImageButton startButton = (ImageButton) this.findViewById(R.id.imageButton1);
 		String animal = getIntent().getStringExtra("animal");
 		if (animal.equals("hare")) {
-			startButton.setBackground(getResources().getDrawable(R.drawable.turtle_play));
+			startButton.setBackground(getResources().getDrawable(R.drawable.turtle_play_selector));
 		} else if (animal.equals("bear")){
-			startButton.setBackground(getResources().getDrawable(R.drawable.bear_play));
+			startButton.setBackground(getResources().getDrawable(R.drawable.bear_play_selector));
 		}
 		
 		startButton.setOnClickListener( new OnClickListener() {
