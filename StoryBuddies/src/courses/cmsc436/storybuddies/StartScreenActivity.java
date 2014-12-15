@@ -15,10 +15,18 @@ public class StartScreenActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.i(TAG, "In OnCreate");
 	
 		setContentView(R.layout.activity_main);
 		
 		ImageButton startButton = (ImageButton) this.findViewById(R.id.imageButton1);
+		String animal = getIntent().getStringExtra("animal");
+		if (animal.equals("hare")) {
+			startButton.setBackground(getResources().getDrawable(R.drawable.turtle_play));
+		} else if (animal.equals("bear")){
+			startButton.setBackground(getResources().getDrawable(R.drawable.bear_play));
+		}
+		
 		startButton.setOnClickListener( new OnClickListener() {
 
 			@Override

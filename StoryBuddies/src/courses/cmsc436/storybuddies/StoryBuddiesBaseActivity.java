@@ -35,7 +35,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 	private BluetoothBroadcastReceiver mBluetooth;
 	
 	private String myMacAddr = null;
-	private String myAnimal = null;
+	private String myAnimal = "hare";
 		
 	// AudioManager
 	private AudioManager mAudioManager;
@@ -48,8 +48,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		//nfcOnCreate(savedInstanceState);
 		Log.i(TAG, "Entered StoryBuddiesBaseActivity: onCreate");
 		
-		Intent intent = new Intent(this, StartScreenActivity.class);
-		startActivityForResult(intent, START_SCREEN);
+
 	}
 	
 	@Override
@@ -109,6 +108,10 @@ public class StoryBuddiesBaseActivity extends Activity {
 	    }
 	    
 	    loadStories();
+	    
+		Intent startScreen = new Intent(this, StartScreenActivity.class);
+		startScreen.putExtra("animal", myAnimal);
+		startActivityForResult(startScreen, START_SCREEN);
 	}
 
 	@Override
