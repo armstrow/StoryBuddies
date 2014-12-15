@@ -25,6 +25,8 @@ public class StartScreenActivity extends Activity {
 			startButton.setBackground(getResources().getDrawable(R.drawable.turtle_play_selector));
 		} else if (animal.equals("bear")){
 			startButton.setBackground(getResources().getDrawable(R.drawable.bear_play_selector));
+		} else {
+			startButton.setBackground(getResources().getDrawable(R.drawable.androidicon));
 		}
 		
 		startButton.setOnClickListener( new OnClickListener() {

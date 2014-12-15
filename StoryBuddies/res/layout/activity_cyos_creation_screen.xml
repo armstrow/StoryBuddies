@@ -72,12 +72,11 @@
 
         <Button
             android:id="@+id/undoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:text="@string/cyos_undo_text" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@android:drawable/ic_menu_delete" />
     </LinearLayout>
 
     <LinearLayout
