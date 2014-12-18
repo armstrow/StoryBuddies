@@ -35,7 +35,8 @@ public class CYOS_Title_Screen extends Activity {
 		
 		speech = SpeechEngine.getInstance(getApplicationContext());
 		
-		speech.listen("What would you like to call your story?", this);
+		//speech.listen("What would you like to call your story?", this);
+		speech.speak("What would you like to call your story?");
 		
 		//TODO - title size needs to be widened. Story names are not fitting nicely
 		mTitle = (EditText) findViewById(R.id.CYOS_Title);
@@ -44,7 +45,7 @@ public class CYOS_Title_Screen extends Activity {
 		
 		micButton = (ImageView) findViewById(R.id.micImage);
 		micButton.setColorFilter(getResources().getColor(R.color.deselected), Mode.MULTIPLY);
-		micButton.setOnClickListener(new OnClickListener() {
+		micButton.setOnClickListener(new OnClickListener() { 
 			@Override
 			public void onClick(View v) {
 				speech.listen("What would you like to call your story?", CYOS_Title_Screen.this);				

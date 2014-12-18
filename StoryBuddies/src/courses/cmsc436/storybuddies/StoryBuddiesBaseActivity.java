@@ -50,6 +50,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		
 		//initialize speechEngine
 		SpeechEngine se = SpeechEngine.getInstance(getApplicationContext());
+		
 	}
 	
 	@Override
@@ -77,8 +78,9 @@ public class StoryBuddiesBaseActivity extends Activity {
 				registerReceiver(mBluetooth, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 				
 				if (!mBluetoothAdapter.isEnabled()) {
-				    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-				    startActivityForResult(enableBtIntent, BLUETOOTH_ENABLE); 
+				    //Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+				    //startActivityForResult(enableBtIntent, BLUETOOTH_ENABLE);
+					mBluetoothAdapter.enable();
 				}	
 				else {
 					Log.i(TAG, "Bluetooth already enabled, connecting...");
@@ -99,6 +101,7 @@ public class StoryBuddiesBaseActivity extends Activity {
 		super.onResume();
 		//nfcResume();
 		StoryBuddiesUtils.hideSystemUI(this);
+		//startLockTask();
 		
 		mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 		mAudioManager.setSpeakerphoneOn(true);

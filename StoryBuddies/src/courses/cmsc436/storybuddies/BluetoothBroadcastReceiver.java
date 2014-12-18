@@ -149,10 +149,10 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     	if (mBluetoothSpeaker != null && mBluetoothSpeaker.getConnectionState(mBluetoothDev) == BluetoothA2dp.STATE_CONNECTED) {
         	try {
 				Log.i(TAG, "Disconnecting bluetooth");
-		        Method method = mBluetoothDev.getClass().getMethod("removeBond", (Class[]) null);
-	            method.invoke(mBluetoothDev, (Object[]) null);
-				//disconnect = BluetoothA2dp.class.getDeclaredMethod("disconnect", BluetoothDevice.class);
-				//disconnect.invoke(mBluetoothSpeaker, mBluetoothDev);
+		        //Method method = mBluetoothDev.getClass().getMethod("removeBond", (Class[]) null);
+	            //method.invoke(mBluetoothDev, (Object[]) null);
+				Method disconnect = BluetoothA2dp.class.getDeclaredMethod("disconnect", BluetoothDevice.class);
+				disconnect.invoke(mBluetoothSpeaker, mBluetoothDev);
 			} catch (Exception e) {
 				Log.e(TAG, "Error: " + e);
 			}

@@ -1,6 +1,7 @@
 package courses.cmsc436.storybuddies;
 
 import java.io.File;
+import java.util.Random;
 
 import android.app.Activity;
 import android.app.ActionBar.LayoutParams;
@@ -33,6 +34,10 @@ public class GameFindTheRabbitActivity extends Activity {
 		final ImageView hiddenRabbit = (ImageView) findViewById(R.id.hiddenRabbit);
 		//backgroundView = (ImageView) findViewById(R.id.findTheRabbitBackground);
 		setUpAnimation();
+		
+		Random r = new Random();
+		int game = r.nextInt(2);
+		
 		next("", R.drawable.game5);
 		hiddenRabbit.setOnClickListener(new OnClickListener() {
 			@Override
