@@ -1,0 +1,100 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "6,19,37,11,10,12,13,5,4,3,56,15,18,16,17,14,60,62,63,57,59,64,54,55,61,58",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "218,862,2256,418,365,462,516,165,109,58,3058,620,807,688,748,571,3300,3438,3496,3108,3225,3570,2959,3010,3362,3156",
+                        "endLines": "9,35,53,11,10,12,13,5,4,3,56,15,18,16,17,14,60,62,63,57,59,64,54,55,61,58",
+                        "endColumns": "19,19,19,43,52,53,54,52,54,49,49,67,54,59,58,48,61,57,73,47,74,74,50,47,75,68",
+                        "endOffsets": "360,2246,2954,457,413,511,566,213,159,103,3103,683,857,743,802,615,3357,3491,3565,3151,3295,3640,3005,3053,3433,3220"
+                    },
+                    "to": {
+                        "startLines": "35,39,56,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1031,1176,2521,3523,3567,3620,3674,3729,3782,3837,3887,3937,4005,4060,4120,4179,4228,4290,4348,4422,4470,4545,4620,4671,4719,4795",
+                        "endLines": "38,55,72,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101",
+                        "endColumns": "19,19,19,43,52,53,54,52,54,49,49,67,54,59,58,48,61,57,73,47,74,74,50,47,75,68",
+                        "endOffsets": "1171,2516,3205,3562,3615,3669,3724,3777,3832,3882,3932,4000,4055,4115,4174,4223,4285,4343,4417,4465,4540,4615,4666,4714,4790,4859"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\dimens.xml",
+                    "from": {
+                        "startLines": "3,4,6,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "92,151,266,208",
+                        "endColumns": "57,55,53,56",
+                        "endOffsets": "145,202,315,260"
+                    },
+                    "to": {
+                        "startLines": "75,76,77,78",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "3298,3356,3412,3466",
+                        "endColumns": "57,55,53,56",
+                        "endOffsets": "3351,3407,3461,3518"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\arrays.xml",
+                    "from": {
+                        "startLines": "13,24,2",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "462,762,57",
+                        "endLines": "23,34,12",
+                        "endColumns": "20,21,20",
+                        "endOffsets": "756,1060,456"
+                    },
+                    "to": {
+                        "startLines": "2,13,24",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,344,637",
+                        "endLines": "12,23,34",
+                        "endColumns": "20,21,20",
+                        "endOffsets": "339,632,1026"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "6,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "192,524",
+                        "endLines": "12,20",
+                        "endColumns": "12,12",
+                        "endOffsets": "483,868"
+                    },
+                    "to": {
+                        "startLines": "102,109",
+                        "startColumns": "4,4",
+                        "startOffsets": "4864,5154",
+                        "endLines": "108,114",
+                        "endColumns": "12,12",
+                        "endOffsets": "5149,5493"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\color.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "57,103",
+                        "endColumns": "44,42",
+                        "endOffsets": "97,141"
+                    },
+                    "to": {
+                        "startLines": "73,74",
+                        "startColumns": "4,4",
+                        "startOffsets": "3210,3255",
+                        "endColumns": "44,42",
+                        "endOffsets": "3250,3293"
+                    }
+                }
+            ]
+        }
+    ]
+}

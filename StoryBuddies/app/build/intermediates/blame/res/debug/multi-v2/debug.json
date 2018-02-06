@@ -1,0 +1,160 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "35,39,56,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1031,1176,2521,3523,3567,3620,3674,3729,3782,3837,3887,3937,4005,4060,4120,4179,4228,4290,4348,4422,4470,4545,4620,4671,4719,4795",
+                        "endLines": "38,55,72,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101",
+                        "endColumns": "19,19,19,43,52,53,54,52,54,49,49,67,54,59,58,48,61,57,73,47,74,74,50,47,75,68",
+                        "endOffsets": "1171,2516,3205,3562,3615,3669,3724,3777,3832,3882,3932,4000,4055,4115,4174,4223,4285,4343,4417,4465,4540,4615,4666,4714,4790,4859"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\dimens.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "75,76,77,78",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "3298,3356,3412,3466",
+                        "endColumns": "57,55,53,56",
+                        "endOffsets": "3351,3407,3461,3518"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\arrays.xml",
+                    "from": {
+                        "startLines": "13,24,-1",
+                        "startColumns": "4,4,-1",
+                        "startOffsets": "462,762,-1",
+                        "endLines": "23,34,-1",
+                        "endColumns": "20,21,-1",
+                        "endOffsets": "756,1060,-1"
+                    },
+                    "to": {
+                        "startLines": "2,13,24",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,344,637",
+                        "endLines": "12,23,34",
+                        "endColumns": "20,21,20",
+                        "endOffsets": "339,632,1026"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "-1,-1",
+                        "startColumns": "-1,-1",
+                        "startOffsets": "-1,-1"
+                    },
+                    "to": {
+                        "startLines": "102,105",
+                        "startColumns": "4,4",
+                        "startOffsets": "4864,4946",
+                        "endLines": "104,110",
+                        "endColumns": "12,12",
+                        "endOffsets": "4941,5197"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values\\color.xml",
+                    "from": {
+                        "startLines": "-1,-1",
+                        "startColumns": "-1,-1",
+                        "startOffsets": "-1,-1"
+                    },
+                    "to": {
+                        "startLines": "73,74",
+                        "startColumns": "4,4",
+                        "startOffsets": "3210,3255",
+                        "endColumns": "44,42",
+                        "endOffsets": "3250,3293"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\values-v11_values-v11.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values-v11\\styles.xml",
+                    "from": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "182",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "316"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "187"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\values-v14_values-v14.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values-v14\\styles.xml",
+                    "from": {
+                        "startLines": "7",
+                        "startColumns": "4",
+                        "startOffsets": "225",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "373"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "201"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\values-w820dp-v13_values-w820dp-v13.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\values-w820dp\\dimens.xml",
+                    "from": {
+                        "startLines": "7",
+                        "startColumns": "4",
+                        "startOffsets": "310",
+                        "endColumns": "57",
+                        "endOffsets": "363"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "57",
+                        "endOffsets": "108"
+                    }
+                }
+            ]
+        }
+    ]
+}

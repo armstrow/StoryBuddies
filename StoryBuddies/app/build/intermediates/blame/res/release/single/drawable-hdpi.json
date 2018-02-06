@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi\\start_button.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-hdpi\\start_button.png"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi\\ic_launcher.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi\\book_cover.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-hdpi\\book_cover.png"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi\\right_button.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-hdpi\\right_button.png"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi\\left_button.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-hdpi\\left_button.png"
+    }
+]

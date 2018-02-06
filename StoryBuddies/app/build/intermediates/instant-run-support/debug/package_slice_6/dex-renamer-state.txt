@@ -1,0 +1,4 @@
+#Sat Jan 20 20:43:04 CST 2018
+base.0=C\:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\7
+path.0=classes.dex
+renamed.0=classes.dex

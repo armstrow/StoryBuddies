@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_find_the_rabbit.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\activity_find_the_rabbit.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_bear_bed_game.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\activity_bear_bed_game.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_cyos_creation_screen.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\activity_cyos_creation_screen.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\title_page.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\title_page.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\footer_view.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\footer_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\story_page.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\story_page.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_cyos_title_screen.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\activity_cyos_title_screen.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\layout\\story_list_item.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\layout\\story_list_item.xml"
+    }
+]

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-20.0.0_72e617df4b7d44ea89dcd57c218d5fba4b6a74e1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\Programming\AndroidSdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\transforms\preDex\release\4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\jars\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0_1207b9f626e9b555809ee1888d4776666bc3ec33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\.gradle\caches\transforms-1\files-1.1\support-v4-20.0.0.aar\ef3c88e45ded6d61ff573f7d12a4a68c\jars\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\.gradle\caches\transforms-1\files-1.1\support-v4-20.0.0.aar\ef3c88e45ded6d61ff573f7d12a4a68c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\libs\ndeftools-1.2.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1342b5b70a68e06a3d3cb1a22958077cdca94067">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\pre-dexed\debug\ndeftools-1.2.3_5e5f5d800068bbaebf53b6881a2ffacfcff14048.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\libs\ndeftools-1.2.3.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1342b5b70a68e06a3d3cb1a22958077cdca94067">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\transforms\preDex\release\1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\will\Programming\AndroidSdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex dex="C:\Users\will\Programming\StudioProjects\StoryBuddies\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0_0a23ca2fe44857e0082d24e51fd096325b9d44cc.jar" />
+    </item>
+
+</items>

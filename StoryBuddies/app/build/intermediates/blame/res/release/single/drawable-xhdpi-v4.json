@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\right_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\right_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\submit_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\submit_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\round_rect.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\round_rect.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\close_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\close_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\game_play_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\game_play_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\button_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\button_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\left_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\left_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\turtle_play_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\turtle_play_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\bear_play_selector.xml",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xhdpi\\bear_play_selector.xml"
+    }
+]

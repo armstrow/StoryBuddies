@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="rabbit_games">
+        <item>@drawable/game1</item>
+        <item>@drawable/game2</item>
+        <item>@drawable/game3</item>
+        <item>@drawable/game4</item>
+        <item>@drawable/game5</item>
+        <item>@drawable/game6</item>
+        <item>@drawable/game7</item>
+        <item>@drawable/game8</item>
+        <item>@drawable/game9</item>
+    </integer-array>
+    <integer-array name="rabbit_game_wins_x">
+        <item>59</item>
+        <item>169</item>
+        <item>384</item>
+        <item>233</item>
+        <item>81</item>
+        <item>66</item>
+        <item>343</item>
+        <item>280</item>
+        <item>211</item>
+    </integer-array>
+    <integer-array name="rabbit_game_wins_y">
+        <item>304</item>
+        <item>383</item>
+        <item>405</item>
+        <item>538</item>
+        <item>455</item>
+        <item>609</item>
+        <item>359</item>
+        <item>216</item>
+        <item>219</item>
+     </integer-array>
+</resources>

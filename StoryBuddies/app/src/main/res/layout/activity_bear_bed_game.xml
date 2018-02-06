@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+
+        <ImageView
+            android:id="@+id/threeBearBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/b4" />
+
+	    <ImageView
+	        android:id="@+id/momPorridge"
+	        android:layout_width="75dp"
+	        android:layout_height="75dp"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/babyPorridge"
+	        />
+
+	    <ImageView
+	        android:id="@+id/babyPorridge"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignTop="@+id/momPorridge"
+	        android:layout_marginRight="29dp"
+	        android:layout_marginTop="60dp"
+	        />
+
+	    <ImageView
+	        android:id="@+id/dadPorridge"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:layout_alignBottom="@+id/momPorridge"
+	        android:layout_marginRight="18dp"
+	        android:layout_toLeftOf="@+id/momPorridge"
+	        />
+
+</RelativeLayout>

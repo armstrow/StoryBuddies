@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\start_button.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xxhdpi\\start_button.png"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\book_cover.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xxhdpi\\book_cover.png"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\right_button.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xxhdpi\\right_button.png"
+    },
+    {
+        "merged": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\left_button.png",
+        "source": "C:\\Users\\will\\Programming\\StudioProjects\\StoryBuddies\\app\\src\\main\\res\\drawable-xxhdpi\\left_button.png"
+    }
+]

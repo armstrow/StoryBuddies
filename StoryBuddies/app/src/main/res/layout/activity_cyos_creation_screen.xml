@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/background">
+    
+	<courses.cmsc436.storybuddies.PaintView
+	    android:id="@+id/paintView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="@dimen/cyos_paintview_height"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:background="#FFFFFF"
+	    android:height="@dimen/cyos_paintview_height"
+	    android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+
+	
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/paintView"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/colorsRadioGroup"
+            android:layout_width="184dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/color1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:checked="true" 
+                android:button="@drawable/black_selector"/>
+
+                        <RadioButton
+                android:id="@+id/color2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/white_selector" />
+                                    <RadioButton
+                android:id="@+id/color3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/blue_selector" />
+                                                <RadioButton
+                android:id="@+id/color4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/red_selector" />
+                                                            <RadioButton
+                android:id="@+id/color5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/yellow_selector" />
+            
+            <RadioButton
+                android:id="@+id/color6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:button="@drawable/green_selector" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/undoButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@android:drawable/ic_menu_delete" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1" >
+  
+
+        <Button
+            android:id="@+id/cyosPrevButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/left_selector" />
+
+        <Button
+            android:id="@+id/cyosSubmitButton"
+            android:layout_width="102dp"
+            android:layout_height="60dp"
+            android:background="@drawable/submit_selector"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <Button
+            android:id="@+id/cyosNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/right_selector" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/micrphone_button"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/cyosStoryText"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@android:drawable/ic_btn_speak_now" />
+    
+    <EditText
+        android:id="@+id/cyosStoryText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false"
+        android:layout_below="@id/linearLayout2"
+        android:layout_toLeftOf="@+id/micrphone_button"
+        android:ems="10"
+        android:gravity="top|left"
+        android:height="@dimen/cyos_textview_min_height"
+        android:hint="@string/cyos_input_story_prompt"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+	    android:id="@+id/pageNumViewCYOS"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginTop="10dp"
+	    android:fontFamily="sans"
+	    android:gravity="center"
+	    android:text=""
+	    android:textSize="20sp"
+	    android:textStyle="italic" />
+
+    <ImageButton
+        android:id="@+id/exitButton2"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/close_selector"/>
+
+</RelativeLayout>

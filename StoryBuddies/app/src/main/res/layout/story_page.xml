@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+     
+	    <TableLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="fill_parent" >
+			<android.gesture.GestureOverlayView
+		        android:id="@+id/gestureOverlay"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent" 
+		        android:layout_weight="0.1">
+		        
+			   
+
+		        <ImageSwitcher
+		            android:id="@+id/illustration"
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.5"
+		            android:src="@drawable/book_cover" 
+		            android:layout_gravity="top">
+
+
+
+		        </ImageSwitcher>
+	    
+		         <ImageButton
+		             android:id="@+id/exitButton"
+		             android:layout_width="80dp"
+		             android:layout_height="80dp"
+		             android:layout_gravity="top|right"
+		             android:background="@drawable/close_selector"
+		             android:focusable="true"
+		             android:focusableInTouchMode="true" />
+
+   			</android.gesture.GestureOverlayView>
+		
+	        <TextView
+	            android:id="@+id/text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.03"
+	            android:ems="10"
+	            android:gravity="center"
+	            android:minLines="3"
+	            android:fontFamily="sans"
+	            android:textStyle="italic"
+	            android:textSize="40sp" 
+	            android:focusable="true" 
+	            android:focusableInTouchMode="true" />
+	
+	       <TableRow
+	            android:id="@+id/tableRow1"
+	            android:layout_width="match_parent"
+	            android:layout_height="fill_parent" >
+	
+	            <ImageButton
+	                android:id="@+id/lastPage"
+	                android:layout_width="wrap_content"
+	                android:layout_height="80dp" 
+	                android:layout_weight="2" 
+	                android:layout_gravity="bottom"
+	                android:background="@drawable/left_selector"/>
+	
+	
+	            <ImageButton
+	                android:id="@+id/nextPage"
+	                android:layout_width="wrap_content"
+	                android:layout_height="80dp"
+	                android:layout_weight="2" 
+	                android:layout_gravity="bottom"
+	                android:background="@drawable/right_selector"/>
+	
+	        </TableRow>
+	
+	    </TableLayout>
+
+</LinearLayout>
+
+<ImageButton
+    android:id="@+id/gameButton"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginBottom="169dp"
+    android:background="#00000000"
+    android:gravity="center"
+    android:scaleType="fitXY"
+    android:src="@drawable/game_play_selector" />
+
+<TextView
+    android:id="@+id/pageNumView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:fontFamily="sans"
+    android:gravity="center"
+    android:text=""
+    android:textSize="20sp"
+    android:textStyle="italic" />
+
+</RelativeLayout>
